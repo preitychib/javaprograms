@@ -1,7 +1,7 @@
 //* Write a Gaming app to guess the number in Java with the following rules:
 //* Display Message if user has entered number greater than the number.
-//*Display the number of attempts.
-//* Make use of GUI- based input-output */
+//* Display the number of attempts.
+//* Make use of GUI based input-output */
 
 import java.util.Random;
 //? for GUI I/O

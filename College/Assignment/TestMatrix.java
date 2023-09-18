@@ -1,27 +1,30 @@
-import java.util.Scanner;
 public class TestMatrix {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the dimension of the matrix:");
-        int m = sc.nextInt();
-        int n =sc.nextInt();
-        Matrix mat = new Matrix(m,n);
-        System.out.println("Enter the lower and upper range values of the matrix:");
-        int l = sc.nextInt();
-        int h= sc.nextInt();
-        mat.populate(l, h);
-        System.out.println("Enter the dimension of the matrix:");
-         m = sc.nextInt();
-        n =sc.nextInt();
-        Matrix mat2 = new Matrix(m,n);
-        System.out.println("Enter the lower and upper range values of the matrix:");
-        l = sc.nextInt();
-        h= sc.nextInt();
-        mat2.populate(l, h);
-        Matrix mat3 = mat.add(mat2);
-        System.out.println("The matrix 1 is:\n"+mat);
-        System.out.println("The matrix 2 is:\n"+mat2);
-        System.out.println("The matrix 3 is:\n"+mat3);
-        sc.close();
+        //? Create matrix A
+        Matrix aMatrix = new Matrix();
+        aMatrix.populate();
+        System.out.println("The matrix A is:" + aMatrix);
+        //? Finds determinant of A matrix
+        System.out.println("The determinant of A matrix is: " + aMatrix.findDeterminant(aMatrix.mat));
+        
+        //? Create matrix B
+        Matrix bMatrix = new Matrix();
+        bMatrix.populate();
+        System.out.println("The matrix B is " + bMatrix);
+        //? Finds determinant of B matrix
+        System.out.println("The determinant of B matrix is: " + aMatrix.findDeterminant(bMatrix.mat));
+        
+        //? Create matrix C containg sum of A and B
+        Matrix cMatrix = aMatrix.addMatrix(bMatrix);
+        System.out.println("The addition of two matrix is: " + cMatrix);
+        
+        //? Create matrix D containg difference of A and B
+        Matrix dMatrix = aMatrix.subMatrix(bMatrix);
+        System.out.println("The subtraction of two matrix is: " + dMatrix);
+        
+        //? Create matrix E containg product of A and B
+        Matrix eMatrix = aMatrix.mulMatrix(bMatrix);
+        System.out.println("The addition of two matrix is: " + eMatrix);
+
     }
 }
