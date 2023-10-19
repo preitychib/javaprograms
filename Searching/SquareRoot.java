@@ -30,7 +30,7 @@ public class SquareRoot {
     //? Return a double value with the given precision 
     static double findSquareRoot(int num, int p){
         int mid=0, start = 0;
-        int end = num;
+        int end = num/2;
         while (start <= end) {
             mid = start +(end-start)/2;
             if (mid * mid == num)
@@ -43,7 +43,7 @@ public class SquareRoot {
         double decimal = 0.1;
         double squareRoot=(double) mid;
         for (int i = 0; i < p; i++) {
-            while (squareRoot * squareRoot < num) {
+            while (squareRoot * squareRoot <= num) {
                 squareRoot += decimal;
             }
 
@@ -58,7 +58,9 @@ public class SquareRoot {
         int num = sc.nextInt();
         System.out.println("Enter the precision");
         int p = sc.nextInt();
-        System.out.println("The square root of "+num+" is: "+findSquareRoot(num,p));
+        System.out.print("The square root of " + num + " is: ");
+        String format = "%" + p + "f\n";
+        System.out.printf(format,findSquareRoot(num,p));
         sc.close();
         // 6.32455532034 for 40 
     }

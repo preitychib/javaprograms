@@ -37,8 +37,8 @@ public class Matrix {
         max = s.nextInt();
         
         Random random = new Random();
-        for (int i = 0; i < mat.length; i++) 
-        for (int j = 0; j < mat[0].length; j++)
+        for (int i = 0; i < m; i++) 
+        for (int j = 0; j < n; j++)
         //? Generate random values in the specified range
         mat[i][j] = random.nextInt(max-min) + min;
         
@@ -46,14 +46,15 @@ public class Matrix {
     
     //* @return Object matrix containing sum of two matrix */ 
     Matrix addMatrix(Matrix matObj2) {
-        if (mat[0].length != matObj2.mat[0].length && mat.length != matObj2.mat.length) {
-            throw new IllegalArgumentException("Matrix dimensions are not compatible for addition");
+        if (m != matObj2.m && n!= matObj2.n) {
+            System.out.println("Matrix dimensions are not compatible for addition");
+            return null;
         }
 
-        Matrix matObj3 = new Matrix(mat.length,mat[0].length);
+        Matrix matObj3 = new Matrix(m,n);
 
-        for (int i = 0; i < mat.length; i++) 
-            for (int j = 0; j < mat[i].length; j++) 
+        for (int i = 0; i < m; i++) 
+            for (int j = 0; j < n; j++) 
                 matObj3.mat[i][j] = mat[i][j] + matObj2.mat[i][j];
            
         return matObj3;
@@ -61,14 +62,15 @@ public class Matrix {
 
     //* @return Object matrix containing difference of two matrix */ 
     Matrix subMatrix(Matrix matObj2) {
-        if (mat[0].length != matObj2.mat[0].length && mat.length != matObj2.mat.length) {
-            throw new IllegalArgumentException("Matrix dimensions are not compatible for subtraction");
+         if (m != matObj2.m && n!= matObj2.n) {
+             System.out.println("Matrix dimensions are not compatible for subtraction");
+             return null;
         }
 
-        Matrix matObj3 = new Matrix(mat.length, mat[0].length);
+        Matrix matObj3 = new Matrix(m,n);
 
-        for (int i = 0; i < mat.length; i++)
-            for (int j = 0; j < mat[i].length; j++)
+        for (int i = 0; i < m; i++) 
+            for (int j = 0; j < n; j++) 
                 matObj3.mat[i][j] = mat[i][j] - matObj2.mat[i][j];
 
         return matObj3;
@@ -76,16 +78,17 @@ public class Matrix {
     
     //* @return Object matrix containing product of two matrix */ 
     Matrix mulMatrix(Matrix matObj2) {
-        if (mat[0].length != matObj2.mat.length) {
-            throw new IllegalArgumentException("Matrix dimensions are not compatible for multiplication");
+        if (n != matObj2.m) {
+            System.out.println("Matrix dimensions are not compatible for multiplication");
+            return null;
         }
     
-        Matrix matObj3 = new Matrix(mat.length, matObj2.mat[0].length);
+        Matrix matObj3 = new Matrix(m, matObj2.n);
     
-        for (int i = 0; i < mat.length; i++) {
-            for (int j = 0; j < matObj2.mat[0].length; j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < matObj2.n; j++) {
                 matObj3.mat[i][j] = 0;
-                for (int k = 0; k < mat[0].length; k++) {
+                for (int k = 0; k < n; k++) {
                     matObj3.mat[i][j] += mat[i][k] * matObj2.mat[k][j];
                 }
             }
@@ -94,47 +97,59 @@ public class Matrix {
         return matObj3;
     }
     
+    //* @return determinant of the the current object matrix */
+    int matDeterminant() {
+        if (m != n){
+            System.out.println("Enter a square matrix to find determinant. Returning random value.");
+            return -99999;
+        }
+        return findDeterminant(mat);
+
+    }
+    
     //* @return determinant of the matrix using recursion (Laplace expansion along the first row)*/ 
     int findDeterminant(int[][] matrix) {
-        if (mat[0].length !=mat[0].length ) 
-            throw new IllegalArgumentException("Enter a square matrix to find determinant.");
-
-        int det = 0;
-    
-        int numRows = matrix.length;
-        int numCols = matrix[0].length;
-    
-        if (numRows == 1 && numCols == 1) {
+        int matDimension = matrix.length;
+        int determinant = 0;
+        //? Base case: If the matrix is 1x1, return the single element as the determinant
+        if (matDimension == 1)
             return matrix[0][0];
-        }
+        //? Base case: If the matrix is 2x2, calculate the determinant using the formula
+        else if (matDimension == 2)
+            return (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0]);
     
+        //? Initialize a sign variable to alternate between positive and negative signs
         int sign = 1;
+        //? Loop through each element in the first row of the matrix
+        for (int i = 0; i < matDimension; i++) {
+            //? Create a minor matrix by removing the current row and column
+            int[][] minor = new int[matDimension - 1][matDimension - 1];
     
-        for (int i = 0; i < numRows; i++) {
-            int[][] minor = new int[numRows - 1][numCols - 1];
-    
-            for (int j = 1; j < numRows; j++) {
-                for (int k = 0, l = 0; k < numCols; k++) {
+            //? Populate the minor matrix by excluding the current row and column
+            for (int j = 1; j < matDimension; j++) 
+                for (int k = 0, l = 0; k < matDimension; k++) 
                     if (k != i) {
                         minor[j - 1][l++] = matrix[j][k];
                     }
-                }
-            }
+
+            //? Recursively calculate the determinant of the minor matrix and accumulate it
+            determinant += sign * matrix[0][i] * findDeterminant(minor);
     
-            det += sign * matrix[0][i] * findDeterminant(minor);
+            //? Flip the sign for the next iteration (to alternate between positive and negative)
             sign *= -1;
         }
     
-        return det;
+        // Return the final determinant of the original matrix
+        return determinant;
     }
+    
     
     //* @Override the toString method for better performance using StringBuilder */ 
     public String toString()
     {
-        //? For better performance we are using stringBuilder instead of String class
-        StringBuilder matSb=new StringBuilder();
-        for (int i = 0; i < mat.length; i++) {
-            for (int j = 0; j < mat[i].length; j++) 
+       StringBuilder matSb=new StringBuilder();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) 
                 matSb.append(mat[i][j] + " ");
             
             matSb.append("\n");

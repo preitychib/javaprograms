@@ -2,9 +2,10 @@
 
 import java.math.BigInteger;
 import java.util.Scanner;
-public class FactBig{
-    public static void main(String[] args) {
 
+public class FactBig {
+    
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         //? Input bigger number
         int num = sc.nextInt();

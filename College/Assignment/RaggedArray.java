@@ -1,4 +1,5 @@
-//* WAP in java to create a ragged array like staircase. Populate it with random values and print array on screen */
+//* WAP in java to create a ragged array like staircase. 
+//* Populate it with random values and print array on screen */
 
 import java.util.Random;
 import java.util.Scanner;
