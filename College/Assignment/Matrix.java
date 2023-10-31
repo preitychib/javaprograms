@@ -11,10 +11,11 @@ public class Matrix {
 
     //* Constructor for user input */ 
     Matrix() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the dimension of the matrix:");
-        m = sc.nextInt();
-        n = sc.nextInt();
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("Enter the dimension of the matrix:");
+            m = sc.nextInt();
+            n = sc.nextInt();
+        }
         mat = new int[m][n];
         
     }
@@ -29,18 +30,19 @@ public class Matrix {
     //* Populate random values in the matrix */ 
     void populate()
     {
-        Scanner s = new Scanner(System.in);
-        int max; int min;
-       //? Ensure that the upper bound is greater than or equal to the lower bound
-        System.out.println("Enter the lower and upper bound:");
-        min = s.nextInt();
-        max = s.nextInt();
-        
-        Random random = new Random();
-        for (int i = 0; i < m; i++) 
-        for (int j = 0; j < n; j++)
-        //? Generate random values in the specified range
-        mat[i][j] = random.nextInt(max-min) + min;
+        try (Scanner s = new Scanner(System.in)) {
+            int max; int min;
+      //? Ensure that the upper bound is greater than or equal to the lower bound
+            System.out.println("Enter the lower and upper bound:");
+            min = s.nextInt();
+            max = s.nextInt();
+            
+            Random random = new Random();
+            for (int i = 0; i < m; i++) 
+            for (int j = 0; j < n; j++)
+            //? Generate random values in the specified range
+            mat[i][j] = random.nextInt(max-min) + min;
+        }
         
     }
     
