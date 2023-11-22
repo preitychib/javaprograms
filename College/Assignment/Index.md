@@ -12,9 +12,10 @@
 5. Define a class Matrix which stores set of values in a two dimensional array. The dimension of the matrix is passed through contructors, and necessary memory allocation is done. 
 The class contains a method, called populate(int range), which randomly generates numbers betwee I-range and store it as matrix values. Create a function to add, subtract, multiply two matrix. 
 Also write a recursive function to find the determinant of a matirx. Also add required method in the class so that values of the Matrix can be printed using System.out.println() method. Also write a test program to test the above class.matrix class
-6. Write down a menu driver program for a student registeration for the placement activity the registeration form consist of student_id, student_name, course and SGPA of the current semester and email_id. Whenever student is registered to an arraylist and if somebody do not want to request for departicipation and his/her name is deleted.
-7. WAP in Java that takes the paragraph of the text as input form the user and performs the following operations:
+7. Write down a menu driver program for a student registeration for the placement activity the registeration form consist of student_id, student_name, course and SGPA of the current semester and email_id. Whenever student is registered to an arraylist and if somebody do not want to request for departicipation and his/her name is deleted.
+8. WAP in Java that takes the paragraph of the text as input form the user and performs the following operations:
     1. Count the number of characters, words, and lines. 
     2. Make the entire sentence in sentence case 
     3. Reverse the order of the words eg: "Hello Everyone" should be "Everyone Hello"
-    4. Also reverse the entire paragraph eg: "Hello Java" should be "avaJ olleH" 
+    4. Also reverse the entire paragraph eg: "Hello Java" should be "avaJ olleH"
+9.  
