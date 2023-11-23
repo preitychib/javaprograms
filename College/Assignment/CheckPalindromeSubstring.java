@@ -33,5 +33,4 @@ public class CheckPalindromeSubstring {
         System.out.println(palindromeSubstring(str));
         sc.close();
     }
-
 }

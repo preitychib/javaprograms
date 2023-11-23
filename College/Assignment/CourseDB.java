@@ -3,7 +3,7 @@
 //! NEEDS Configuration at your end
 //! works on my end. hehe 
 import java.sql.*;
-import java.util.Properties;
+// import java.util.Properties;
 import java.util.Scanner;
 
 // import com.mysql.cj.jdbc.Driver;

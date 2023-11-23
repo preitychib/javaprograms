@@ -4,12 +4,10 @@ public class GenericSumProduct<T> {
     T a;
     T b;
     T c;
+        
     GenericSumProduct() {
-        a = null;
-        b = null;
-        c = null;
+        a = null; b = null; c = null;
     }
-
     GenericSumProduct(T x, T y, T z) {
         a = x;
         b = y;
