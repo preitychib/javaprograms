@@ -1,7 +1,8 @@
 import java.awt.*;  
 import java.awt.event.*;
+import javax.swing.JFrame;
 
-public class MouseEventExample extends Frame implements MouseListener {
+public class MouseEventExample extends JFrame implements MouseListener {
     Label l;
 
     MouseEventExample() {
@@ -13,6 +14,7 @@ public class MouseEventExample extends Frame implements MouseListener {
         setSize(300, 300);
         setLayout(null);
         setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void mouseClicked(MouseEvent e) {
