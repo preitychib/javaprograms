@@ -17,7 +17,7 @@ abstract public class BankAccount {
     }
 
     void withdraw(double amount) {
-        if (balance - amount >= 0)
+        if (balance>= amount)
             balance -= amount;
         else
             System.out.println("Insufficient balance, Try any other amount.");
@@ -63,12 +63,10 @@ class CheckingAccount extends BankAccount {
     }
 
     void deposit(double amount) {
-        super.withdraw(transactionFee);
-        super.deposit(amount);
+        super.deposit(amount + transactionFee);
     }
     void withdraw(double amount) {
-        super.withdraw(transactionFee);
-        super.withdraw(amount);
+        super.withdraw(amount + transactionFee);
 
     }
 

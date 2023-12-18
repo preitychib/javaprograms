@@ -1,4 +1,4 @@
-//* Define a class called Triangle which stores all the three sides of triangle. Use constructor to initialise the sides. Write a method called findArea which calculate area of triangle using herons formula. Also check the types of the triangle. Wrtite this java application using GUI I/O. */ 
+//* Define a class called Triangle which stores all the three sides of triangle. Use constructor to initialise the sides. Write a method called findArea which calculate area of triangle using herons formula. Also check the types of the triangle. Write this java application using GUI I/O. */ 
 
 public class Triangle {
     double a;

@@ -1,3 +1,6 @@
 
 *.class
 FrontPage.md
+connection.prop
+/.vscode
+
