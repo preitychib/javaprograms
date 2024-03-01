@@ -16,46 +16,49 @@ gender(o,female).
 gender(p,male).
 
 
-father(a,e). mother(b,e).
-father(c,f). mother(d,f).
-father(e,g). mother(f,g).
-father(h,j). father(h,k).
-mother(g,j). mother(g,k).
-father(i,mm). father(i,n).
-mother(j,mm). mother(j,n).
-father(k,o). father(k,p).
-mother(l,o). mother(l,p).
+father(a,e). 
+mother(b,e).
+father(c,f). 
+mother(d,f).
+father(e,g). 
+mother(f,g).
+father(h,j). 
+father(h,k).
+mother(g,j). 
+mother(g,k).
+father(i,mm). 
+father(i,n).
+mother(j,mm). 
+mother(j,n).
+father(k,o). 
+father(k,p).
+mother(l,o). 
+mother(l,p).
 
 
-parent(par,child) :- mother(par,child); father(par,child).
-sibiling(child1,child2) :- parent(par,child1), parent(par,child2), child1\=child2.
+parent(Par,Child) :- mother(Par,Child); father(Par,Child).
+sibiling(Child1,Child2) :- parent(Par,Child1), parent(Par,Child2), Child1\=Child2.
 
 son(Son,Parent) :- parent(Parent,Son), gender(Son,male).
 daughter(Daughter,Parent) :- parent(Parent,Daughter), gender(Daughter,female).
 
-brother(Bro,Sibling) :- parent(Parent,Bro),parent(Parent,Sibling), gender(Bro,male).
-sister(Sister,Sibling) :- parent(Parent,Sister),parent(Parent,Sibling), gender(Sister,female).
+brother(Bro,Sibling) :- parent(Parent,Bro),parent(Parent,Sibling), gender(Bro,male),Bro\=Sibiling.
+sister(Sister,Sibling) :- parent(Parent,Sister),parent(Parent,Sibling), gender(Sister,female),Sister\=Sibiling.
 
 ancestor(Ancestor,Desc) :- parent(Ancestor,Desc).
 ancestor(Ancestor,Desc) :- parent(Ancestor,Intermid), ancestor(Intermid,Desc).
 
-cousin(child1,child2) :- 
-    parent(Parent1, child1), 
-    parent(Parent2,child2),
-    Parent1 \= Parent2,
-    ancestor(Ancestor,child1), 
-    ancestor(Ancestor,child2).
+cousin(Child1,Child2) :- 
+    parent(Parent1, Child1), 
+    parent(Parent2,Child2),
+    sibiling(Parent1,Parent2).
 
-uncle(Uncle,child) :-
-    father(Father, child), 
-    Father \= Uncle,
-    parent(Parent,Father),
-    parent(Parent,Uncle),
+uncle(Uncle,Child) :-
+    father(Father, Child), 
+    sibiling(Father,Uncle),
     gender(Uncle,male).
 
-aunt(Aunt,child) :-
-    mother(Mother, child), 
-    Mother \= Aunt,
-    parent(Parent,Mother),
-    parent(Parent,Aunt),
+aunt(Aunt,Child) :-
+    mother(Mother, Child), 
+    sibiling(Mother,Aunt),
     gender(Aunt,female).
