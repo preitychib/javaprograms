@@ -1,3 +1,4 @@
+package StudentRecord;
 class Student {
     String name;
     int age;
