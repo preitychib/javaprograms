@@ -37,8 +37,8 @@ class StudentLinkedList {
         avgAtd=0.0;
     }
 
-    void calAvgFee(){
-        double feeSum=0;
+    void calAvgAtd(){
+        double atdSum=0;
         int n=0;
         Node node=head;
         if(node==null){
@@ -46,11 +46,11 @@ class StudentLinkedList {
             return;
         }
         while(node.next!=null){
-           feeSum+=node.data.attendence;
+           atdSum+=node.data.attendence;
             n++;
             node=node.next;
         }
-        avgAtd= feeSum/(double)n;
+        avgAtd= atdSum/(double)n;
     }
     void calNoPendingFee(){
         int n=0;
@@ -85,7 +85,7 @@ class StudentLinkedList {
     public void display() {
         Node current = head;
         calNoPendingFee();
-        calAvgFee();
+        calAvgAtd();
         System.out.println("No of students with pending fee: "+noPendingFee+
         ", Average Attendance: "+avgAtd);
         while (current != null) {
