@@ -1,63 +1,35 @@
 import pandas as pd
-import numpy as np
-path="apple_quality.csv"
-df=pd.read_csv(path)
+from sklearn import datasets,preprocessing
+from sklearn.discriminant_analysis import StandardScaler
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
 
-#! Dataframe characters
-# print("head")
-# print(df.head())
-# print("info")
-# print(df.info())
-# print("shape")
-# print(df.shape)
-# print("Describe")
-# print(df.describe(include="all"))
+df=pd.read_csv('apple_quality.csv')
+X=df.drop(['Quality'],axis=1)
+y=df['Quality']
+print(X)
+print(y.unique())
+le=preprocessing.LabelEncoder()
+y=le.fit_transform(y) 
+# print(y)
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.20)
+# print(X_test)
 
-#! view vs copies 
-# print(df[df['Sweetness']>6])
-#?  this works on copy so changes will not be reflected
-# df[df["Sweetness"]>6]["Sweetness"]=5
-# see it will be the same
-# print(df[df['Sweetness']>6])
 
-# print("after changes by loc")
-#! fix
-# df.loc[df['Sweetness']>6,'Sweetness']=5 
-#! copies value
-# df2=df[df['Sweetness']>6].copy()
-# print(df2) 
+#? feature Scaling
+scalar=StandardScaler()
+scalar.fit(X_train)
+X_train=scalar.transform(X_train)
+X_test=scalar.transform(X_test)
 
-#! rename columns
-#  will not work
-df.rename(columns={'Weight':'W'}) 
-# returns a copy that is saved in df hence changes reflected
-df=df.rename(columns={'Weight':'W8'}) 
-df.rename(columns={'Size':'Sz'},inplace=True) 
-# print(df.columns)
 
-#! changing index
-df.set_index("A_id",inplace=True) 
-df.index.name="new_index"
-# print(df.head())
+#? training and predictions
+mlp=MLPClassifier(hidden_layer_sizes=(10,10,10),max_iter=1000)
+mlp.fit(X_train,y_train)
+predictions=mlp.predict(X_test)
+print(predictions)
 
-#! reset index
-df.reset_index(inplace=True) 
-df.index.name="A_id"
-# print(df.head())
-
-#! Adding columns
-df['Color']='Red'
-# print(df.columns) 
-
-#! delete column
-df.drop(['Color'],inplace=True,axis=1)
-# print(df.columns) 
-
-# row_1= pd.DataFrame([['4002','34','2','Sweet','crunchy','juicy','ripe','good','Blue']],columns=df.columns,index=[4002])
-# df=df.append(row_1)
-
-pd.DataFrame()
-df1=pd.DataFrame({'A':[1,2,3],'B':[2,3,4]})
-df2=pd.DataFrame({'A':[7,8,9],'B':[4,5,3]})
-df3=pd.concat([df1,df2],ignore_index=True)
-print(df3)
+#? Evaluating
+print(confusion_matrix(y_test,predictions))
+print(classification_report(y_test,predictions))
