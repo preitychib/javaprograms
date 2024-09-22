@@ -26,7 +26,6 @@ public class Tridiagonal {
     }
     
     static public void mul() {
-
         for (int i = 0; i < n; i++) {
             for (int j = Math.max(0, i - 2); j <= Math.min(i + 2, n - 1); j++) {
                 int[] mapPenta = mapPentadiagonal(i, j);
@@ -36,11 +35,9 @@ public class Tridiagonal {
                     int[] mapTriKJ = mapTridiagonal(k, j);
 
                     c[mapPenta[0]][mapPenta[1]] += a[mapTriIK[0]][mapTriIK[1]] * b[mapTriKJ[0]][mapTriKJ[1]];
-
                 }
 
             }
-
         }
 
     }
