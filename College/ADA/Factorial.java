@@ -42,6 +42,7 @@ class Factorial {
 			int n = sc.nextInt();
 			int[] f = factorial(n);
 			System.out.println(Arrays.toString(f));
+			sc.close();
 	}
 }
 

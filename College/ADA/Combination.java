@@ -104,5 +104,6 @@ public static void main(String[] args) {
         long dpExecutionTime2 = endTime - startTime;
         System.out.println("DP method (1D array of size k) result: " + dpResult2);
         System.out.println("DP method (1D array of size k) execution time: " + dpExecutionTime2 + " nanoseconds");
+        scanner.close();
     }
 }

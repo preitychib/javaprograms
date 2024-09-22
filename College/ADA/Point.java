@@ -101,6 +101,5 @@ public class Point {
         printPoints(points);
 
         convexHull(points, n);
-        scanner.close();
     }
 }

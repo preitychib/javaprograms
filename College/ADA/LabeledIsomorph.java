@@ -97,5 +97,6 @@ public class LabeledIsomorph {
                 getEmbeddings(0);
             }
         }
+        sc.close();
     }
 }

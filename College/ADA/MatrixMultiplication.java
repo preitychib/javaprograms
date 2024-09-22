@@ -156,7 +156,6 @@ public class MatrixMultiplication {
 
     public static void main(String[] args) {
         int[] sizes = {5, 6, 7, 8, 9};
-        Random rand = new Random();
 
         for (int k : sizes) {
             int n = (int) Math.pow(2, k);

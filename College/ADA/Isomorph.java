@@ -77,5 +77,6 @@ public class Isomorph {
             em[0] = j;
             getEmbeddings(0);
         }
+        sc.close();
     }
 }

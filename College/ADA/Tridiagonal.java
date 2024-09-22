@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Tridiagonal {
@@ -31,8 +30,6 @@ public class Tridiagonal {
         for (int i = 0; i < n; i++) {
             for (int j = Math.max(0, i - 2); j <= Math.min(i + 2, n - 1); j++) {
                 int[] mapPenta = mapPentadiagonal(i, j);
-
-                // c[mapPenta[0]][mapPenta[1]] = 0;
                 for (int k = Math.max(Math.max(i - 1, j - 1), 0); k <= Math.min(Math.min(i + 1, j + 1), n - 1); k++) {
 
                     int[] mapTriIK = mapTridiagonal(i, k);
@@ -49,46 +46,70 @@ public class Tridiagonal {
     }
     
     static void printPentaDiagonal() {
-
-        // for (int i = 0; i < n; i++) {
-        //     for (int j = 0; j < n; j++) {
-        //         if (j <= (Math.max(0, i - 3)) || (j >= (Math.min(j + 3, n)))) {
-        //             System.out.print(0 + "\t");
-        //         } else {
-        //             int[] mapPenta = mapPentadiagonal(i, j);
-        //             System.out.print(c[mapPenta[0]][mapPenta[1]] + " ");
-        //         }
-        //     }
-        //     System.out.println();
-        // }
-
+        System.out.println("\nThis is how its is stored in memory:");
         for (int[] i : c) {
-            for (int a : i) {
-                System.out.print(a + "\t");
+                for (int a : i) {
+                    System.out.print(a + "\t");
+                }
+                System.out.println();
+        }
+
+        System.out.println("\nThe multiplication of given matrix is:");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                int[] mapPenta = mapPentadiagonal(i, j);
+                if(mapPenta[0]==-1) System.out.print(0 + "\t");
+                else
+                    System.out.print(c[mapPenta[0]][mapPenta[1]] + "\t");
+
             }
             System.out.println();
         }
+
     }
 
-    void initializeTridiagonal(int x) {
-
+    static int[][] initializeTridiagonal() {
+        int[][] x;
+        if (n < 3) {
+            x = new int[n][n];
+            return x;
+        }
+        
+        x = new int[n][];
+        for (int i = 0; i < n; i++) {
+            int l= (i==0 || i==n-1)? 2:3;
+            x[i] = new int[l];
+        }
+        return x;
     }
     
-    void initializePentadiagonal(int x) {
+    static int[][] initializePentadiagonal() {
+        int[][] x;
+        if (n <= 3) {
+            x = new int[n][n];
+            return x;
+        }
         
+        x = new int[n][];
+        for (int i = 0; i < n; i++) {
+            if (i == 0 || i == n - 1) {
+                x[i] = new int[Math.min(n, 3)];
+            } else if (i == 1 || i == n - 2) {
+                x[i] = new int[Math.min(n, 4)];
+            } else
+                x[i] = new int[5];
+        }
+        return x;
     }
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        // n = sc.nextInt();
-        // a = new int[3 * n][];
-        // b = new int[3 * n][];
-        // c = new int[5 * n][];
-        n=3;
-        // b = new int[3 * n][3*n];
-        c = new int[3][5];
+        System.out.println("Enter the value of n");
+        n = sc.nextInt();
+        a = initializeTridiagonal();
+        b = initializeTridiagonal();
+        c = initializePentadiagonal();
         
-
         // a = new int[][] {
         //     {1, 1},
         //     {1, 2, 2},
@@ -97,8 +118,7 @@ public class Tridiagonal {
         //     { 2, 5, 7 },
         //     {1,6}
         // };
-        
-        
+
         // b = new int[][] {
         //     {1, 2},
         //     {3, 4, 5},
@@ -107,57 +127,68 @@ public class Tridiagonal {
         //     { 12, 13, 14 },
         //     {15,16}
         // };
+        
+        
+        // b = new int[][] {
+        //     {1, 2},
+        //     {3, 4, 5},
+        //     { 12, 13, 14 },
+        //     {3, 4, 5},
+        //     { 12, 13, 14 },
+        //     {3, 4, 5},
+        //     { 12, 13, 14 },
+        //     {15,16}
+        // };
 
-        a = new int[][] {
-            {1, 2},
-            {3, 4, 5},
-            {6, 7},
-        };
-        b = new int[][] {
-            {1, 2},
-            {3, 4, 5},
-            {6, 7},
-        };
+        // a = new int[][] {
+        //     {1, 1},
+        //     {1, 2, 2},
+        //     { 2, 5, 7 },
+        //     {1, 2, 2},
+        //     { 2, 5, 7 },
+        //     {1, 2, 2},
+        //     { 2, 5, 7 },
+        //     {1,6}
+        // };
+        
+        // a = new int[][] {
+        //     {1, 2},
+        //     {3, 4, 5},
+        //     {3, 4, 5},
+        //     {6, 7},
+        // };
+        // b = new int[][] {
+        //     {1, 2},
+        //     {3, 4, 5},
+        //     {3, 4, 5},
+        //     {6, 7},
+        // };
 
+        System.out.println("Enter the non-zero "+ (3*n-2) +" elements of a");
+        for (int i = 0; i < n; i++) {
+            int l= (i==0 || i==n-1)? 2:3;
+            for (int j = 0; j < l; j++) {
+                a[i][j] = sc.nextInt();
+            }
+        }
+
+        System.out.println("\nEnter the non zero "+ (3*n-2) +" elements of b");
+        for (int i = 0; i < n; i++) {
+            int l = (i == 0 || i == n - 1) ? 2 : 3;
+            for (int j = 0; j < l; j++) {
+                b[i][j] = sc.nextInt();
+            }
+        }
+        
         mul();
 
         printPentaDiagonal();
 
-        // for (int i = 0; i < n; i++) {
-        //     for (int j = 0; j < n; j++) {
-        //         // System.out.print(Arrays.toString(mapTridiagonal(i, j)) + "\t");
-        //         System.out.print(Arrays.toString(mapPentadiagonal(i, j)) + "\t");
-
-        //     }
-        //     System.out.println();
-        //     for (int j = 0; j < n; j++) {
-        //         // System.out.print("["+i+": "+j+"]" + "\t");
-
-        //     }
-        //     System.out.println();
-        // }
-
-        // Input values for matrix a
-        //  System.out.println("Enter values for matrix a:");
-        //  for (int i = 0; i < 3 * n; i++) {
-
-        //      int m = Math.max(0, i - 2);
-        //      int n = Math.min(j + 2, n);
-        //      for (int j = 0; j < 3; j++) {
-        //          a[i][j] = sc.nextInt();
-        //      }
-        //  }
-
-        // // Input values for matrix b
-        // System.out.println("Enter values for matrix b:");
-        // for (int i = 0; i < 3 * n; i++) {
-        //     for (int j = 0; j < 3; j++) {
-        //         b[i][j] = sc.nextInt();
-        //     }
-        // }
-
-
-
         sc.close();
     }
 }
+
+
+
+
+// --pc
