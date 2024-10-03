@@ -48,6 +48,31 @@ class Solution {
 }
 ```
 
+### Problem: [check if two chessboard squares have the same color](https://leetcode.com/problems/check-if-two-chessboard-squares-have-the-same-color/)
+
+```java
+class Solution {
+    public boolean checkTwoChessboards(String c1, String c2) {
+        
+        int a=c1.charAt(0) -'a' +1;
+        int b=c2.charAt(0) -'a' +1;
+        int c=c1.charAt(1) -'1' +1;
+        int d=c2.charAt(1) -'1' +1;
+        
+        if(a%2==b%2){
+                if(c%2==d%2)
+                    return true;
+                return false;
+        }else{
+
+            if(c%2!=d%2)
+                    return true;
+                return false;
+        }
+    }
+}
+```
+
 ### Problem: [customers who bought all products](https://leetcode.com/problems/customers-who-bought-all-products/)
 
 ```java
@@ -134,6 +159,27 @@ class Solution {
             }
         }
 
+        return ans;
+    }
+}
+```
+
+### Problem: [count substrings that satisfy k constraint i](https://leetcode.com/problems/count-substrings-that-satisfy-k-constraint-i/)
+
+```java
+class Solution {
+    public int countKConstraintSubstrings(String s, int k) {
+        int n=s.length();
+        int ans=1;
+        for(int i=0;i<n-1;i++){
+            int zero=0; int one=0;
+            for(int j=i;j<n;j++){
+                if(s.charAt(j)=='0') zero++;
+                else one++;
+                if(zero<=k || one<=k) ans++;
+                else break;
+            }
+        }
         return ans;
     }
 }
@@ -415,6 +461,62 @@ class Solution {
 }
 ```
 
+### Problem: [3sum](https://leetcode.com/problems/3sum/)
+
+```java
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Set<List<Integer>> ans = new HashSet<>();
+        Arrays.sort(nums);
+        int n=nums.length;
+        for(int i=0;i<n-2;i++){
+            int p1=i+1;
+            int p2=n-1;
+            while(p1<p2){
+                int sum=nums[i]+nums[p1]+nums[p2];
+                if(sum==0){
+                    ans.add(new ArrayList<>(Arrays.asList(nums[i],nums[p1],nums[p2])));
+                    p2--; p1++;
+                }else if(sum>0){
+                    p2--;
+                }else
+                    p1++;
+            }
+        }
+
+        return new ArrayList<>(ans);
+    }
+}
+```
+
+### Problem: [3sum](https://leetcode.com/problems/3sum/)
+
+```java
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Set<List<Integer>> ans = new HashSet<>();
+        Arrays.sort(nums);
+        int n=nums.length;
+        for(int i=0;i<n-2;i++){
+            int p1=i+1;
+            int p2=n-1;
+            while(p1<p2){
+                int sum=nums[i]+nums[p1]+nums[p2];
+                if(sum==0){
+                    ans.add(new ArrayList<>(Arrays.asList(nums[i],nums[p1],nums[p2])));
+                    p2--;
+                }else if(sum>0){
+                    p2--;
+                }else
+                    p1++;
+            }
+        }
+
+        return new ArrayList<>(ans);
+    }
+}
+```
+
 ### Problem: [maximum subarray](https://leetcode.com/problems/maximum-subarray/)
 
 ```java
@@ -500,6 +602,37 @@ class Solution {
 }
 ```
 
+### Problem: [word break](https://leetcode.com/problems/word-break/)
+
+```java
+class Solution {
+    boolean check(String s, int start, HashSet<String> set, HashMap<Integer, Boolean> dp) {
+        if (start == s.length()) {
+            return true;
+        }
+        if (dp.containsKey(start)) {
+            return dp.get(start);
+        }
+        
+        for (int end = start + 1; end <= s.length(); end++) {
+            if (set.contains(s.substring(start, end)) && check(s, end, set, dp)) {
+                dp.put(start, true);
+                return true;
+            }
+        }
+        
+        dp.put(start, false);
+        return false;
+    }
+    
+    public boolean wordBreak(String s, List<String> wordDict) {
+        HashSet<String> set = new HashSet<>(wordDict);
+        HashMap<Integer, Boolean> dp = new HashMap<>();
+        return check(s, 0, set, dp);
+    }
+}
+```
+
 ### Problem: [find the original array of prefix xor](https://leetcode.com/problems/find-the-original-array-of-prefix-xor/)
 
 ```java
@@ -517,6 +650,22 @@ class Solution {
             pref[i] = pref[i] ^ pref[i - 1];
         }
         return pref;
+    }
+}
+```
+
+### Problem: [find the original array of prefix xor](https://leetcode.com/problems/find-the-original-array-of-prefix-xor/)
+
+```java
+class Solution {
+    public int[] findArray(int[] pref) {
+        int n=pref.length;
+        int ans[] = new int[n];
+        ans[0]=pref[0];
+        for(int i=1;i<n;i++){
+            ans[i]= pref[i]^pref[i-1];
+        }
+        return ans;
     }
 }
 ```
@@ -549,6 +698,73 @@ class Solution {
         return count;
     }
 }
+```
+
+### Problem: [invert binary tree](https://leetcode.com/problems/invert-binary-tree/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if(root==null)
+            return root;
+
+        
+        TreeNode left=invertTree(root.left);
+        TreeNode right=invertTree(root.right);
+
+        root.left=right;
+        root.right=left;
+        return root;
+    }
+}
+```
+
+### Problem: [kth largest element in a stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
+
+```java
+class KthLargest {
+    PriorityQueue<Integer> pQueue;
+    int k;
+    public KthLargest(int k, int[] nums) {
+        this.k=k;
+        pQueue = new PriorityQueue<Integer>();
+        for(int x: nums){
+            pQueue.offer(x);
+            if(pQueue.size()>k){
+                pQueue.poll();
+            }
+        }
+    }
+    
+    public int add(int val) {
+        pQueue.offer(val);
+        if(pQueue.size()>k){
+            pQueue.poll();
+        }
+        return pQueue.peek();
+    }
+}
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest obj = new KthLargest(k, nums);
+ * int param_1 = obj.add(val);
+ */
 ```
 
 ### Problem: [kth largest element in a stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
@@ -618,6 +834,47 @@ class Solution {
     }
     public int kthSmallest(TreeNode root, int k) {
         Stack<Integer> s= new Stack<>();
+        helper(root,k,s);
+        return s.peek();
+    }
+}
+```
+
+### Problem: [kth smallest element in a bst](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+
+    void helper(TreeNode temp, int k, Stack<Integer> s){
+        if(temp==null || s.size()==k){
+            return;
+        }
+
+        helper(temp.left,k,s);
+        if(s.size()==k){
+            return;
+        }
+        s.push(temp.val);
+        helper(temp.right,k,s);
+    }
+    public int kthSmallest(TreeNode root, int k) {
+        Stack<Integer> s= new Stack<>();
+
         helper(root,k,s);
         return s.peek();
     }
@@ -728,6 +985,148 @@ class Solution {
 }
 ```
 
+### Problem: [invert binary tree](https://leetcode.com/problems/invert-binary-tree/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if(root==null)
+            return root;
+
+        
+        TreeNode left=invertTree(root.left);
+        TreeNode right=invertTree(root.right);
+
+        root.left=right;
+        root.right=left;
+        return root;
+    }
+}
+```
+
+### Problem: [invert binary tree](https://leetcode.com/problems/invert-binary-tree/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if(root==null) return root;
+        Queue<TreeNode> q= new LinkedList<>();
+        q.offer(root);
+        while(!q.isEmpty()) {
+            TreeNode x= q.poll();
+            if(x.right!=null) q.offer(x.right);
+            if(x.left!=null) q.offer(x.left);
+            TreeNode temp=x.right!=null? x.right:null;
+            x.right=x.left!=null?x.left:null;
+            x.left=temp;
+        }
+        return root;
+    }
+}
+```
+
+### Problem: [remove nth node from end of list](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode slow=new ListNode(0,head);
+        ListNode fast=head;
+
+        for(int i=0;i<n;i++)
+            fast=fast.next; // move n time forward
+
+        while(fast!=null){
+            slow=slow.next;
+            fast=fast.next;
+        }
+        if(slow.next==head){
+            slow.next=slow.next.next;
+            return slow.next;
+        }
+        slow.next=slow.next.next;
+        return head;
+    }
+}
+```
+
+### Problem: [remove nth node from end of list](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode slow=new ListNode(0,head);
+        ListNode fast=head;
+
+        for(int i=0;i<n;i++)
+            fast=fast.next; // move n time forward
+
+        
+        System.out.println(fast==null);
+        while(fast!=null){
+            slow=slow.next;
+            fast=fast.next;
+        }
+        if(slow.next==head){
+            slow.next=slow.next.next;
+            return slow.next;
+        }
+        slow.next=slow.next.next;
+        return head;
+    }
+}
+```
+
 ### Problem: [unique paths](https://leetcode.com/problems/unique-paths/)
 
 ```java
@@ -761,6 +1160,107 @@ class Solution {
 
 ```
 
+### Problem: [add two numbers](https://leetcode.com/problems/add-two-numbers/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        
+        ListNode sum= new ListNode();
+        ListNode ans=sum;
+        int carry=0;
+        while((l1!=null)  && (l2!=null)){
+            int x= l1.val + l2.val+carry;
+            ans.next=new ListNode(x%10);
+            ans=ans.next;
+            carry=x/10;
+            l1=l1.next; l2=l2.next;
+        }
+
+        while(l1!=null){
+            int x=l1.val+carry;
+            ans.next= new ListNode(x%10);
+            carry=x/10;
+            l1=l1.next;ans=ans.next;
+        }
+        while(l2!=null){
+            int x=l2.val+carry;
+            ans.next= new ListNode(x%10);
+            carry=x/10;
+            l2=l2.next; ans=ans.next;
+        }
+
+        if(carry>0){
+            ans.next= new ListNode(carry%10);
+        }
+        return sum.next;
+
+    }
+}
+```
+
+### Problem: [add two numbers](https://leetcode.com/problems/add-two-numbers/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        
+        ListNode sum= new ListNode();
+        ListNode ans=sum;
+        int carry=0;
+        while((l1!=null)  && (l2!=null)){
+            int x= l1.val + l2.val+carry;
+            ans.next=new ListNode(x%10);
+            ans=ans.next;
+            carry=x/10;
+            l1=l1.next; l2=l2.next;
+        }
+
+        while(l1!=null){
+            int x=l1.val+carry;
+            ans.next= new ListNode(x%10);
+            carry=x/10;
+            l1=l1.next;ans=ans.next;
+        }
+        while(l2!=null){
+            int x=l2.val+carry;
+            ans.next= new ListNode(x%10);
+            carry=x/10;
+            l2=l2.next; ans=ans.next;
+        }
+
+        while(carry!=0){
+            int x=carry;
+            ans.next= new ListNode(x%10);
+            carry=x/10;
+            ans=ans.next;
+        }
+        return sum.next;
+
+    }
+}
+```
+
 ### Problem: [linked list cycle](https://leetcode.com/problems/linked-list-cycle/)
 
 ```java
@@ -784,6 +1284,42 @@ public class Solution {
         while(fast!=null && fast.next!=null ){
             slow=slow.next;
             fast=fast.next.next;
+            if(slow==fast)
+                return true;
+
+        }
+        return false;
+    }
+}
+```
+
+### Problem: [linked list cycle](https://leetcode.com/problems/linked-list-cycle/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode slow=head;
+        ListNode fast=head;
+
+
+        while(fast!=null && fast.next!=null ){
+
+            slow=slow.next;
+            if(fast!=null && fast.next!=null)
+            fast=fast.next.next;
+            else return false;
+
             if(slow==fast)
                 return true;
 
@@ -912,6 +1448,45 @@ class Solution {
 
         return x.next;
         
+    }
+}
+```
+
+### Problem: [delete nodes from linked list present in array](https://leetcode.com/problems/delete-nodes-from-linked-list-present-in-array/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode modifiedList(int[] nums, ListNode head) {
+        HashSet<Integer> set= new HashSet<>();
+
+        for(int i:nums) set.add(i);
+
+        ListNode tempHead= new ListNode(0);
+        tempHead.next=head;
+
+        ListNode prev=tempHead;
+        ListNode current=head;
+
+        while(current!=null){
+
+            if(set.contains(current.val)){
+                prev.next=current.next;
+            }else{
+                prev=current;
+            }
+            current=current.next;
+        }
+        return tempHead.next;
     }
 }
 ```
@@ -1048,6 +1623,47 @@ class Solution {
                  if(count[j][i][0]>0 && count[j][i][0]==count[j][i][1])
                     ans++;
 
+            }
+        }
+        return ans;
+    }
+    
+}
+```
+
+### Problem: [count submatrices with equal frequency of x and y](https://leetcode.com/problems/count-submatrices-with-equal-frequency-of-x-and-y/)
+
+```java
+class Solution {
+    public int numberOfSubmatrices(char[][] grid) {
+        int m=grid.length;
+        int n=grid[0].length;
+        int[][][] count= new int[m][n][2]; // count occurence of x,y in each prefix sum  
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[j][i]=='X')
+                    count[j][i][0]++;
+                if(grid[j][i]=='Y')
+                    count[j][i][1]++;
+                
+                if(j>0){
+                    count[j][i][0]+=count[j-1][i][0];
+                    count[j][i][1]+=count[j-1][i][1];
+                }
+
+            }
+        }
+
+        int ans=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(j>0){
+                count[i][j][0]+=count[i][j-1][0];
+                count[i][j][1]+=count[i][j-1][1];
+                }
+
+                if(count[i][j][0]>0 && count[i][j][0]==count[i][j][1])
+                    ans++;
             }
         }
         return ans;
@@ -1207,6 +1823,46 @@ class Solution {
 }
 ```
 
+### Problem: [alternating groups ii](https://leetcode.com/problems/alternating-groups-ii/)
+
+```java
+class Solution {
+    public int numberOfAlternatingGroups(int[] colors, int k) {
+        
+        int ans=0;
+        int n=colors.length;
+        int count=1;
+        for(int i=0;i<n+k-2;i++){
+            // sliding window 
+            // of k set is valid for (i,j) then check for (i+1,j+1) 
+            if(colors[i%n]!=colors[(i+1)%n]) count++;
+            else count=1;
+            if(count>=k) ans++;
+        }
+        return ans;
+    }
+}
+```
+
+### Problem: [alternating groups i](https://leetcode.com/problems/alternating-groups-i/)
+
+```java
+class Solution {
+    public int numberOfAlternatingGroups(int[] colors) {
+        int ans=0;
+        int n=colors.length;
+        int i=0;
+        do{
+            if(colors[i]!=colors[(i+1)%n] && colors[i]==colors[(i+2)%n]) 
+                ans++;
+           // System.out.println(colors[i]+" "+colors[(i+1)%n]+" "+colors[(i+2)%n]+" "+i);
+            i= (i+1)%n;
+        }while(i!=0);
+        return ans;
+    }
+}
+```
+
 ### Problem: [maximum points after enemy battles](https://leetcode.com/problems/maximum-points-after-enemy-battles/)
 
 ```java
@@ -1286,6 +1942,50 @@ class Solution {
 }
 ```
 
+### Problem: [largest rectangle in histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
+
+```java
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        // lowest element to the left of all
+        int n= heights.length;
+        Stack<Integer> s= new Stack<>();
+        int[] left= new int[n]; // smaller to the left
+        Arrays.fill(left,-1);
+        for(int i=0;i<n;i++){
+            while(!s.isEmpty() && heights[s.peek()]>=heights[i]){
+                s.pop();
+            }
+            if(!s.isEmpty()) left[i]=s.peek()+1;
+            s.push(i);
+        }
+
+        s= new Stack<>();
+        int[] right= new int[n]; // smaller to the right
+        Arrays.fill(right,-1);
+        for(int i=n-1;i>=0;i--){
+            while(!s.isEmpty() && heights[s.peek()]>=heights[i]){
+                s.pop();
+            }
+            if(!s.isEmpty()) right[i]=s.peek()-1;
+            s.push(i);
+        }
+
+        // System.out.println(Arrays.toString(left));
+        // System.out.println(Arrays.toString(right));
+        int maxarea=heights[0];
+        for(int i=0;i<n;i++){
+            int l = left[i]==-1?0:left[i];
+            int r = right[i]==-1?n-1:right[i];
+            maxarea= Math.max(maxarea, heights[i]*(r-l+1));
+        }
+
+
+        return maxarea;
+    }
+}
+```
+
 ### Problem: [min stack](https://leetcode.com/problems/min-stack/)
 
 ```java
@@ -1329,6 +2029,48 @@ class MinStack {
     
     public int getMin() {
         return s.peek().getMin();
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(val);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
+```
+
+### Problem: [min stack](https://leetcode.com/problems/min-stack/)
+
+```java
+class MinStack {
+    Stack<Integer> s;
+    Stack<Integer> min;
+    public MinStack() {
+        s= new Stack<>();
+        min=new Stack<>();
+    }
+    
+    public void push(int val) {
+        s.push(val);
+        if(min.isEmpty() || min.peek()>=val) {
+            min.push(val);}
+    }
+    
+    public void pop() {
+        if(min.peek().equals(s.peek())) {
+        min.pop();}
+        s.pop();
+    }
+    
+    public int top() {
+        return s.peek();
+    }
+    
+    public int getMin() {
+        return min.peek();
     }
 }
 
@@ -1501,6 +2243,29 @@ class Solution {
 }
 ```
 
+### Problem: [maximum height of a triangle](https://leetcode.com/problems/maximum-height-of-a-triangle/)
+
+```java
+class Solution {
+
+    int helper(int red, int blue, int ans,int last){
+        System.out.println((last==0?"red":"blue")+" "+ans+" "+red+" "+blue);
+        if((last==1 && red<ans) || (last==0 && blue<ans))
+            return ans-1;
+
+        if(last==1)
+            return helper(red-ans,blue,ans+1,0);
+        else
+            return helper(red,blue-ans,ans+1,1);
+       
+    }
+    public int maxHeightOfTriangle(int red, int blue) {
+        // 0 red 1 blue
+        return Math.max(helper(red,blue,1,1),helper(red,blue,1,0));
+    }
+}
+```
+
 ### Problem: [the number of employees which report to each employee](https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee/)
 
 ```java
@@ -1532,6 +2297,40 @@ class Solution {
                 if(intervals[i][1]>arr[1])
                     ans.set(index,new int[]{arr[0],intervals[i][1]});
             }
+        } 
+        
+        int[][] ansArr = new int[ans.size()][2];
+        for(int i=0;i<ans.size();i++)
+            ansArr[i] = ans.get(i);
+
+        return ansArr;
+    }
+}
+```
+
+### Problem: [merge intervals](https://leetcode.com/problems/merge-intervals/)
+
+```java
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        ArrayList<int[]> ans = new ArrayList<>();
+
+        int n= intervals.length;
+        int prev1=intervals[0][0];
+        int prev2=intervals[0][1];
+        ans.add(new int[]{prev1,prev2});
+        for(int i=1;i<n;i++){
+            int index=ans.size()-1;
+            int[] arr=ans.get(index);
+            
+            if(intervals[i][0]>arr[1]){
+                ans.add(intervals[i]);
+            }else{
+                ans.set(index,new int[]{arr[0],Math.max(intervals[i][1],arr[1])});
+            }
+
+
         } 
         
         int[][] ansArr = new int[ans.size()][2];
@@ -1628,6 +2427,69 @@ class Solution {
            if(count==Math.pow(2,pow)){
             count=0;
             pow++;
+           }
+           
+        }
+
+        return root;
+    }
+}
+```
+
+### Problem: [populating next right pointers in each node](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/)
+
+```java
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    public Node connect(Node root) {
+        if(root==null || root.left==null) return root;
+        Queue<Node> q=  new LinkedList<>();
+
+        q.offer(root.left);
+        q.offer(root.right);
+        int count=0;
+        int pow=1;
+        Node pre=root.left;
+        while(!q.isEmpty()){
+           Node nextOne=q.poll();
+           if(nextOne.left!=null){
+            q.offer(nextOne.left);
+            q.offer(nextOne.right);
+           }
+           count++;
+           if(count==1) { 
+            pre=nextOne;
+            continue;
+            }
+           pre.next=nextOne;
+           pre=nextOne;
+           
+           if(count==Math.pow(2,pow)){
+            count=0;
+            pow++;
+            // pre=q.isEmpty()?null:q.pop();
            }
            
         }
@@ -1769,6 +2631,114 @@ class Solution {
 }
 ```
 
+### Problem: [permutation sequence](https://leetcode.com/problems/permutation-sequence/)
+
+```java
+class Solution {
+    int fact(int n){
+        if(n<1) return 1;
+        int f=1;
+        for(int i=2;i<=n;i++){
+            f*=i;
+        }
+        return f;
+    }
+
+
+    String helper(int d, int k,TreeSet<Integer> set){
+        if(d<1) return "";
+        int inc= fact(d-1);
+
+        int index= k/inc;
+
+        Iterator<Integer> iterator = set.iterator();
+        int currentIndex = 0;
+        int element = 0;
+
+        while (iterator.hasNext()) {
+            element = iterator.next();
+            if (currentIndex == index) {
+                break;
+            }
+            currentIndex++;
+        }
+
+        int nextK= k%inc;
+        System.out.println(k+" "+inc+" "+index + " "+ element + " "+nextK);
+        set.remove(element);
+
+        return (""+ element) + helper(d-1,nextK,set);
+
+    }
+    public String getPermutation(int n, int k) {
+        // return "";
+        TreeSet<Integer> set = new TreeSet<Integer>();
+        for(int i=1;i<=n;i++)
+            set.add(i);
+
+        
+        return helper(n,k-1,set);
+    }
+}
+```
+
+### Problem: [single element in a sorted array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
+
+```java
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+        int n=nums.length;
+        if(n==1) return nums[0];
+        int start=0, end=n-1;
+
+        while(start<=end){
+            int mid= (start + end)/2;
+
+            if(mid>0&& nums[mid-1]!=nums[mid] && mid<n-1 && nums[mid]!=nums[mid+1]){
+                return nums[mid];
+            }
+            else if((mid>0&& nums[mid-1]==nums[mid])){
+                if(mid%2==1){
+                    start=mid+1;
+                }else end=mid-1;
+            }else if(mid<n-1 && nums[mid]==nums[mid+1]){
+                if(mid%2==0){
+                    start=mid+1;
+                }else end=mid-1;
+            }else if(mid==0 && mid<n-1 ){
+                if(nums[mid+1]==nums[mid])
+                    start=mid+1;
+                else return nums[mid];
+            }else if(mid==n-1 && mid-1>0){
+                if(nums[mid-1]==nums[mid])
+                    end=mid-1;
+                else return nums[mid];
+            }
+
+            // System.out.println(start+" "+mid+" "+end);
+        }
+
+        return nums[start];
+    }
+}
+```
+
+### Problem: [single element in a sorted array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
+
+```java
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+        int n=nums.length;
+        int ans=nums[0];
+        for(int i=1;i<n;i++){
+            ans^=nums[i];
+        }
+
+        return ans;
+    }
+}
+```
+
 ### Problem: [search a 2d matrix](https://leetcode.com/problems/search-a-2d-matrix/)
 
 ```java
@@ -1805,6 +2775,35 @@ class Solution {
 }
 ```
 
+### Problem: [search a 2d matrix](https://leetcode.com/problems/search-a-2d-matrix/)
+
+```java
+class Solution {
+    public boolean searchMatrix(int[][] mat, int target) {
+        int m=mat.length;
+        int n=mat[0].length;
+        int start=0,end=m-1; 
+     
+        while(start<=end){
+            int mid=(start+end)/2;
+            if(target<mat[mid][0])
+                end=mid-1;
+            else if(mid+1<m && target>=mat[mid+1][0])
+                start=mid+1;
+            else{
+                for(int i=0;i<n;i++){
+                    if(mat[mid][i]==target)
+                        return true;
+                }
+                return false;
+            }
+                // System.out.println(start+" "+mid+ " "+end);
+        }
+        return false;
+    }
+}
+```
+
 ### Problem: [container with most water](https://leetcode.com/problems/container-with-most-water/)
 
 ```java
@@ -1823,6 +2822,29 @@ class Solution {
                 start++;
             while(start<end && height[end]<=h)
              end--;
+        }
+
+        return maxarea;
+    }
+}
+```
+
+### Problem: [container with most water](https://leetcode.com/problems/container-with-most-water/)
+
+```java
+class Solution {
+    public int maxArea(int[] height) {
+        int n=height.length;
+        int start=0;
+        int end=n-1;
+        int maxarea=0;
+        int i=1; int j=1;
+        while(start<end){
+            int area= (end-start)*Math.min(height[start],height[end]);
+            maxarea=Math.max(area,maxarea);
+            if(height[start]<height[end]){
+                start++;
+            }else end--;
         }
 
         return maxarea;
@@ -1880,6 +2902,32 @@ class Solution {
 }
 ```
 
+### Problem: [generate parentheses](https://leetcode.com/problems/generate-parentheses/)
+
+```java
+class Solution {
+    void helper(List<String> ans, int open,int close,String bal){
+        if(close==0){
+            ans.add(bal);
+            return;
+        }
+
+        if(open<close){
+            helper(ans,open,close-1,bal+")");
+        }
+        if(open>0)
+            helper(ans,open-1,close,bal+"(");
+
+
+    }
+    public List<String> generateParenthesis(int n) {
+        List<String> ans= new ArrayList<>();
+        helper(ans,n,n,"");
+        return ans;
+    }
+}
+```
+
 ### Problem: [letter case permutation](https://leetcode.com/problems/letter-case-permutation/)
 
 ```java
@@ -1932,6 +2980,46 @@ class Solution {
                 cur[i]=(cur[i-1]+cur[i])%MOD;
         }
         return cur[n-1]%MOD;
+        
+    }
+}
+```
+
+### Problem: [find the n th value after k seconds](https://leetcode.com/problems/find-the-n-th-value-after-k-seconds/)
+
+```java
+class Solution {
+    public int valueAfterKSeconds(int n, int k) {
+        int MOD = 1000000007;
+        int[] cur=new int[n];
+        Arrays.fill(cur,1);
+        for(int j=0;j<k;j++){
+            cur[0]=1;
+            for(int i=1;i<n;i++)
+                cur[i]=(cur[i-1]+cur[i])%MOD;
+        }
+        return cur[n-1]%MOD;
+        
+    }
+}
+```
+
+### Problem: [find the n th value after k seconds](https://leetcode.com/problems/find-the-n-th-value-after-k-seconds/)
+
+```java
+class Solution {
+    public int valueAfterKSeconds(int n, int k) {
+        int MOD = 1000000007;
+        int[] prev=new int[n];
+        Arrays.fill(prev,1);
+        for(int j=0;j<k;j++){
+            int[] cur=new int[n];
+            cur[0]=1;
+            for(int i=1;i<n;i++)
+                cur[i]=(cur[i-1]+prev[i])%MOD;
+            prev=cur;
+        }
+        return prev[n-1]%MOD;
         
     }
 }
@@ -2248,6 +3336,49 @@ class Solution {
 }
 ```
 
+### Problem: [3sum](https://leetcode.com/problems/3sum/)
+
+```java
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        int n= nums.length;
+        List<List<Integer>> ans = new ArrayList<>();
+        for(int i=0;i<n-2;i++){
+
+            if(i!=0 && nums[i]==nums[i-1]) continue;
+            int start=i+1;
+            int end=n-1;
+            int first=nums[i];
+            while(start<end){
+                int total=first+nums[start]+nums[end];
+
+                if(total==0){
+                    ans.add(new ArrayList<>(
+                        Arrays.asList(first,nums[start],nums[end])
+                        ));
+                    start++;
+                    end--;
+                    while(start<end && nums[start-1]==nums[start]){
+                    start++;
+                    }
+                    while(start<end && nums[end]==nums[end+1]){
+                        end--;
+                    }
+
+                }else if(total<0){
+                    start++;
+                }else {
+                    end--;
+                }
+            }
+        }
+
+        return ans;
+    }
+}
+```
+
 ### Problem: [next permutation](https://leetcode.com/problems/next-permutation/)
 
 ```java
@@ -2290,6 +3421,89 @@ class Solution {
         
         swap(nums,index,minIndex);
         reverse(nums,index+1,n-1);
+
+    }
+}
+```
+
+### Problem: [next permutation](https://leetcode.com/problems/next-permutation/)
+
+```java
+class Solution {
+
+    void swap(int[] nums,int i, int j){
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
+    }
+    void reverse(int[] nums,int i, int j){
+        while(i<j){
+            swap(nums,i,j);
+            i++; j--;
+        }
+    }
+   
+    public void nextPermutation(int[] nums) {
+        int n=nums.length;
+        int index=-1;
+        for(int i=n-1;i>0;i--){
+            if(nums[i-1]<nums[i]){
+                    index=i-1;
+                break;
+
+            }
+        }
+        
+        if(index==-1){
+            reverse(nums,0,n-1);
+            return;
+        }
+        int minIndex=-1;
+
+        for(int i=n-1;i>index;i--){
+            if(nums[index]<nums[i]){
+                minIndex=i; break;
+            }
+        }
+        if(minIndex!=-1)
+            swap(nums,index,minIndex);
+        reverse(nums,index+1,n-1);
+
+    }
+}
+```
+
+### Problem: [next permutation](https://leetcode.com/problems/next-permutation/)
+
+```java
+class Solution {
+   
+    public void nextPermutation(int[] nums) {
+        int n=nums.length;
+        int index=-1;
+        for(int i=n-1;i>0;i--){
+            if(nums[i-1]<nums[i]){
+                    index=i-1;
+                break;
+
+            }
+        }
+        
+        if(index==-1){
+            Arrays.sort(nums);
+            return;
+        }
+        
+        int minIndex=index+1;
+        for(int i=n-1;i>index;i--){
+            if(nums[index]<nums[i] && nums[minIndex]>nums[i]){
+                minIndex=i;
+            }
+        }
+        int temp=nums[index];
+        nums[index]=nums[minIndex];
+        nums[minIndex]=temp;
+        Arrays.sort(nums,index+1,n);
 
     }
 }
@@ -2534,6 +3748,68 @@ class Solution {
 }
 ```
 
+### Problem: [valid palindrome](https://leetcode.com/problems/valid-palindrome/)
+
+```java
+
+    class Solution {
+
+    boolean helper(String s,int i,int j){
+        if(i>=j)
+        {
+            return true;
+        }
+
+        if(!Character.isLetterOrDigit(s.charAt(i))){
+            return helper(s,i+1,j);}
+        else if(!Character.isLetterOrDigit(s.charAt(j))){
+            return helper(s,i,j-1);}
+        else if(Character.toLowerCase(s.charAt(i))==Character.toLowerCase(s.charAt(j))){
+            return helper(s,i+1,j-1);}
+        
+        return false;
+
+
+    }
+    public boolean isPalindrome(String s) {
+    
+       return helper(s,0,s.length()-1);
+    }
+
+}
+```
+
+### Problem: [valid palindrome](https://leetcode.com/problems/valid-palindrome/)
+
+```java
+
+    class Solution {
+
+    boolean helper(String s,int i,int j){
+        if(i>=j)
+        {
+            return true;
+        }
+
+        if(!Character.isLetterOrDigit(s.charAt(i))){
+            return helper(s,i+1,j);}
+        else if(!Character.isLetterOrDigit(s.charAt(j))){
+            return helper(s,i,j-1);}
+        else if(s.charAt(i)==s.charAt(j)){
+            return helper(s,i+1,j-1);}
+        
+        return false;
+
+
+    }
+    public boolean isPalindrome(String s) {
+    
+       return helper(s.toLowerCase(),0,s.length()-1);
+    }
+
+}
+```
+
 ### Problem: [reverse string](https://leetcode.com/problems/reverse-string/)
 
 ```java
@@ -2594,6 +3870,65 @@ class Solution {
         return 1 + numberOfSteps(num/2);
     
         return 1 + numberOfSteps(num-1);
+    }
+}
+```
+
+### Problem: [number of steps to reduce a number to zero](https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/)
+
+```java
+class Solution {
+    public int numberOfSteps(int num) {
+        int steps=0;
+        while(num>0){
+            if(num%2==0){
+                num/=2;
+            }else{
+                num--;
+            }
+
+            steps++;
+        }
+
+        return steps;
+    }
+}
+```
+
+### Problem: [palindrome partitioning](https://leetcode.com/problems/palindrome-partitioning/)
+
+```java
+class Solution {
+    boolean ispalindrome(String str,int i,int j){
+        while(i<=j){
+            if(str.charAt(i)!=str.charAt(j))
+                return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+    void helper(List<List<String>> ans,List<String> inner,int start, String s ){
+
+        if(start==s.length()){
+            ans.add(new ArrayList<>(inner));
+        }
+
+        for(int i=start;i<s.length();i++){
+            String substr=s.substring(start,i+1);
+            if(ispalindrome(s,start,i)){
+                inner.add(substr);
+                helper(ans,inner,i+1,s);
+                inner.remove(inner.size()-1);
+            }
+        }
+    }
+
+    public List<List<String>> partition(String s) {
+        
+        List<List<String>> ans= new ArrayList<>();
+        helper(ans,new ArrayList<>(),0,s);
+        return ans;
     }
 }
 ```
@@ -2718,6 +4053,54 @@ class Solution {
 } 
 ```
 
+### Problem: [combination sum ii](https://leetcode.com/problems/combination-sum-ii/)
+
+```java
+class Solution {
+    void helper1(List<List<Integer>> ans, List<Integer> inner, int[] nums, int target, int index) {
+        if (index == nums.length) {
+            if(target==0)
+                ans.add(new ArrayList<>(inner));
+                
+            return;
+        }
+
+        // Pick the current element
+        inner.add(nums[index]);
+        helper1(ans, inner, nums, target- nums[index],index + 1);
+        inner.remove(inner.size() - 1); // Backtrack
+
+        // Not pick the current *element
+        // Skip all the duplicates
+        while (index + 1 < nums.length && nums[index] == nums[index + 1]) {
+            index++;
+        }
+        helper1(ans, inner, nums, target,index + 1);
+    }
+    
+    void helper(List<List<Integer>> ans, List<Integer> inner, int[] nums, int target, int start) {
+        if(target==0)
+            ans.add(new ArrayList<>(inner));
+        
+        for (int i = start; i < nums.length; i++) {
+            if (i != start && nums[i - 1] == nums[i]) continue;
+            if(nums[i]>target) break;
+            
+            inner.add(nums[i]);
+            helper(ans, inner, nums, target-nums[i],i + 1);
+            inner.remove(inner.size() - 1);
+        }
+    }
+
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+         List<List<Integer>> ans = new ArrayList<>();
+        helper(ans,new ArrayList<>(),candidates,target,0);
+        return ans;
+    }
+} 
+```
+
 ### Problem: [subsets ii](https://leetcode.com/problems/subsets-ii/)
 
 ```java
@@ -2790,6 +4173,58 @@ class Solution {
     }
 
     
+}
+```
+
+### Problem: [subsets ii](https://leetcode.com/problems/subsets-ii/)
+
+```java
+class Solution {
+
+    void helper(List<List<Integer>> ans, List<Integer> inner,int[] nums, int start){
+        ans.add(new ArrayList<>(inner));
+
+        for(int i=start;i<nums.length;i++){
+            if(i!=start && nums[i-1]==nums[i]) continue;
+
+            inner.add(nums[i]);
+            helper(ans,inner,nums,i+1);
+            inner.remove(inner.size()-1);
+        }
+    }
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans= new ArrayList<>();
+
+        helper(ans,new ArrayList<>(),nums,0);
+        return ans;
+    }
+}
+```
+
+### Problem: [subsets ii](https://leetcode.com/problems/subsets-ii/)
+
+```java
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> outer= new ArrayList<>();
+        Arrays.sort(nums);
+        int n=nums.length;
+        outer.add(new ArrayList<Integer>());
+        int start; int end=0;
+        for(int i=0;i<n;i++){
+            start=0;
+            if(i>0 && nums[i-1]==nums[i])
+                start=end+1;
+            end=outer.size()-1;
+            for(int j=start;j<=end;j++){
+                ArrayList<Integer> inner = new ArrayList<>(outer.get(j));
+                inner.add(nums[i]);
+                outer.add(inner);
+            }
+        }
+        return outer;
+    }
 }
 ```
 
@@ -3098,6 +4533,115 @@ class Solution {
 
 ```
 
+### Problem: [edit distance](https://leetcode.com/problems/edit-distance/)
+
+```java
+class Solution {
+    int helper(String word1,String word2, int s,int t,int[][] dp){
+
+        // string matched only deletion is need for remaining
+        if(t<1){
+            return s;
+        }
+        // string have not matched, insertion is needed for t remaining
+        if(s<1){
+            return t;
+        }
+
+        if(dp[s][t]!=-1)
+            return dp[s][t];
+        if(word1.charAt(s-1)==word2.charAt(t-1)){
+            return dp[s][t]= helper(word1,word2,s-1,t-1,dp);
+        }
+        // delete
+        int delete= 1+ helper(word1,word2,s-1,t,dp); 
+        // Insert
+        int insert= 1+ helper(word1,word2,s,t-1,dp); 
+        // Replace
+        int replace= 1+ helper(word1,word2,s-1,t-1,dp); 
+
+        return dp[s][t]= Math.min(insert,Math.min(delete,replace));
+    }
+    public int minDistance(String word1, String word2) {
+        int s= word1.length();
+        int t=word2.length();
+        int[][] dp= new int[s+1][t+1];
+        
+        for(int i=0;i<=t;i++) dp[0][i]= i;
+        for(int i=0;i<=s;i++) dp[i][0]= i;
+
+
+        for(int i=1;i<=s;i++){
+            for(int j=1;j<=t;j++){
+                if(word1.charAt(i-1)==word2.charAt(j-1)){
+                    dp[i][j]= dp[i-1][j-1];
+                }
+                else{
+                    // delete
+                    int delete= dp[i-1][j]; 
+                    // Insert
+                    int insert= dp[i][j-1]; 
+                    // Replace
+                    int replace= dp[i-1][j-1]; 
+
+                    dp[i][j]= Math.min(insert,Math.min(delete,replace))+1;
+                }
+                
+            }
+        }
+        return dp[s][t];
+    }
+}
+
+
+```
+
+### Problem: [edit distance](https://leetcode.com/problems/edit-distance/)
+
+```java
+class Solution {
+    int helper(String word1,String word2, int s,int t,int[][] dp){
+
+        // string matched only deletion is need for remaining
+        if(t<1 && s>=1){
+            return s;
+        }
+        // string have not matched, insertion is needed for t remaining
+        if(s<1 && t>=1){
+            return t;
+        }
+
+        if(s<1&& t<1){
+            return 0;
+        }
+        if(dp[s][t]!=-1)
+            return dp[s][t];
+        if(word1.charAt(s-1)==word2.charAt(t-1)){
+            return dp[s][t]= helper(word1,word2,s-1,t-1,dp);
+        }
+        // delete
+        int delete= 1+ helper(word1,word2,s-1,t,dp); 
+        // Insert
+        int insert= 1+ helper(word1,word2,s,t-1,dp); 
+        // Replace
+        int replace= 1+ helper(word1,word2,s-1,t-1,dp); 
+
+        return dp[s][t]= Math.min(insert,Math.min(delete,replace));
+    }
+    public int minDistance(String word1, String word2) {
+        int s= word1.length();
+        int t=word2.length();
+        int[][] dp= new int[s+1][t+1];
+        for(int[] d:dp)
+            Arrays.fill(d,-1);
+        
+        return helper(word1,word2,s,t,dp);
+    }
+}
+
+
+```
+
 ### Problem: [distinct subsequences](https://leetcode.com/problems/distinct-subsequences/)
 
 ```java
@@ -3127,6 +4671,100 @@ class Solution {
         }
 
         return dp[n];
+    } 
+}
+```
+
+### Problem: [distinct subsequences](https://leetcode.com/problems/distinct-subsequences/)
+
+```java
+class Solution {
+    public int numDistinct(String s, String t) {
+        int m=s.length(); int n=t.length();
+
+        int[] dp= new int[n+1];
+        dp[0]=1;
+
+        for(int i=1;i<=m;i++){
+            for(int j=n;j>0;j--){
+                if(s.charAt(i-1)==t.charAt(j-1)){
+                    dp[j]+= dp[j-1];
+                } 
+            }
+        }
+
+        return dp[n];
+    } 
+}
+```
+
+### Problem: [distinct subsequences](https://leetcode.com/problems/distinct-subsequences/)
+
+```java
+class Solution {
+    int helper(String s,String t,int m,int n,int[][] dp){
+        if(n<1)
+            return 1;
+        if(m<1)
+            return 0;
+        
+        if(dp[m][n]!=-1)
+            return dp[m][n];
+        
+        if(s.charAt(m-1)==t.charAt(n-1)){
+            return dp[m][n]= helper(s,t,m-1,n-1,dp) + helper(s,t,m-1,n,dp);
+        }
+        return dp[m][n] = helper(s,t,m-1,n,dp);
+
+    }
+    public int numDistinct(String s, String t) {
+        int m=s.length(); int n=t.length();
+
+        int[][] dp= new int[m+1][n+1];
+        for(int i=0;i<=m;i++) dp[i][0]=1;
+
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                if(s.charAt(i-1)==t.charAt(j-1)){
+                    dp[i][j]= dp[i-1][j-1] + dp[i-1][j];
+                } else{
+                    dp[i][j]=dp[i-1][j];
+                }
+            }
+        }
+
+        return dp[m][n];
+    } 
+}
+```
+
+### Problem: [distinct subsequences](https://leetcode.com/problems/distinct-subsequences/)
+
+```java
+class Solution {
+    int helper(String s,String t,int m,int n,int[][] dp){
+        if(n<1)
+            return 1;
+        if(m<1)
+            return 0;
+        
+        if(dp[m][n]!=-1)
+            return dp[m][n];
+        
+        if(s.charAt(m-1)==t.charAt(n-1)){
+            return dp[m][n]= helper(s,t,m-1,n-1,dp) + helper(s,t,m-1,n,dp);
+        }
+        return dp[m][n] = helper(s,t,m-1,n,dp);
+
+    }
+    public int numDistinct(String s, String t) {
+        int m=s.length(); int n=t.length();
+
+        int[][] dp= new int[m+1][n+1];
+        for(int[] d:dp)
+            Arrays.fill(d,-1);
+
+        return helper(s,t,m,n,dp); 
     } 
 }
 ```
@@ -3369,6 +5007,134 @@ class Solution {
 }
 ```
 
+### Problem: [longest common subsequence](https://leetcode.com/problems/longest-common-subsequence/)
+
+```java
+class Solution {
+    int helper(String t1,int n1,String t2,int n2,int[][] dp){
+        if(n1==0 || n2==0){
+            return 0;
+        }
+        if(dp[n1][n2]!=-1)  
+            return dp[n1][n2];
+        if(t1.charAt(n1-1)==t2.charAt(n2-1)){
+            return dp[n1][n2]=1+ helper(t1,n1-1,t2,n2-1,dp);
+        }
+
+        return dp[n1][n2]=Math.max(
+            helper(t1,n1-1,t2,n2,dp),helper(t1,n1,t2,n2-1,dp)
+        );
+    }
+    public int longestCommonSubsequence(String t1, String t2) {
+
+        int n1=t1.length();
+        int n2=t2.length();
+        int[][] dp= new int[n1+1][n2+1];
+        
+        
+        for(int i=1;i<=n1;i++){
+            for(int j=1;j<=n2;j++){
+                if(t1.charAt(i-1)==t2.charAt(j-1)){
+                    dp[i][j]=1+ dp[i-1][j-1];
+                }
+                else
+                    dp[i][j]= Math.max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+
+        return dp[n1][n2];
+
+        // for(int[] d:dp)
+        //     Arrays.fill(d,-1);
+        // return helper(text1,n1,text2,n2,dp);
+    
+    }
+
+    // wrong approach (does not work for subsequences)
+    // public int longestCommonSubsequence(String text1, String text2) {
+    //     boolean[] txt1= new boolean[26];
+    //     boolean[] txt2= new boolean[26];
+
+    //     for(int i=0;i<text1.length();i++){
+    //         int index = text1.charAt(i) - 'a';
+    //         txt1[index]=true;
+    //     }
+
+    //     for(int i=0;i<text2.length();i++){
+    //          int index = text2.charAt(i) - 'a';
+    //          txt2[index]=true;
+    //     }
+
+    //     int count=0;
+    //     boolean prev=true;
+    //     for(int i=0;i<text1.length();i++){
+    //         int index = text1.charAt(i) - 'a';
+    //         if(txt1[index] && txt2[index]){
+    //             count++;
+    //         }
+    //     }
+    //     return count;
+    // }
+}
+```
+
+### Problem: [longest common subsequence](https://leetcode.com/problems/longest-common-subsequence/)
+
+```java
+class Solution {
+    int helper(String t1,int n1,String t2,int n2,int[][] dp){
+        if(n1<0 || n2<0){
+            return 0;
+        }
+        if(dp[n1][n2]!=-1)  
+            return dp[n1][n2];
+        if(t1.charAt(n1)==t2.charAt(n2)){
+            return dp[n1][n2]=1+ helper(t1,n1-1,t2,n2-1,dp);
+        }
+
+        return dp[n1][n2]=Math.max(
+            helper(t1,n1-1,t2,n2,dp),helper(t1,n1,t2,n2-1,dp)
+        );
+    }
+    public int longestCommonSubsequence(String text1, String text2) {
+
+        int n1=text1.length();
+        int n2=text2.length();
+        int[][] dp= new int[n1][n2];
+        for(int[] d:dp)
+            Arrays.fill(d,-1);
+        return helper(text1,n1-1,text2,n2-1,dp);
+    
+    }
+
+    // wrong approach (does not work for subsequences)
+    // public int longestCommonSubsequence(String text1, String text2) {
+    //     boolean[] txt1= new boolean[26];
+    //     boolean[] txt2= new boolean[26];
+
+    //     for(int i=0;i<text1.length();i++){
+    //         int index = text1.charAt(i) - 'a';
+    //         txt1[index]=true;
+    //     }
+
+    //     for(int i=0;i<text2.length();i++){
+    //          int index = text2.charAt(i) - 'a';
+    //          txt2[index]=true;
+    //     }
+
+    //     int count=0;
+    //     boolean prev=true;
+    //     for(int i=0;i<text1.length();i++){
+    //         int index = text1.charAt(i) - 'a';
+    //         if(txt1[index] && txt2[index]){
+    //             count++;
+    //         }
+    //     }
+    //     return count;
+    // }
+}
+```
+
 ### Problem: [count square submatrices with all ones](https://leetcode.com/problems/count-square-submatrices-with-all-ones/)
 
 ```java
@@ -3404,6 +5170,44 @@ class Solution {
         }
 
         return sum;
+    }
+}
+```
+
+### Problem: [maximal rectangle](https://leetcode.com/problems/maximal-rectangle/)
+
+```java
+class Solution {
+    int largestarea(int arr[]) {
+        int n=arr.length;
+        int maxArea = 0;
+        for (int i = 0; i < n; i++) {
+            int minHeight = Integer.MAX_VALUE;
+            for (int j = i; j < n; j++) {
+                minHeight = Math.min(minHeight, arr[j]);
+                maxArea = Math.max(maxArea, minHeight * (j - i + 1));
+            }
+        }
+        return maxArea;
+    }
+
+
+    public int maximalRectangle(char[][] mat) {
+        int m=mat[0].length;
+        int n=mat.length;
+        int[] heights= new int[m];
+        int ans=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]=='1')
+                    heights[j]++;
+                else heights[j]=0;
+            }
+
+            int area= largestarea(heights);
+            ans=Math.max(area,ans);
+        }
+        return ans;
     }
 }
 ```
@@ -3578,6 +5382,23 @@ def renameColumns(students: pd.DataFrame) -> pd.DataFrame:
     return students
 ```
 
+### Problem: [rename columns](https://leetcode.com/problems/rename-columns/)
+
+```java
+import pandas as pd
+
+def renameColumns(students: pd.DataFrame) -> pd.DataFrame:
+    students=students.rename(
+        columns={
+            'id':'student_id',
+            'first':'first_name',
+            'last':'last_name',
+            'age':'age_in_years'
+        }
+    )
+    return students
+```
+
 ### Problem: [modify columns](https://leetcode.com/problems/modify-columns/)
 
 ```java
@@ -3608,6 +5429,39 @@ class Solution {
 }
 ```
 
+### Problem: [coin change ii](https://leetcode.com/problems/coin-change-ii/)
+
+```java
+class Solution {
+
+
+    int helper(int[] coins, int amount, int index,int[][] dp){
+        if(index==0){
+            if(amount%coins[0]==0){
+                return 1;
+            }else return 0;
+        }
+
+        if(dp[index][amount]!=-1)
+            return dp[index][amount];
+        int nottake=  helper(coins,amount,index-1,dp);
+        int take=0;
+        if(coins[index]<=amount){
+            take = helper(coins,amount-coins[index],index,dp);
+        }
+
+        return dp[index][amount]=take + nottake;
+    }
+    public int change(int amount, int[] coins) {
+        int n=coins.length;
+        int[][] dp = new int[n][amount+1];
+        for(int[] d: dp)
+            Arrays.fill(d,-1);
+        return helper(coins,amount,n-1,dp);
+    }
+}
+```
+
 ### Problem: [coin change](https://leetcode.com/problems/coin-change/)
 
 ```java
@@ -3629,6 +5483,109 @@ class Solution {
      if(dp[amount]>amount)
         return -1;
      return dp[amount];
+    }
+}
+```
+
+### Problem: [coin change](https://leetcode.com/problems/coin-change/)
+
+```java
+class Solution {
+     int helper(int[] coins, int amount,int index,int[][] dp){
+        if(index==0){
+            if(amount%coins[0]==0){
+                return amount/coins[0];
+            }
+            return (int) Math.pow(10, 9);
+        }
+
+        if(dp[index][amount]!=-1)
+            return dp[index][amount];
+
+
+        int notpick= 0 + helper(coins,amount,index-1,dp);
+        int pick= (int) Math.pow(10, 9);
+        if(coins[index]<=amount){
+            pick= 1 + helper(coins,amount-coins[index],index,dp);
+        }
+
+        return dp[index][amount]=Math.min(pick,notpick);
+       
+    }
+    public int coinChange(int[] coins, int amount) {
+        int n= coins.length;
+        // int[][] dp = new int[n][amount+1];
+        // for(int[] d: dp)
+        //     Arrays.fill(d,-1);
+        // int ans=helper(coins,amount,n-1,dp);
+        // if (ans >=(int) Math.pow(10, 9))
+        //     return -1;
+        // return ans;
+
+        int[] prev= new int[amount+1];
+        for(int i=0;i<amount+1;i++){
+            if(i%coins[0]==0)
+                prev[i]= i/coins[0];
+            else prev[i]=(int) Math.pow(10, 9);
+        }
+            
+        for(int i=1;i<n;i++){
+            int[] cur= new int[amount+1];
+            for(int j=0;j<amount+1;j++){
+                int notpick=0 + prev[j];
+                int pick= (int) Math.pow(10, 9);
+                if(coins[i]<=j){
+                    pick= 1 + cur[j-coins[i]];
+                }
+
+                cur[j]= Math.min(notpick,pick);
+            }
+            prev=cur;
+        }
+        
+        int ans= prev[amount];
+        if (ans >=(int) Math.pow(10, 9))
+            return -1;
+        return ans;
+
+    }
+}
+```
+
+### Problem: [coin change](https://leetcode.com/problems/coin-change/)
+
+```java
+class Solution {
+     int helper(int[] coins, int amount,int index,int[][] dp){
+        if(index==0){
+            if(amount%coins[0]==0){
+                return amount/coins[0];
+            }
+            return (int) Math.pow(10, 9);
+        }
+
+        if(dp[index][amount]!=-1)
+            return dp[index][amount];
+
+
+        int notpick= 0 + helper(coins,amount,index-1,dp);
+        int pick= (int) Math.pow(10, 9);
+        if(coins[index]<=amount){
+            pick= 1 + helper(coins,amount-coins[index],index,dp);
+        }
+
+        return dp[index][amount]=Math.min(pick,notpick);
+       
+    }
+    public int coinChange(int[] coins, int amount) {
+        int n= coins.length;
+        int[][] dp = new int[n][amount+1];
+        for(int[] d: dp)
+            Arrays.fill(d,-1);
+        int ans=helper(coins,amount,n-1,dp);
+        if (ans >=(int) Math.pow(10, 9))
+            return -1;
+        return ans;
     }
 }
 ```
@@ -3879,6 +5836,147 @@ class Solution {
 }
 ```
 
+### Problem: [best time to buy and sell stock ii](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)
+
+```java
+class Solution {
+    // 1 -> you can buy
+    // 0-> you can't buy
+
+    public int maxProfit(int[] prices) {
+        int n= prices.length;
+        // either i've bought the stock or not 
+        // btw its future ^-^
+        int[] next= new int[2];
+        //base case for n
+        next[0]=next[1]=0;
+        for(int i=n-1;i>=0;--i){
+            // i can buy or not buy
+            int[] cur = new int[2];
+
+            // i won't buy, sell
+            cur[0]= Math.max(
+                prices[i]+next[1], // if i have bought it then i can sell it
+                0+next[0]);       // otherwise i cant sell it so i cant add it
+            // i will buy
+            cur[1]= Math.max(
+                -prices[i]+next[0], // if i have sold so i can buy hence my profit will detuct
+                0+next[1]);         // if i have bought (in future) i can't buy again so nothing to add
+
+
+            next= cur;
+        }
+        return next[1];
+    }
+}
+```
+
+### Problem: [best time to buy and sell stock ii](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)
+
+```java
+class Solution {
+    // 0 -> you can buy
+    // 1-> you can't buy
+
+    int helper(int[] prices,int index,int buy, int[][] dp){
+        if(index==prices.length){
+            return 0;
+        }
+        if(dp[index][buy]!=-1)
+            return dp[index][buy];
+        int profit=Integer.MIN_VALUE;
+        if(buy==0){
+            profit= Math.max(
+                -prices[index] + helper(prices,index+1,1,dp),
+                0 + helper(prices,index+1,0,dp)
+            );
+        }else{
+            profit= Math.max(
+                prices[index] + helper(prices,index+1,0,dp),
+                0 + helper(prices,index+1,1,dp)
+            );
+        }
+
+        return dp[index][buy]=profit;
+
+    }
+
+    public int maxProfit(int[] prices) {
+        int n= prices.length;
+        // either i've bought the stock or not 
+        // btw its future ^-^
+        int[] next= new int[2];
+        //base case for n
+        next[0]=next[1]=0;
+        for(int i=n-1;i>=0;--i){
+            // i can buy or not buy
+            int[] cur = new int[2];
+
+            // i won't buy, sell
+            cur[0]= Math.max(
+                prices[i]+next[1],
+                0+next[0]);
+            // i will buy
+            cur[1]= Math.max(
+                -prices[i]+next[0],
+                0+next[1]);
+
+
+            next= cur;
+        }
+        return next[1];
+
+
+        // for(int[] d: dp)
+        //     Arrays.fill(d,-1);
+        
+        // return helper(prices,0,0,dp);
+    }
+}
+```
+
+### Problem: [best time to buy and sell stock ii](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)
+
+```java
+class Solution {
+    // 0 -> you can buy
+    // 1-> you can't buy
+
+    int helper(int[] prices,int index,int buy, int[][] dp){
+        if(index==prices.length){
+            return 0;
+        }
+        if(dp[index][buy]!=-1)
+            return dp[index][buy];
+        int profit=Integer.MIN_VALUE;
+        if(buy==0){
+            profit= Math.max(
+                -prices[index] + helper(prices,index+1,1,dp),
+                0 + helper(prices,index+1,0,dp)
+            );
+        }else{
+            profit= Math.max(
+                prices[index] + helper(prices,index+1,0,dp),
+                0 + helper(prices,index+1,1,dp)
+            );
+        }
+
+        return dp[index][buy]=profit;
+
+    }
+
+    public int maxProfit(int[] prices) {
+        int n= prices.length;
+        int[][] dp= new int[n][2];
+
+        for(int[] d: dp)
+            Arrays.fill(d,-1);
+        
+        return helper(prices,0,0,dp);
+    }
+}
+```
+
 ### Problem: [rotate image](https://leetcode.com/problems/rotate-image/)
 
 ```java
@@ -3906,6 +6004,25 @@ class Solution {
         }
 
 
+    }
+}
+```
+
+### Problem: [maximum subarray](https://leetcode.com/problems/maximum-subarray/)
+
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int maxsum=nums[0];
+        int sum=0;
+        int n= nums.length;
+        for(int i=0;i<n;i++){
+            sum+=nums[i];
+            maxsum=Math.max(maxsum,sum);
+            if(sum<0)
+                sum=0;
+        }
+        return maxsum;
     }
 }
 ```
@@ -3958,6 +6075,51 @@ class Solution {
 }
 ```
 
+### Problem: [next permutation](https://leetcode.com/problems/next-permutation/)
+
+```java
+class Solution {
+    public void nextPermutation(int[] nums) {
+        
+        int index=-1;
+        int n=nums.length;
+        for(int i=n-2;i>=0;i--){
+            if(nums[i]<nums[i+1]){
+                index=i;
+                break;
+            }
+        }
+
+        if(index==-1){
+            for(int i=0;i<n/2;i++){
+                int temp =nums[i];
+                nums[i]=nums[n-i-1];
+                nums[n-i-1]=temp;
+            }
+            return;
+        }
+
+        
+        for(int i=n-1;i>index;i--){
+            if(nums[i]>nums[index]){
+                int temp =nums[i];
+                nums[i]=nums[index];
+                nums[index]=temp;
+                break;
+            }
+            
+        }
+        
+        for(int i=index+1,j=n-1;i<j;i++,j--){
+                int temp =nums[i];
+                nums[i]=nums[j];
+                nums[j]=temp;
+        }
+    }
+
+}
+```
+
 ### Problem: [find triangular sum of an array](https://leetcode.com/problems/find-triangular-sum-of-an-array/)
 
 ```java
@@ -3971,6 +6133,34 @@ class Solution {
             }
         }
         return nums[0];
+    }
+}
+```
+
+### Problem: [find triangular sum of an array](https://leetcode.com/problems/find-triangular-sum-of-an-array/)
+
+```java
+class Solution {
+    public int triangularSum(int[] nums) {
+
+        int n= nums.length;
+        // base case
+        List<Integer> temp = new ArrayList<>();
+        for(int i: nums)
+            temp.add(i);
+
+
+        for(int i=1;i<n;i++){
+            
+            List<Integer> next = new ArrayList<>();
+            for(int j=0;j<n-i;j++)
+            {
+                int summ = (temp.get(j) + temp.get(j+1))%10;
+                next.add(summ);
+            }
+            temp=next;
+        }
+        return temp.get(0);
     }
 }
 ```
@@ -4067,6 +6257,77 @@ class Solution {
 }
 ```
 
+### Problem: [set matrix zeroes](https://leetcode.com/problems/set-matrix-zeroes/)
+
+```java
+class Solution {
+    public void setZeroes(int[][] mat) {
+        int r= mat.length;
+        int c=mat[0].length;
+        boolean[] row= new boolean[r];
+        boolean[] col= new boolean[c];
+
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(mat[i][j]==0){
+                    row[i]=true;
+                    col[j]=true;
+                }
+            }
+        }
+
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(row[i]==true || col[j]==true){
+                   mat[i][j]=0;
+                }
+            }
+        }
+    }
+}
+```
+
+### Problem: [partition equal subset sum](https://leetcode.com/problems/partition-equal-subset-sum/)
+
+```java
+class Solution {
+    //revist needed
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        int n= nums.length;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        int target=sum/2;
+        if(sum%2!=0)
+            return false;
+        boolean[] prev= new boolean[target+1];
+        
+        prev[0]=true;
+        if(nums[0]<=target)
+            prev[nums[0]]=true;
+
+        for(int i=1;i<n;i++){
+            boolean[] cur= new boolean[target+1];
+            cur[0]=true;
+            for(int j=1;j<=target;j++){
+                boolean notpick= prev[j];
+                boolean pick=false;
+                if(nums[i]<=j)
+                   pick= prev[j-nums[i]];
+
+                cur[j]= pick || notpick;
+          
+            }
+
+            prev=cur;
+        }
+
+        return prev[target];
+    }
+}
+```
+
 ### Problem: [minimum falling path sum](https://leetcode.com/problems/minimum-falling-path-sum/)
 
 ```java
@@ -4100,6 +6361,125 @@ class Solution {
 }
 ```
 
+### Problem: [minimum falling path sum](https://leetcode.com/problems/minimum-falling-path-sum/)
+
+```java
+class Solution {
+    int helper(int[][] mat, int m,int n,int[][] dp){
+        if(m<0 || m>= mat.length || n<0 || n>= mat[0].length){
+            return Integer.MAX_VALUE;
+        }
+        if(m==0){
+            return mat[m][n];
+        }
+        if(dp[m][n]!=-1)
+            return dp[m][n];
+
+        int ans=Integer.MAX_VALUE;
+        
+        for(int j=-1;j<=1;j++){
+                if(m-1>=0 && n+j>=0 && n+j<mat[0].length)
+                    ans= Math.min(
+                        mat[m][n]+helper(mat,m-1,n+j,dp), ans
+                    );
+        }
+
+        return dp[m][n]=ans;
+    }
+    public int minFallingPathSum(int[][] matrix) {
+        int row= matrix.length;
+        int col= matrix[0].length;
+        int[][] dp = new int[row][col];
+        for(int i=0;i<row;i++)
+            dp[0][i]=matrix[0][i];
+
+        for(int m=1;m<row;m++){
+            for(int n=0;n<col;n++){
+                int val=Integer.MAX_VALUE;
+                for(int j=-1;j<=1;j++){
+                    if(n+j>=0 && n+j<col)
+                        val= Math.min(
+                            matrix[m][n]+dp[m-1][n+j], val);
+                }
+                dp[m][n]=val;
+            }
+        }
+        int minval=Integer.MAX_VALUE;
+        for(int i=0;i<col;i++){
+            minval=Math.min(dp[row-1][i],minval);
+        }
+        return minval;
+    }
+}
+```
+
+### Problem: [minimum falling path sum](https://leetcode.com/problems/minimum-falling-path-sum/)
+
+```java
+class Solution {
+    int helper(int[][] mat, int m,int n,int[][] dp){
+        if(m<0 || m>= mat.length || n<0 || n>= mat[0].length){
+            return Integer.MAX_VALUE;
+        }
+        if(m==0){
+            return mat[m][n];
+        }
+        if(dp[m][n]!=-1)
+            return dp[m][n];
+
+        int ans=Integer.MAX_VALUE;
+        
+        for(int j=-1;j<=1;j++){
+                if(m-1>=0 && n+j>=0 && n+j<mat[0].length)
+                    ans= Math.min(
+                        mat[m][n]+helper(mat,m-1,n+j,dp), ans
+                    );
+        }
+
+        return dp[m][n]=ans;
+    }
+    public int minFallingPathSum(int[][] matrix) {
+        int row= matrix.length;
+        int col= matrix[0].length;
+        int[][] dp = new int[row][col];
+        // for(int[] d:dp)
+        //     Arrays.fill(d,-1);
+
+        for(int i=0;i<row;i++)
+            dp[0][i]=matrix[0][i];
+        
+        // for(int i=0;i<matrix[0].length;i++){
+        // int val=helper(matrix,matrix.length-1,i,dp);
+        //  for(int j=-1;j<=1;j++){
+        //         if(m-1>=0 && n+j>=0 && n+j<mat[0].length)
+        //             ans= Math.min(
+        //                 mat[m][n]+helper(mat,m-1,n+j,dp), ans
+        //             );
+        // }
+        // minval=Math.min(minval,val);
+        // }
+
+
+        for(int m=1;m<row;m++){
+            for(int n=0;n<col;n++){
+                int val=Integer.MAX_VALUE;
+                for(int j=-1;j<=1;j++){
+                    if(n+j>=0 && n+j<col)
+                        val= Math.min(
+                            matrix[m][n]+dp[m-1][n+j], val);
+                }
+                dp[m][n]=val;
+            }
+        }
+        int minval=Integer.MAX_VALUE;
+        for(int i=0;i<col;i++){
+            minval=Math.min(dp[row-1][i],minval);
+        }
+        return minval;
+    }
+}
+```
+
 ### Problem: [drop missing data](https://leetcode.com/problems/drop-missing-data/)
 
 ```java
@@ -4108,6 +6488,181 @@ import pandas as pd
 def dropMissingData(students: pd.DataFrame) -> pd.DataFrame:
     students.dropna(axis=0,how='any',inplace=True,subset=['name'])
     return students
+```
+
+### Problem: [partition equal subset sum](https://leetcode.com/problems/partition-equal-subset-sum/)
+
+```java
+class Solution {
+    //revist needed
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        int n= nums.length;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        int target=sum/2;
+        if(sum%2!=0)
+            return false;
+        boolean[] prev= new boolean[target+1];
+        
+        prev[0]=true;
+        if(nums[0]<=target)
+            prev[nums[0]]=true;
+
+        for(int i=1;i<n;i++){
+            boolean[] cur= new boolean[target+1];
+            cur[0]=true;
+            for(int j=1;j<=target;j++){
+                boolean notpick= prev[j];
+                boolean pick=false;
+                if(nums[i]<=j)
+                   pick= prev[j-nums[i]];
+
+                cur[j]= pick || notpick;
+          
+            }
+
+            prev=cur;
+        }
+
+        return prev[target];
+    }
+}
+```
+
+### Problem: [partition equal subset sum](https://leetcode.com/problems/partition-equal-subset-sum/)
+
+```java
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        int n= nums.length;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        int target=sum/2;
+        if(sum%2!=0)
+            return false;
+        boolean[][] dp = new boolean[n][target+1];
+        
+        for(int i=0;i<n;i++){
+            dp[i][0]=true;
+        }
+        
+        if(nums[0]<=target)
+            dp[0][nums[0]]=true;
+
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=target;j++){
+                boolean notpick= dp[i-1][j];
+                boolean pick=false;
+                if(nums[i]<=j)
+                   pick= dp[i-1][j-nums[i]];
+
+                dp[i][j]= pick || notpick;
+          
+            }
+        }
+
+        return dp[n-1][target];
+    }
+}
+```
+
+### Problem: [partition equal subset sum](https://leetcode.com/problems/partition-equal-subset-sum/)
+
+```java
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        int n= nums.length;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        int target=sum/2;
+        if(sum%2!=0)
+            return false;
+        boolean[][] dp = new boolean[n][target+1];
+        
+        for(int i=0;i<n;i++){
+            dp[i][0]=true;
+        }
+        
+        if(nums[0]<=target)
+            dp[0][nums[0]]=true;
+
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=target;j++){
+                boolean notpick= dp[i-1][j];
+                boolean pick=false;
+                if(nums[i]<=j)
+                   pick= dp[i-1][j-nums[i]];
+
+                dp[i][j]= pick || notpick;
+          
+            }
+        }
+
+        return dp[n-1][target];
+    }
+}
+```
+
+### Problem: [partition equal subset sum](https://leetcode.com/problems/partition-equal-subset-sum/)
+
+```java
+class Solution {
+    boolean helper(int[] arr,int i,int target,int[][] dp){
+        if(target==0)
+            return true;
+        if(i==0)
+            return arr[0]==target;
+        if(dp[i][target]!=-1)
+            return dp[i][target]==0?false:true;
+        
+        boolean notpick = helper(arr,i-1,target,dp);
+        boolean pick = false;
+        if(arr[i]<=target)
+            pick=helper(arr,i-1,target-arr[i],dp);
+        
+        dp[i][target] = notpick || pick ? 1 : 0;
+
+        return notpick || pick;
+    }
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        int n= nums.length;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        int target=sum/2;
+        if(sum%2!=0)
+            return false;
+        int[][] dp = new int[n][target+1];
+        for(int[] a:dp)
+            Arrays.fill(a,-1);
+        return helper(nums,n-1,target,dp);
+        // boolean[][] dp = new boolean[n][target+1];
+        
+        // for(int i=0;i<target+1;i++){
+        //     dp[0][i]=true;
+        // }
+        
+        // for(int i=1;i<n;i++){
+        //     for(int j=0;j<=target;j++){
+        //         boolean notpick= dp[i-1][j];
+        //         boolean pick=false;
+        //         if(nums[i]<=j)
+        //            pick= dp[i-1][j-nums[i]];
+
+        //         dp[i][j]= pick | notpick;            
+        //     }
+        // }
+
+        // return dp[n-1][target];
+    }
+}
 ```
 
 ### Problem: [minimum path sum](https://leetcode.com/problems/minimum-path-sum/)
@@ -4188,6 +6743,84 @@ class Solution {
 }
 ```
 
+### Problem: [triangle](https://leetcode.com/problems/triangle/)
+
+```java
+class Solution {
+    
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n = triangle.size();
+        if(n==0)
+            return 0;
+        int[][] dp= new int[n][];
+        for(int i=0;i<n;i++){
+            dp[i]= new int[i+1];
+            // Arrays.fill(dp[i],-1);
+        }
+        dp[0][0]= triangle.get(0).get(0);
+
+        for(int i=1;i<n;i++){
+
+            for(int j=0;j<i+1;j++){
+                if(j==0){
+                    //up add.
+                    dp[i][j]= triangle.get(i).get(j) + dp[i-1][j];
+                }else{
+                    int side=dp[i-1][j-1];
+                    int up=Integer.MAX_VALUE;
+                    if(dp[i-1].length>j)
+                        up=dp[i-1][j];
+
+                    dp[i][j]= triangle.get(i).get(j) + Math.min(up,side);
+                }
+            }
+        }
+        
+        int sum= Integer.MAX_VALUE;
+        for(int i=0;i<dp[n-1].length;i++){
+            sum= Math.min(sum,dp[n-1][i]);
+        }
+        return sum;
+    }
+}
+```
+
+### Problem: [minimum path sum](https://leetcode.com/problems/minimum-path-sum/)
+
+```java
+class Solution {
+    int helper(int[][] grid,int m,int n,int cursum,int[][] dp){
+
+        
+        if(m==0 && n==0){
+            return grid[m][n];
+        }
+
+        if(m<0 || n< 0){
+            // return any large number to negelect it
+            return Integer.MAX_VALUE;
+        }
+
+        if(dp[m][n]!=-1)
+            return dp[m][n];
+
+        int up= helper(grid,m-1,n,cursum,dp);
+        int right= helper(grid,m,n-1,cursum,dp);
+        return dp[m][n]=Math.min(up,right)+ grid[m][n];
+    }
+    public int minPathSum(int[][] grid) {
+        int m= grid.length;
+        int n= grid[0].length;
+
+        int[][] dp= new int[m][n];
+        for(int[] d : dp)
+            Arrays.fill(d,-1);
+        return helper(grid,m-1,n-1,0,dp);
+        
+    }
+}
+```
+
 ### Problem: [unique paths ii](https://leetcode.com/problems/unique-paths-ii/)
 
 ```java
@@ -4217,6 +6850,66 @@ class Solution {
         }
 
         return dp[m-1][n-1];
+    }
+}
+```
+
+### Problem: [unique paths](https://leetcode.com/problems/unique-paths/)
+
+```java
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+
+        for(int[] d: dp){
+            Arrays.fill(d,-1);
+        }
+        
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0 && j==0)
+                    dp[0][0]=1;
+                else{
+                    int up=0,right=0;
+                    if(i>0) up=dp[i-1][j];
+                    if(j>0) right=dp[i][j-1];
+                    dp[i][j]= up + right;
+                }
+            }
+        }
+
+        return dp[m-1][n-1];
+    }
+}
+```
+
+### Problem: [unique paths](https://leetcode.com/problems/unique-paths/)
+
+```java
+class Solution {
+    int helper(int[][] dp,int m,int n){
+        if(m==0 && n==0)
+            return 1;
+        if(m<0 || n<0)
+            return 0;
+        
+        if(dp[m][n]!=-1)
+            return dp[m][n];
+        
+        int up = helper(dp,m,n-1);
+        int right= helper(dp,m-1,n);
+
+        return dp[m][n]= up+right;
+    }
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+
+        for(int[] d: dp){
+            Arrays.fill(d,-1);
+        }
+        
+        
+        return helper(dp,m-1,n-1);
     }
 }
 ```
@@ -4363,6 +7056,58 @@ class Solution {
         // hm.put(level,valueList);
 ```
 
+### Problem: [binary tree zigzag level order traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
+class Solution {
+    // dfs method and not so obvious but interesting
+  public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+     List<List<Integer>> result = new ArrayList<>();
+        helper(result,0,root);
+        return result;
+    }
+    // for better understanding create a recursion tree. 
+    void helper(List<List<Integer>> result, int level,TreeNode temp){
+        if(temp==null){
+            return;
+        }
+
+        // for first call of every level add the list
+        // this statement will be excuted first and is capabale to 
+        // create list in the correct sequence thanks to recursion
+        if(level==result.size()){
+            result.add(new ArrayList<Integer>());
+        }
+
+        // add the value to result at the current level.
+        // if odd then add at the start (to inverse)
+        if(level%2==0)
+            result.get(level).add(temp.val);
+        else
+            result.get(level).add(0,temp.val);
+
+
+        helper(result,level+1,temp.left);
+        helper(result,level+1,temp.right);
+    }
+}
+```
+
 ### Problem: [binary tree level order traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
 
 ```java
@@ -4405,6 +7150,123 @@ class Solution {
 
         helper(result,level+1,temp.left);
         helper(result,level+1,temp.right);
+    }
+}
+```
+
+### Problem: [binary tree zigzag level order traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
+class Solution {
+    // simpler method and obvious one
+  public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    Queue<TreeNode> q = new LinkedList<>();
+    List<List<Integer>> f = new ArrayList<>();
+    if (root == null) {
+      return f;
+    }
+    TreeNode curr = root;
+    q.add(root);
+    int c = 0, sz = 0;
+    while (!q.isEmpty()) 
+    {
+      
+      sz = q.size();
+      List<Integer> ans = new ArrayList<>();
+      for (int i = 0; i < sz; i++) 
+      {
+        q.poll();
+        ans.add(curr.val);
+        
+          if (curr.left != null)
+            q.add(curr.left);
+          if (curr.right != null)
+            q.add(curr.right);
+          curr=q.peek();
+      }
+        if(c%2!=0)
+        {
+          Collections.reverse(ans);
+        }
+      f.add(ans);
+      c++;
+    }
+    return f;
+  }
+}
+```
+
+### Problem: [binary tree zigzag level order traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        Stack<TreeNode>  leftFirstStack = new Stack<TreeNode>();
+        Stack<TreeNode>  rightFirstStack = new Stack<TreeNode>();
+        boolean direction=true; // true for left first insertion
+        if(root!=null)
+            rightFirstStack.push(root);
+        
+        while(!rightFirstStack.isEmpty() || !leftFirstStack.isEmpty()){
+            if(direction){
+                List<Integer> ls = new ArrayList<>();
+                while(!rightFirstStack.isEmpty()){
+                    TreeNode node = rightFirstStack.pop();
+                    ls.add(node.val);
+                    if(node.left!=null)
+                        leftFirstStack.push(node.left);
+                    if(node.right!=null)
+                        leftFirstStack.push(node.right);
+                }
+                result.add(ls);
+            }else{
+                List<Integer> ls = new ArrayList<>();
+                while(!leftFirstStack.isEmpty()){
+                    TreeNode node = leftFirstStack.pop();
+                    ls.add(node.val);
+                    if(node.right!=null)
+                        rightFirstStack.push(node.right);
+                    if(node.left!=null)
+                        rightFirstStack.push(node.left);
+                }
+                result.add(ls);
+            }
+
+            direction = !direction;
+        }
+
+        return result;
     }
 }
 ```
@@ -4615,6 +7477,75 @@ class Solution {
 }
 ```
 
+### Problem: [majority element](https://leetcode.com/problems/majority-element/)
+
+```java
+class Solution {
+    public int majorityElement(int[] nums) {
+       Arrays.sort(nums);
+       int num=nums[0];
+       int maxNumInd=0;
+        int maxNum=nums[0];
+       int numInd=1;
+    
+        for(int i=1;i<nums.length;i++){
+            if(nums[i]==num){
+                numInd++;
+            }else{
+               numInd=1;
+                num=nums[i];
+            }
+
+            if(numInd>maxNumInd){
+                    maxNumInd=numInd;
+                    maxNum=num;
+            }
+        }
+        return maxNum;
+    }
+}
+```
+
+### Problem: [sort colors](https://leetcode.com/problems/sort-colors/)
+
+```java
+class Solution {
+    public void sortColors(int[] nums) {
+        
+        int start=0;
+        int end= nums.length-1;
+        while(start<end){
+            if(nums[start]!=2){
+                start++;
+                continue;
+            }
+            if(nums[end]==2){
+                end--; continue;
+            }
+            int temp= nums[start];
+            nums[start]=nums[end];
+            nums[end]=temp;
+            start++; end--;
+        }
+
+        start=0;
+        while(start<=end){
+            if(nums[end]!=0){
+                end--;
+                continue;
+            }
+            if(nums[start]==0){
+                start++; continue;
+            }
+            int temp= nums[start];
+            nums[start]=nums[end];
+            nums[end]=temp;
+            start++; end--;
+        }
+    }
+}
+```
+
 ### Problem: [create a dataframe from list](https://leetcode.com/problems/create-a-dataframe-from-list/)
 
 ```java
@@ -4625,6 +7556,82 @@ def createDataframe(student_data: List[List[int]]) -> pd.DataFrame:
 
     result= pd.DataFrame(student_data,columns=column_name)
     return result
+```
+
+### Problem: [binary tree level order traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+         if (root == null) 
+            return new LinkedList<List<Integer>>(); 
+        
+        Queue<TreeNode> q= new LinkedList<TreeNode>();
+        q.offer(root);
+
+        List<List<Integer>> outer= new LinkedList<List<Integer>>();
+        while(!q.isEmpty()){
+            int n= q.size();
+            List<Integer> inner = new LinkedList<Integer>();
+
+            for(int i=0;i<n;i++){
+                TreeNode node = q.peek();
+                inner.add(q.poll().val);
+                if(node.left!=null)
+                    q.offer(node.left);
+                if(node.right!=null)
+                    q.offer(node.right);
+            }
+            outer.add(inner);
+        }
+        return outer;
+    }
+}
+```
+
+### Problem: [reverse linked list](https://leetcode.com/problems/reverse-linked-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    ListNode helper(ListNode prev,ListNode temp){
+        if(temp.next==null){
+            temp.next=prev;
+            return temp;
+        }
+        ListNode nextNode=temp.next;
+        temp.next=prev;
+        return helper(temp,nextNode);
+    }
+    public ListNode reverseList(ListNode head) {
+        if(head==null) return head;
+        return helper(null,head);
+    }
+}
 ```
 
 ### Problem: [validate binary search tree](https://leetcode.com/problems/validate-binary-search-tree/)
@@ -4774,6 +7781,58 @@ class Solution {
 }
 ```
 
+### Problem: [subsets](https://leetcode.com/problems/subsets/)
+
+```java
+class Solution {
+    // This uses backtracking
+    List<List<Integer>> result;
+    void helper(List<Integer> list,int[] nums,int index){
+        if(nums.length==index){
+            result.add(new ArrayList<>(list));
+            return;
+        }
+        
+        helper(list,nums,index+1);
+        list.add(nums[index]);
+        helper(list,nums,index+1);
+        list.remove(list.size()-1);
+       
+    }
+    public List<List<Integer>> subsets(int[] nums) {
+        result= new ArrayList<List<Integer>>();
+        helper(new ArrayList<Integer>(){},nums,0);
+        return result;
+    }
+}
+```
+
+### Problem: [subsets](https://leetcode.com/problems/subsets/)
+
+```java
+class Solution {
+    List<List<Integer>> result;
+    void helper(List<Integer> list,int[] nums){
+        if(nums.length==0){
+            result.add(list);
+            return;
+        }
+        
+        helper(list, Arrays.copyOfRange(nums,1,nums.length));
+        List<Integer> newList= new ArrayList<>(list);
+        newList.add(nums[0]);
+        helper(newList, Arrays.copyOfRange(nums,1,nums.length));
+        
+       
+    }
+    public List<List<Integer>> subsets(int[] nums) {
+        result= new ArrayList<List<Integer>>();
+        helper(new ArrayList<Integer>(){},nums);
+        return result;
+    }
+}
+```
+
 ### Problem: [merge sorted array](https://leetcode.com/problems/merge-sorted-array/)
 
 ```java
@@ -4842,6 +7901,34 @@ class Solution {
         }
         
         return index;
+    }
+}
+```
+
+### Problem: [remove element](https://leetcode.com/problems/remove-element/)
+
+```java
+class Solution {
+    // brute force
+    public int removeElement(int[] nums, int val) {
+        int counter=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==val){
+                nums[i]= -1;
+                counter++;
+            }
+        }
+
+        for(int i=0;i<nums.length;i++){
+            for(int j=0;j<nums.length-1-i;j++){
+                if(nums[j]==-1){
+                    int temp=nums[j];
+                    nums[j]=nums[j+1];
+                    nums[j+1]=temp;
+                }
+            }
+        }
+        return nums.length-counter;
     }
 }
 ```
@@ -4927,6 +8014,70 @@ class Calculator {
 }
 ```
 
+### Problem: [array wrapper](https://leetcode.com/problems/array-wrapper/)
+
+```java
+/**
+ * @param {number[]} nums
+ * @return {void}
+ */
+var ArrayWrapper = function(nums) {
+    this.nums=nums;
+};
+
+/**
+ * @return {number}
+ */
+ArrayWrapper.prototype.valueOf = function() {
+    return this.nums.reduce((sum,num)=> sum+num,0);
+}
+
+/**
+ * @return {string}
+ */
+ArrayWrapper.prototype.toString = function() {
+    return `[${this.nums.join(',')}]`;
+}
+
+/**
+ * const obj1 = new ArrayWrapper([1,2]);
+ * const obj2 = new ArrayWrapper([3,4]);
+ * obj1 + obj2; // 10
+ * String(obj1); // "[1,2]"
+ * String(obj2); // "[3,4]"
+ */
+```
+
+### Problem: [execute asynchronous functions in parallel](https://leetcode.com/problems/execute-asynchronous-functions-in-parallel/)
+
+```java
+/**
+ * @param {Array<Function>} functions
+ * @return {Promise<any>}
+ */
+var promiseAll = async function(functions) {
+    return await new Promise((resolve,reject)=>{
+
+        let response_arr=Array(functions.length);
+        let waiting_count=functions.length;
+
+        for(let i=0;i<functions.length;++i){
+            functions[i]()
+            .then((function_result)=>{
+                response_arr[i]=function_result;
+                if(--waiting_count===0) resolve(response_arr);
+            })
+            .catch(reject);
+        }
+    });
+};
+
+/**
+ * const promise = promiseAll([() => new Promise(res => res(42))])
+ * promise.then(console.log); // [42]
+ */
+```
+
 ### Problem: [execute asynchronous functions in parallel](https://leetcode.com/problems/execute-asynchronous-functions-in-parallel/)
 
 ```java
@@ -4997,6 +8148,22 @@ from (
 where tiv_2015_count>1 and lat_lon_count=1 ;
 ```
 
+### Problem: [investments in 2016](https://leetcode.com/problems/investments-in-2016/)
+
+```java
+# Write your MySQL query statement below
+select ROUND(SUM(tiv_2016), 2) AS tiv_2016
+
+from (
+    select 
+        tiv_2016,
+        count(*) over(partition by tiv_2015) as tiv_2015_count,
+        count(*) over(partition by lat,lon ) as lat_lon_count
+    from insurance
+) as subquery
+where tiv_2015_count>1 and lat_lon_count=1 ;
+```
+
 ### Problem: [department top three salaries](https://leetcode.com/problems/department-top-three-salaries/)
 
 ```java
@@ -5037,6 +8204,26 @@ order by num desc
 limit 1
 ```
 
+### Problem: [friend requests ii who has the most friends](https://leetcode.com/problems/friend-requests-ii-who-has-the-most-friends/)
+
+```java
+# Write your MySQL query statement below
+
+select id, sum(num) num from 
+(   select requester_id as id, count(requester_id) num
+    from RequestAccepted 
+    group by requester_id
+    union all
+    ( select accepter_id id, count(accepter_id) num
+    from RequestAccepted 
+    group by accepter_id
+    )
+) r
+group by r.id
+order by num desc 
+limit 1
+```
+
 ### Problem: [restaurant growth](https://leetcode.com/problems/restaurant-growth/)
 
 ```java
@@ -5059,6 +8246,48 @@ FROM
 WHERE
     visited_on >= firstDay + INTERVAL 6 DAY;
 
+```
+
+### Problem: [restaurant growth](https://leetcode.com/problems/restaurant-growth/)
+
+```java
+# Write your MySQL query statement below
+SELECT 
+    DISTINCT visited_on,
+    amount,
+    ROUND(amount/7, 2) AS average_amount
+FROM 
+    (SELECT
+        visited_on,
+        SUM(amount) OVER (
+            ORDER BY visited_on 
+            RANGE BETWEEN INTERVAL 6 DAY PRECEDING AND CURRENT ROW
+        ) AS amount,
+
+        MIN(visited_on) OVER() as firstDay
+    FROM Customer
+    ) AS c
+WHERE
+    visited_on >= firstDay + INTERVAL 6 DAY;
+
+    
+# select
+# visited_on,
+# sum(
+#     case when amount is null 
+#     then 0 
+#     else amount end
+# ) over(order by visited_on ROWS BETWEEN cte(visited_on) PRECEDING AND CURRENT ROW) as amount
+# from customer
+# where visited_on >= (visited_on-6)
+# ,
+# round(avg(
+#     case when amount is null 
+#     then 0 
+#     else amount end
+# ) over(order by visited_on),2) as average_amount
+
+# group by visited_on
 ```
 
 ### Problem: [cache with time limit](https://leetcode.com/problems/cache-with-time-limit/)
@@ -5160,6 +8389,15 @@ FROM users
 WHERE lower(mail) REGEXP '^[a-z][a-z0-9_.-]*@leetcode[.]com$'
 ```
 
+### Problem: [find users with valid e mails](https://leetcode.com/problems/find-users-with-valid-e-mails/)
+
+```java
+# Write your MySQL query statement below
+SELECT user_id, name, mail
+FROM users
+WHERE lower(mail) REGEXP '^[a-z][a-z0-9_.-]*@leetcode[.]com$'
+```
+
 ### Problem: [list the products ordered in a period](https://leetcode.com/problems/list-the-products-ordered-in-a-period/)
 
 ```java
@@ -5182,6 +8420,18 @@ select
 sell_date,
 count(distinct product) num_sold,
 group_concat( distinct product ) as products
+from activities 
+group by sell_date
+```
+
+### Problem: [group sold products by the date](https://leetcode.com/problems/group-sold-products-by-the-date/)
+
+```java
+# Write your MySQL query statement below
+select
+sell_date,
+count(distinct product) num_sold,
+group_concat( distinct product order by product) as products
 from activities 
 group by sell_date
 ```
@@ -5232,6 +8482,23 @@ SELECT id, IF(MOD(id,2)=1 , LEAD(student, 1, student) OVER(), LAG(student) OVER(
 FROM Seat
 ```
 
+### Problem: [exchange seats](https://leetcode.com/problems/exchange-seats/)
+
+```java
+# Write your MySQL query statement below
+SELECT 
+    CASE 
+        WHEN id = (SELECT MAX(id) FROM seat) AND id % 2 = 1
+            THEN id 
+        WHEN id % 2 = 1
+            THEN id + 1
+        ELSE id - 1
+    END AS id,
+    student
+FROM seat
+ORDER BY id
+```
+
 ### Problem: [count salary categories](https://leetcode.com/problems/count-salary-categories/)
 
 ```java
@@ -5241,6 +8508,22 @@ UNION
 (SELECT "Average Salary" AS category, COUNT(*) AS accounts_count FROM Accounts WHERE income >= 20000 AND income <= 50000)
 UNION
 (SELECT "High Salary" AS category, COUNT(*) AS accounts_count FROM Accounts WHERE income > 50000);
+```
+
+### Problem: [count salary categories](https://leetcode.com/problems/count-salary-categories/)
+
+```java
+# Write your MySQL query statement below
+select t.cat category, (count(*) - 1) accounts_count
+from 
+(
+select if(income < 20000, 'Low Salary', if(income > 50000, 'High Salary', 'Average Salary')) cat
+from accounts
+union all (select 'Low Salary')
+union all (select 'High Salary')
+union all (select 'Average Salary')
+) as t
+group by t.cat
 ```
 
 ### Problem: [last person to fit in the bus](https://leetcode.com/problems/last-person-to-fit-in-the-bus/)
@@ -5258,6 +8541,23 @@ with cte as (
 select person_name 
 from cte where wt<=1000 
 order by wt desc limit 1;
+```
+
+### Problem: [last person to fit in the bus](https://leetcode.com/problems/last-person-to-fit-in-the-bus/)
+
+```java
+# Write your MySQL query statement below
+with cte as (
+    select 
+    person_name,
+    turn,
+    sum(weight) over (order by turn) as sum_val
+    from queue
+)
+
+select person_name 
+from cte where sum_val<=1000 
+order by turn desc limit 1;
 ```
 
 ### Problem: [promise time limit](https://leetcode.com/problems/promise-time-limit/)
@@ -5305,6 +8605,102 @@ class Solution {
 }
 ```
 
+### Problem: [kth smallest element in a bst](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+
+    int count=0;
+    public TreeNode helper(TreeNode temp, int k) {
+
+
+        if(temp==null){
+            return null;
+        }
+
+        TreeNode left_right = helper(temp.left,k);
+        if(left_right!=null)
+            return left_right;
+        
+        count++;
+        if(k==count)
+            return temp;
+
+        return helper(temp.right,k);  
+    }
+
+    public int kthSmallest(TreeNode root, int k) {
+
+        TreeNode node = helper(root,k);
+        return node.val;
+
+    }
+}
+```
+
+### Problem: [insert into a binary search tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public void helper(TreeNode temp, int val) {
+         if(temp==null)
+            return;
+        
+        if(temp.val>val){
+            if(temp.left==null){
+                TreeNode newNode = new TreeNode(val);
+                temp.left=newNode;
+            }else
+                helper(temp.left,val);
+            
+        }else if(temp.val<val){
+            if(temp.right==null){
+                TreeNode newNode = new TreeNode(val);
+                temp.right=newNode;
+            }else
+                helper(temp.right,val);
+        }
+    }
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if(root==null)
+            root = new TreeNode(val);
+        else
+            helper(root,val);
+       return root;
+    }
+}
+```
+
 ### Problem: [search in a binary search tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)
 
 ```java
@@ -5335,6 +8731,70 @@ class Solution {
             return searchBST(root.left,val);
         
         return searchBST(root.right,val);
+    }
+}
+```
+
+### Problem: [maximum depth of binary tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int helper(TreeNode node){
+        if(node==null){
+            return 0;
+        }
+        return Math.max(helper(node.left)+1, helper(node.right)+1);
+    }
+    public int maxDepth(TreeNode root) {
+        return helper(root);
+    }
+}
+```
+
+### Problem: [maximum depth of binary tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int helper(TreeNode node){
+        if(node==null){
+            return 0;
+        }
+        return Math.max(node.left!=null? helper(node.left)+1:0, 
+        node.right!=null? helper(node.right)+1:0 );
+    }
+    public int maxDepth(TreeNode root) {
+        if(root==null) return 0;
+        return helper(root)+1;
     }
 }
 ```
@@ -5441,6 +8901,56 @@ var cancellable = function (fn, args, t) {
  */
 ```
 
+### Problem: [interval cancellation](https://leetcode.com/problems/interval-cancellation/)
+
+```java
+/**
+ * @param {Function} fn
+ * @param {Array} args
+ * @param {number} t
+ * @return {Function}
+ */
+var cancellable = function(fn, args, t) {
+    let shouldRepeat= true;
+
+    const repeat= function(){
+        fn(...args);
+        setTimeout(()=>{ shouldRepeat && repeat()},t);
+    };
+    repeat();
+    return ()=>{ shouldRepeat=false};
+};
+
+/**
+ *  const result = [];
+ *
+ *  const fn = (x) => x * 2;
+ *  const args = [4], t = 35, cancelTimeMs = 190;
+ *
+ *  const start = performance.now();
+ *
+ *  const log = (...argsArr) => {
+ *      const diff = Math.floor(performance.now() - start);
+ *      result.push({"time": diff, "returned": fn(...argsArr)});
+ *  }
+ *       
+ *  const cancel = cancellable(log, args, t);
+ *
+ *  setTimeout(cancel, cancelTimeMs);
+ *   
+ *  setTimeout(() => {
+ *      console.log(result); // [
+ *                           //     {"time":0,"returned":8},
+ *                           //     {"time":35,"returned":8},
+ *                           //     {"time":70,"returned":8},
+ *                           //     {"time":105,"returned":8},
+ *                           //     {"time":140,"returned":8},
+ *                           //     {"time":175,"returned":8}
+ *                           // ]
+ *  }, cancelTimeMs + t + 15)    
+ */
+```
+
 ### Problem: [timeout cancellation](https://leetcode.com/problems/timeout-cancellation/)
 
 ```java
@@ -5453,6 +8963,126 @@ var cancellable = function (fn, args, t) {
 var cancellable = function(fn, args, t) {
     const timer=setTimeout(()=> {fn(...args)},t);
    return function(){ clearTimeout(timer)};
+};
+
+/**
+ *  const result = [];
+ *
+ *  const fn = (x) => x * 5;
+ *  const args = [2], t = 20, cancelTimeMs = 50;
+ *
+ *  const start = performance.now();
+ *
+ *  const log = (...argsArr) => {
+ *      const diff = Math.floor(performance.now() - start);
+ *      result.push({"time": diff, "returned": fn(...argsArr)});
+ *  }
+ *       
+ *  const cancel = cancellable(log, args, t);
+ *
+ *  const maxT = Math.max(t, cancelTimeMs);
+ *           
+ *  setTimeout(cancel, cancelTimeMs);
+ *
+ *  setTimeout(() => {
+ *      console.log(result); // [{"time":20,"returned":10}]
+ *  }, maxT + 15)
+ */
+```
+
+### Problem: [timeout cancellation](https://leetcode.com/problems/timeout-cancellation/)
+
+```java
+/**
+ * @param {Function} fn
+ * @param {Array} args
+ * @param {number} t
+ * @return {Function}
+ */
+var cancellable = function(fn, args, t) {
+    const timer=setTimeout(()=> {fn(...args)},t);
+    const cancelFn = function(){ clearTimeout(timer)};
+    return cancelFn;
+};
+
+/**
+ *  const result = [];
+ *
+ *  const fn = (x) => x * 5;
+ *  const args = [2], t = 20, cancelTimeMs = 50;
+ *
+ *  const start = performance.now();
+ *
+ *  const log = (...argsArr) => {
+ *      const diff = Math.floor(performance.now() - start);
+ *      result.push({"time": diff, "returned": fn(...argsArr)});
+ *  }
+ *       
+ *  const cancel = cancellable(log, args, t);
+ *
+ *  const maxT = Math.max(t, cancelTimeMs);
+ *           
+ *  setTimeout(cancel, cancelTimeMs);
+ *
+ *  setTimeout(() => {
+ *      console.log(result); // [{"time":20,"returned":10}]
+ *  }, maxT + 15)
+ */
+```
+
+### Problem: [timeout cancellation](https://leetcode.com/problems/timeout-cancellation/)
+
+```java
+/**
+ * @param {Function} fn
+ * @param {Array} args
+ * @param {number} t
+ * @return {Function}
+ */
+var cancellable = function(fn, args, t) {
+    const timer=setTimeout(()=> fn(...args),t);
+    const cancelFn = ()=>clearTimeout(timer);
+    return cancelFn;
+};
+
+/**
+ *  const result = [];
+ *
+ *  const fn = (x) => x * 5;
+ *  const args = [2], t = 20, cancelTimeMs = 50;
+ *
+ *  const start = performance.now();
+ *
+ *  const log = (...argsArr) => {
+ *      const diff = Math.floor(performance.now() - start);
+ *      result.push({"time": diff, "returned": fn(...argsArr)});
+ *  }
+ *       
+ *  const cancel = cancellable(log, args, t);
+ *
+ *  const maxT = Math.max(t, cancelTimeMs);
+ *           
+ *  setTimeout(cancel, cancelTimeMs);
+ *
+ *  setTimeout(() => {
+ *      console.log(result); // [{"time":20,"returned":10}]
+ *  }, maxT + 15)
+ */
+```
+
+### Problem: [timeout cancellation](https://leetcode.com/problems/timeout-cancellation/)
+
+```java
+/**
+ * @param {Function} fn
+ * @param {Array} args
+ * @param {number} t
+ * @return {Function}
+ */
+var cancellable = function(fn, args, t) {
+    const timer=setTimeout(()=> fn(...args),t);
+    const cancelFn = function(){ clearTimeout(timer)};
+    return cancelFn;
 };
 
 /**
@@ -5648,6 +9278,62 @@ and a.num = b.num
 and c.num = b.num 
 ```
 
+### Problem: [consecutive numbers](https://leetcode.com/problems/consecutive-numbers/)
+
+```java
+# Write your MySQL query statement below
+with cte as(
+    select 
+        num,
+        lead(num) over() as next,
+        lead(num,2) over() as next2next
+
+    from 
+        logs
+)
+
+select distinct num  as ConsecutiveNums from cte where
+num=next and next=next2next;
+```
+
+### Problem: [combination sum](https://leetcode.com/problems/combination-sum/)
+
+```java
+import java.util.*;
+
+class Solution {
+    private HashSet<List<Integer>> helper(int[] original, List<Integer> combo, int sum, int target) {
+        HashSet<List<Integer>> ans = new HashSet<>();
+
+        if (sum == target) {
+            // Sort the combo before adding it to the HashSet
+            Collections.sort(combo);
+            ans.add(new ArrayList<>(combo));
+        } else if (sum < target) {
+            for (int i = 0; i < original.length; i++) {
+                List<Integer> newCombo = new ArrayList<>(combo);
+                newCombo.add(original[i]);
+                HashSet<List<Integer>> recursiveResult = helper(original, newCombo, sum + original[i], target);
+
+                if (recursiveResult != null) {
+                    ans.addAll(recursiveResult);
+                }
+            }
+        }
+
+        return ans.isEmpty() ? null : ans;
+    }
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        HashSet<List<Integer>> ans = helper(candidates, new ArrayList<>(), 0, target);
+         if(ans==null) return new ArrayList<>();
+        return new ArrayList<>(ans);
+    }
+}
+
+  
+```
+
 ### Problem: [triangle judgement](https://leetcode.com/problems/triangle-judgement/)
 
 ```java
@@ -5680,6 +9366,25 @@ from cte
 where emp_count=1 or ( emp_count>1 and primary_flag='Y');
 ```
 
+### Problem: [primary department for each employee](https://leetcode.com/problems/primary-department-for-each-employee/)
+
+```java
+/* Write your PL/SQL query statement below */
+with cte as(
+    select 
+    count(department_id) as departmentCount,
+    employee_id
+    from employee 
+    group by employee_id
+)
+select employee_id,
+department_id
+
+from employee
+
+where employee_id in(select employee_id from cte where departmentCount=1) or primary_flag='Y';
+```
+
 ### Problem: [sleep](https://leetcode.com/problems/sleep/)
 
 ```java
@@ -5689,6 +9394,23 @@ where emp_count=1 or ( emp_count>1 and primary_flag='Y');
  */
 async function sleep(millis) {
     return new Promise(resolve => setTimeout(resolve, millis));
+}
+
+/** 
+ * let t = Date.now()
+ * sleep(100).then(() => console.log(Date.now() - t)) // 100
+ */
+```
+
+### Problem: [sleep](https://leetcode.com/problems/sleep/)
+
+```java
+/**
+ * @param {number} millis
+ * @return {Promise}
+ */
+async function sleep(millis) {
+    await new Promise(resolve=> setTimeout(resolve,millis));
 }
 
 /** 
@@ -5709,6 +9431,25 @@ var addTwoPromises = async function(promise1, promise2) {
     const a = await promise1;
     const b = await promise2;
     return a + b;
+};
+
+/**
+ * addTwoPromises(Promise.resolve(2), Promise.resolve(2))
+ *   .then(console.log); // 4
+ */
+```
+
+### Problem: [add two promises](https://leetcode.com/problems/add-two-promises/)
+
+```java
+/**
+ * @param {Promise} promise1
+ * @param {Promise} promise2
+ * @return {Promise}
+ */
+var addTwoPromises = async function(promise1, promise2) {
+    const [a,b]= await Promise.all([promise1,promise2]);
+    return a+b;
 };
 
 /**
@@ -5752,6 +9493,44 @@ function memoize(fn) {
  */
 ```
 
+### Problem: [the number of employees which report to each employee](https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee/)
+
+```java
+/* Write your PL/SQL query statement below */
+
+select 
+distinct m.employee_id,
+m.name,
+count(e.employee_id) over(partition by m.employee_id) as reports_count,
+round(avg(e.age) over(partition by m.employee_id)) as average_age
+from employees m join employees e
+on m.employee_id=e.reports_to
+order by m.employee_id;
+```
+
+### Problem: [the number of employees which report to each employee](https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee/)
+
+```java
+/* Write your PL/SQL query statement below */
+with manager as (
+    select
+    m.employee_id,
+    m.name,
+    e.employee_id as junior_id,
+    e.age as junior_age
+    from employees e join employees m 
+     on e.reports_to=m.employee_id;
+)
+
+select employee_id,
+name,
+count(junior_id) as reports_count,
+round(avg(junior_age)) as average_age
+from manager
+group by employee_id,name 
+order by employee_id;
+```
+
 ### Problem: [allow one function call](https://leetcode.com/problems/allow-one-function-call/)
 
 ```java
@@ -5768,6 +9547,60 @@ var once = function(fn) {
         // return fn.apply(this,args);
         }
         return undefined;
+    }
+};
+
+/**
+ * let fn = (a,b,c) => (a + b + c)
+ * let onceFn = once(fn)
+ *
+ * onceFn(1,2,3); // 6
+ * onceFn(2,3,6); // returns undefined without calling fn
+ */
+
+```
+
+### Problem: [allow one function call](https://leetcode.com/problems/allow-one-function-call/)
+
+```java
+/**
+ * @param {Function} fn
+ * @return {Function}
+ */
+var once = function(fn) {
+    let called=false;
+	return function(...args){
+        if(called) return undefined;
+        called=true;
+        return fn.apply(this,args);
+        // return fn(...args);
+    }
+};
+
+/**
+ * let fn = (a,b,c) => (a + b + c)
+ * let onceFn = once(fn)
+ *
+ * onceFn(1,2,3); // 6
+ * onceFn(2,3,6); // returns undefined without calling fn
+ */
+
+```
+
+### Problem: [allow one function call](https://leetcode.com/problems/allow-one-function-call/)
+
+```java
+/**
+ * @param {Function} fn
+ * @return {Function}
+ */
+var once = function(fn) {
+    let called=false;
+	return function(...args){
+        if(called) return undefined;
+        called=true;
+        // return fn.apply(this,args);
+        return fn(...args);
     }
 };
 
@@ -5824,6 +9657,30 @@ var compose = function(functions) {
  */
 ```
 
+### Problem: [function composition](https://leetcode.com/problems/function-composition/)
+
+```java
+/**
+ * @param {Function[]} functions
+ * @return {Function}
+ */
+var compose = function(functions) {
+    
+
+	return function(x) {
+        for(const fn of functions.reverse()){
+            x=fn(x)
+        }
+        return x;
+    }
+};
+
+/**
+ * const fn = compose([x => x + 1, x => 2 * x])
+ * fn(4) // 9
+ */
+```
+
 ### Problem: [employees whose manager left the company](https://leetcode.com/problems/employees-whose-manager-left-the-company/)
 
 ```java
@@ -5832,6 +9689,25 @@ select employee_id from employees e where
 salary<30000 and manager_id not in
 (select employee_id from employees) 
 order by employee_id;
+```
+
+### Problem: [employees whose manager left the company](https://leetcode.com/problems/employees-whose-manager-left-the-company/)
+
+```java
+/* Write your PL/SQL query statement below */
+select employee_id from employees e where
+salary<30000 and manager_id is not null and 
+(select m.employee_id from employees  m where m.employee_id = e.manager_id) is null
+order by employee_id;
+```
+
+### Problem: [customers who bought all products](https://leetcode.com/problems/customers-who-bought-all-products/)
+
+```java
+/* Write your PL/SQL query statement below */
+select customer_id
+from customer group by customer_id 
+having count(distinct product_key)=(select count(product_key) from product)
 ```
 
 ### Problem: [biggest single number](https://leetcode.com/problems/biggest-single-number/)
@@ -5846,6 +9722,20 @@ with cte as (
     -- having count(num)=1
 )
 select max(num) as num from cte where total=1;
+```
+
+### Problem: [biggest single number](https://leetcode.com/problems/biggest-single-number/)
+
+```java
+/* Write your PL/SQL query statement below */
+with cte as (
+    select num,
+    count(num)
+    from mynumbers 
+    group by num
+    having count(num)=1
+)
+select max(num) as num from cte;
 ```
 
 ### Problem: [find followers count](https://leetcode.com/problems/find-followers-count/)
@@ -5885,11 +9775,76 @@ on p.product_id = s.product_id and s.year = (
 -- select product_id, first_year, quantity,price from cte where year_rank=1;
 ```
 
+### Problem: [product sales analysis iii](https://leetcode.com/problems/product-sales-analysis-iii/)
+
+```java
+/* Write your PL/SQL query statement below */
+-- with cte as(
+--     select distinct product_id, min(year) as first_year from sales group by product_id;
+-- )
+
+-- select p.product_id, q.first_year, p.quantity, p.price
+-- from sales p join cte q on p.product_id=q.product_id and p.year =q.first_year;
+
+
+with cte as(
+    select product_id, year as first_year, quantity,price,
+    rank() over(partition by product_id order by year) year_rank from sales
+)
+
+select product_id, first_year, quantity,price from cte where year_rank=1;
+```
+
+### Problem: [product sales analysis iii](https://leetcode.com/problems/product-sales-analysis-iii/)
+
+```java
+/* Write your PL/SQL query statement below */
+with cte as(
+    select distinct product_id, min(year) as first_year from sales group by product_id;
+)
+
+select p.product_id, q.first_year, p.quantity, p.price
+from sales p join cte q on p.product_id=q.product_id and p.year =q.first_year;
+```
+
 ### Problem: [classes more than 5 students](https://leetcode.com/problems/classes-more-than-5-students/)
 
 ```java
 /* Write your PL/SQL query statement below */
 select class from courses group by class having count(1)>=5;
+```
+
+### Problem: [classes more than 5 students](https://leetcode.com/problems/classes-more-than-5-students/)
+
+```java
+/* Write your PL/SQL query statement below */
+with cte as(
+    select class, count(student) as studentCount from courses group by class
+)
+select class from cte where studentCount>=5;
+```
+
+### Problem: [user activity for the past 30 days i](https://leetcode.com/problems/user-activity-for-the-past-30-days-i/)
+
+```java
+/* Write your PL/SQL query statement below */
+SELECT TO_CHAR(TRUNC(activity_date), 'YYYY-MM-DD') as "day", COUNT(DISTINCT user_id) as "active_users"
+FROM Activity
+WHERE TRUNC(activity_date) BETWEEN DATE '2019-06-28' AND DATE '2019-07-27'
+GROUP BY activity_date
+ORDER BY activity_date;
+
+```
+
+### Problem: [user activity for the past 30 days i](https://leetcode.com/problems/user-activity-for-the-past-30-days-i/)
+
+```java
+/* Write your PL/SQL query statement below */
+select to_char(activity_date) as day , count(distinct user_id) as active_users
+from activity
+where activity_date<=to_date('2019-07-27') and activity_date > to_date('2019-06-27')
+group by activity_date
+order by activity_date;
 ```
 
 ### Problem: [array reduce transformation](https://leetcode.com/problems/array-reduce-transformation/)
@@ -5989,6 +9944,30 @@ var map = function(arr, fn) {
 };
 ```
 
+### Problem: [apply transform over each element in array](https://leetcode.com/problems/apply-transform-over-each-element-in-array/)
+
+```java
+/**
+ * @param {number[]} arr
+ * @param {Function} fn
+ * @return {number[]}
+ */
+var map = function(arr, fn) {
+    for(let i=0;i<arr.length;i++){
+        arr[i]=fn(arr[i],i);
+    }
+
+    return arr;
+};
+```
+
+### Problem: [number of unique subjects taught by each teacher](https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/)
+
+```java
+/* Write your PL/SQL query statement below */
+select teacher_id,count(distinct subject_id) as cnt from teacher group by teacher_id;
+```
+
 ### Problem: [number of unique subjects taught by each teacher](https://leetcode.com/problems/number-of-unique-subjects-taught-by-each-teacher/)
 
 ```java
@@ -6012,6 +9991,47 @@ round (
 from activity a
 ```
 
+### Problem: [game play analysis iv](https://leetcode.com/problems/game-play-analysis-iv/)
+
+```java
+/* Write your PL/SQL query statement below */
+/* Write your PL/SQL query statement below */
+select
+round ( 
+    SUM(case when 
+    a.event_date - 1 = (select min(event_date) from activity b where b.player_id=a.player_id) 
+    then 1
+    else 0
+    end) / COUNT(distinct(player_id))
+    ,2) as fraction 
+from activity a
+```
+
+### Problem: [game play analysis iv](https://leetcode.com/problems/game-play-analysis-iv/)
+
+```java
+/* Write your PL/SQL query statement below */
+-- with cte as (
+--     select
+--     player_id,
+--     event_date,
+--     lead(event_date) over(partition by player_id order by event_date) as next_login,
+--     from activity
+-- )
+-- select round(
+--     count(distinct player_id)/(select count(distinct player_id) from activity)
+--     ,2) as fraction 
+-- from cte
+-- where next_login=event_date+1;
+
+select round(
+    count(distinct b.player_id)/count(distinct a.player_id)
+    ,2) as fraction
+from 
+    (select player_id, min(event_date) as event_date from activity group by player_id) a left join activity b 
+    on a.player_id=b.player_id and a.event_date+1=b.event_date;
+```
+
 ### Problem: [counter ii](https://leetcode.com/problems/counter-ii/)
 
 ```java
@@ -6027,6 +10047,65 @@ var createCounter = function(init) {
     reset: () =>{ 
     i=0;
     return init}}
+};
+
+/**
+ * const counter = createCounter(5)
+ * counter.increment(); // 6
+ * counter.reset(); // 5
+ * counter.decrement(); // 4
+ */
+```
+
+### Problem: [counter ii](https://leetcode.com/problems/counter-ii/)
+
+```java
+/**
+ * @param {integer} init
+ * @return { increment: Function, decrement: Function, reset: Function }
+ */
+var createCounter = function(init) {
+    let currentValue = init;
+
+    return {
+        increment: () => ++currentValue,
+        decrement: () => --currentValue,
+        reset: () => {currentValue = init; return init;}
+    };
+};
+
+/**
+ * const counter = createCounter(5)
+ * counter.increment(); // 6
+ * counter.reset(); // 5
+ * counter.decrement(); // 4
+ */
+```
+
+### Problem: [counter ii](https://leetcode.com/problems/counter-ii/)
+
+```java
+/**
+ * @param {integer} init
+ * @return { increment: Function, decrement: Function, reset: Function }
+ */
+var createCounter = function(init) {
+    let val=init;
+    var increment= ()=>{
+            return ++val;
+        };
+    var decrement= ()=> {return --val;};
+    var reset=()=>{
+            val=init;
+            return val;
+        }
+    return {
+        // val:init,
+        increment: increment,
+        decrement:decrement,
+        reset:reset
+
+    }
 };
 
 /**
@@ -6069,6 +10148,36 @@ var expect = function(val) {
  */
 ```
 
+### Problem: [to be or not to be](https://leetcode.com/problems/to-be-or-not-to-be/)
+
+```java
+/**
+ * @param {string} val
+ * @return {Object}
+ */
+var expect = function(val) {
+    var toBe =(val2)=>{
+        if(val===val2) return true;
+        else throw "Not Equal";
+    }
+    var notToBe = (val2)=>{
+        if(val===val2) 
+        throw "Equal";
+        else 
+        return !(val===val2);
+    }
+    return{
+        toBe: toBe,
+        notToBe: notToBe
+    }
+};
+
+/**
+ * expect(5).toBe(5); // true
+ * expect(5).notToBe(5); // throws "Equal"
+ */
+```
+
 ### Problem: [counter](https://leetcode.com/problems/counter/)
 
 ```java
@@ -6078,6 +10187,53 @@ var expect = function(val) {
  */
 var createCounter = function(n) {
     return ()=>n++;
+    
+};
+
+/** 
+ * const counter = createCounter(10)
+ * counter() // 10
+ * counter() // 11
+ * counter() // 12
+ */
+```
+
+### Problem: [counter](https://leetcode.com/problems/counter/)
+
+```java
+/**
+ * @param {number} n
+ * @return {Function} counter
+ */
+var createCounter = function(n) {
+    let i=n-1;
+    return function() {
+        i++;
+        return i;
+    };
+    
+};
+
+/** 
+ * const counter = createCounter(10)
+ * counter() // 10
+ * counter() // 11
+ * counter() // 12
+ */
+```
+
+### Problem: [counter](https://leetcode.com/problems/counter/)
+
+```java
+/**
+ * @param {number} n
+ * @return {Function} counter
+ */
+var createCounter = function(n) {
+    
+    return function() {
+        return n++;
+    };
     
 };
 
@@ -6107,6 +10263,23 @@ select round(avg(
     from cte where orders_rank=1;
 ```
 
+### Problem: [immediate food delivery ii](https://leetcode.com/problems/immediate-food-delivery-ii/)
+
+```java
+/* Write your PL/SQL query statement below */
+select round(
+    count(
+        case when customer_pref_delivery_date = order_date then 1 end
+    ) *100 /
+    count(customer_pref_delivery_date) 
+    ,2)
+as immediate_percentage
+from delivery
+where 
+(customer_id, order_date) in (Select customer_id, min(order_date) from delivery group by customer_id); 
+
+```
+
 ### Problem: [create hello world function](https://leetcode.com/problems/create-hello-world-function/)
 
 ```java
@@ -6115,6 +10288,56 @@ function createHelloWorld() {
 	return function(...args): string {
         return "Hello World"
     };
+};
+
+/**
+ * const f = createHelloWorld();
+ * f(); // "Hello World"
+ */
+```
+
+### Problem: [create hello world function](https://leetcode.com/problems/create-hello-world-function/)
+
+```java
+function createHelloWorld() {
+    
+	return () => "Hello World";
+};
+
+/**
+ * const f = createHelloWorld();
+ * f(); // "Hello World"
+ */
+```
+
+### Problem: [create hello world function](https://leetcode.com/problems/create-hello-world-function/)
+
+```java
+/**
+ * @return {Function}
+ */
+var createHelloWorld = function() {
+    
+    return ()=> "Hello World"
+};
+
+/**
+ * const f = createHelloWorld();
+ * f(); // "Hello World"
+ */
+```
+
+### Problem: [create hello world function](https://leetcode.com/problems/create-hello-world-function/)
+
+```java
+/**
+ * @return {Function}
+ */
+var createHelloWorld = function() {
+    
+    return function(...args) {
+        return "Hello World"
+    }
 };
 
 /**
@@ -6157,6 +10380,53 @@ group by
    to_char(trans_date, 'yyyy-mm'), country
 ```
 
+### Problem: [monthly transactions i](https://leetcode.com/problems/monthly-transactions-i/)
+
+```java
+select
+to_char(trans_date,'yyyy-mm') as month,
+country,
+count(1) as trans_count,
+sum(case when state='approved' then 1 else 0 end) as approved_count,
+sum(amount) as trans_total_amount,
+sum(case when state='approved' then amount else 0 end) as approved_total_amount
+from transactions
+group by to_char(trans_date,'yyyy-mm'), country;
+```
+
+### Problem: [monthly transactions i](https://leetcode.com/problems/monthly-transactions-i/)
+
+```java
+select
+TO_CHAR(trans_date,'yyyy-mm') as month,
+country,
+count(1) as trans_count,
+count(case when state='approved' then 1 end) as approved_count,
+sum(amount) as trans_total_amount,
+sum(case when state='approved' then amount else 0 end) as approved_total_amount
+from transactions
+GROUP BY   TO_CHAR(trans_date,'yyyy-mm'), country;
+;
+
+```
+
+### Problem: [monthly transactions i](https://leetcode.com/problems/monthly-transactions-i/)
+
+```java
+select
+-- EXTRACT(YEAR FROM trans_date) || '-' || EXTRACT(MONTH FROM trans_date) as month,
+ TO_CHAR(trans_date,'yyyy-mm') as month,
+country,
+count(id) as trans_count,
+count(case when state='approved' then 1 end) as approved_count,
+sum(amount) as trans_total_amount,
+sum(case when state='approved' then amount else 0 end) as approved_total_amount
+from transactions
+GROUP BY   TO_CHAR(trans_date,'yyyy-mm'), country;
+;
+
+```
+
 ### Problem: [build array from permutation](https://leetcode.com/problems/build-array-from-permutation/)
 
 ```java
@@ -6187,6 +10457,18 @@ from queries
 group by query_name;
 ```
 
+### Problem: [queries quality and percentage](https://leetcode.com/problems/queries-quality-and-percentage/)
+
+```java
+/* Write your PL/SQL query statement below */
+
+select distinct query_name, 
+round(avg(rating/position),2) as quality,
+round(count(case when rating <3 then 1  end)*100 /count(query_name),2) as poor_query_percentage
+from queries
+group by query_name;
+```
+
 ### Problem: [percentage of users attended a contest](https://leetcode.com/problems/percentage-of-users-attended-a-contest/)
 
 ```java
@@ -6197,11 +10479,50 @@ group by contest_id
 order by percentage desc, contest_id;
 ```
 
+### Problem: [percentage of users attended a contest](https://leetcode.com/problems/percentage-of-users-attended-a-contest/)
+
+```java
+/* Write your PL/SQL query statement below */
+select contest_id, round(count(r.user_id)*100/(select count(user_id) from users),2) as percentage
+from users u join register r on u.user_id=r.user_id
+group by contest_id
+order by percentage desc, contest_id;
+```
+
+### Problem: [percentage of users attended a contest](https://leetcode.com/problems/percentage-of-users-attended-a-contest/)
+
+```java
+/* Write your PL/SQL query statement below */
+select contest_id, round(count(user_id)*100/(select count(user_id) from users),2) as percentage
+from register 
+group by contest_id
+order by percentage desc, contest_id;
+```
+
+### Problem: [percentage of users attended a contest](https://leetcode.com/problems/percentage-of-users-attended-a-contest/)
+
+```java
+/* Write your PL/SQL query statement below */
+select contest_id, round(count(user_id)*100/(select count(user_id) from users),2) as percentage
+from register 
+group by contest_id
+order by percentage desc, contest_id;
+```
+
 ### Problem: [project employees i](https://leetcode.com/problems/project-employees-i/)
 
 ```java
 /* Write your PL/SQL query statement below */
 select p.project_id, round(avg(experience_years),2) as average_years
+from project p  join employee e on p.employee_id=e.employee_id
+group by p.project_id;
+```
+
+### Problem: [project employees i](https://leetcode.com/problems/project-employees-i/)
+
+```java
+/* Write your PL/SQL query statement below */
+select p.project_id, round(sum(experience_years)/count(e.employee_id),2) as average_years
 from project p  join employee e on p.employee_id=e.employee_id
 group by p.project_id;
 ```
@@ -6221,6 +10542,24 @@ with joinTable as (
 )
 
 select product_id,round(case when totalunits is null then 0 else totalprice/totalunits end,2) as average_price from joinTable;
+```
+
+### Problem: [average selling price](https://leetcode.com/problems/average-selling-price/)
+
+```java
+/* Write your PL/SQL query statement below */
+with joinTable as (
+    select p.product_id ,
+    sum(case when purchase_date between start_date And end_date 
+            then units*price else 0 end) as totalprice,
+    sum(case when purchase_date between start_date And end_date 
+            then units else 0 end) as totalunits
+    from 
+    prices p  left join unitsSold u on p.product_id=u.product_id 
+    group by p.product_id
+)
+
+select product_id,round(case when totalunits=0 then 0 else totalprice/totalunits end,2) as average_price from joinTable;
 ```
 
 ### Problem: [move zeroes](https://leetcode.com/problems/move-zeroes/)
@@ -6250,12 +10589,83 @@ class Solution {
 }
 ```
 
+### Problem: [move zeroes](https://leetcode.com/problems/move-zeroes/)
+
+```java
+//* This uses 2 pointer approach */
+// j pointer is at first zero index and i at j+1. 
+class Solution {
+    public static void swap(int[] a, int i, int j){
+            int temp=a[i];
+            a[i]=a[j];
+            a[j]=temp;
+    }
+    public void moveZeroes(int[] nums) {
+
+        //? First we will find the position where j is non zero
+        int j=-1;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==0){
+                // we found our first non zero element so break here
+                j=i;
+                break;
+            }
+        }
+
+        // if zero is not presesnt in the array we dont need to perform further steps
+        if(j==-1) return;
+
+
+        // if we found a non zero element the we will it with j and the increament j by one.
+        // This is process all our non zero elements are visited and when j is increament it 
+        // this j+1 element contains a zero element 
+        for(int i=j+1;i<nums.length;i++){
+
+            if(nums[i]!=0){
+                swap(nums,i,j);
+                j++;
+            }
+        }
+    }
+}
+```
+
 ### Problem: [confirmation rate](https://leetcode.com/problems/confirmation-rate/)
 
 ```java
 /* Write your PL/SQL query statement below */
 
 select  s.user_id ,round(avg(case when c.action='confirmed' then 1 else 0 end),2) as confirmation_rate from signups s left join confirmations c on s.user_id=c.user_id group by s.user_id;
+```
+
+### Problem: [confirmation rate](https://leetcode.com/problems/confirmation-rate/)
+
+```java
+/* Write your PL/SQL query statement below */
+-- select  user_id ,count(case when action='confirmed' then 1 end)/ count(*) as confirmation_rate from confirmations group by user_id;
+
+select  s.user_id ,round(avg(case when c.action='confirmed' then 1 else 0 end),2) as confirmation_rate from signups s left join confirmations c on s.user_id=c.user_id group by s.user_id;
+
+-- with jointest as(
+--     select *
+--      from signups s left join confirmations c on s.user_id=c.user_id; 
+-- )
+-- select * from jointest;
+```
+
+### Problem: [confirmation rate](https://leetcode.com/problems/confirmation-rate/)
+
+```java
+/* Write your PL/SQL query statement below */
+-- select  user_id ,count(case when action='confirmed' then 1 end)/ count(*) as confirmation_rate from confirmations group by user_id;
+
+select  s.user_id ,round(count(case when c.action='confirmed' then 1 end)/ count(s.user_id),2) as confirmation_rate from signups s left join confirmations c on s.user_id=c.user_id group by s.user_id;
+
+-- with jointest as(
+--     select *
+--      from signups s left join confirmations c on s.user_id=c.user_id; 
+-- )
+-- select * from jointest;
 ```
 
 ### Problem: [not boring movies](https://leetcode.com/problems/not-boring-movies/)
@@ -6265,6 +10675,16 @@ select  s.user_id ,round(avg(case when c.action='confirmed' then 1 else 0 end),2
 select * from cinema where 
 description<>'boring' and
 mod(id,2) <>0 
+order by rating desc;
+```
+
+### Problem: [not boring movies](https://leetcode.com/problems/not-boring-movies/)
+
+```java
+/* Write your PL/SQL query statement below */
+select * from cinema where 
+mod(id,2) <>0 and
+description<>'boring' 
 order by rating desc;
 ```
 
@@ -6282,6 +10702,115 @@ order by rating desc;
 -- (select count(e2.id) from employee e2 where e2.managerId=e1.id)>=5) ;
 
 select Employee.name from Employee, (select * from (SELECT managerId, count(managerId) as count FROM Employee GROUP BY managerId) where count >=5) E2 where Employee.id = E2.managerId
+```
+
+### Problem: [managers with at least 5 direct reports](https://leetcode.com/problems/managers-with-at-least-5-direct-reports/)
+
+```java
+/* Write your PL/SQL query statement below */
+-- SELECT e1.name from employee e1 self join employee e2 on
+-- e1.managerId=null 
+-- having ( count(e2.id)>5 and e1.id=e2.managerId);
+
+
+SELECT  name from employee where id in (select distinct e1.id from employee e1 join employee e2 on
+e1.id=e2.managerId where 
+(select count(e2.id) from employee e2 where e2.managerId=e1.id)>=5) ;
+
+-- select Employee.name from Employee, (select * from (SELECT managerId, count(managerId) as count FROM Employee GROUP BY managerId) where count >=5) E2 where Employee.id = E2.managerId
+```
+
+### Problem: [managers with at least 5 direct reports](https://leetcode.com/problems/managers-with-at-least-5-direct-reports/)
+
+```java
+/* Write your PL/SQL query statement below */
+-- SELECT e1.name from employee e1 self join employee e2 on
+-- e1.managerId=null 
+-- having ( count(e2.id)>5 and e1.id=e2.managerId);
+
+
+-- SELECT  name from employee where id in (select distinct e1.id from employee e1 join employee e2 on
+-- e1.id=e2.managerId where 
+-- (select count(e2.id) from employee e2 where e2.managerId=e1.id)>=5) ;
+
+select Employee.name from Employee, (select * from (SELECT managerId, count(managerId) as count FROM Employee GROUP BY managerId) where count >=5) E2 where Employee.id = E2.managerId
+```
+
+### Problem: [managers with at least 5 direct reports](https://leetcode.com/problems/managers-with-at-least-5-direct-reports/)
+
+```java
+/* Write your PL/SQL query statement below */
+-- SELECT e1.name from employee e1 self join employee e2 on
+-- e1.managerId=null 
+-- having ( count(e2.id)>5 and e1.id=e2.managerId);
+
+
+-- SELECT  name from employee where id in (select distinct e1.id from employee e1 join employee e2 on
+-- e1.id=e2.managerId where 
+-- (select count(e2.id) from employee e2 where e2.managerId=e1.id)>=5) ;
+
+select Employee.name from Employee, (select * from (SELECT managerId, count(managerId) as count FROM Employee GROUP BY managerId) where count >=5) E2 where Employee.id = E2.managerId
+```
+
+### Problem: [managers with at least 5 direct reports](https://leetcode.com/problems/managers-with-at-least-5-direct-reports/)
+
+```java
+/* Write your PL/SQL query statement below */
+-- SELECT e1.name from employee e1 self join employee e2 on
+-- e1.managerId=null 
+-- having ( count(e2.id)>5 and e1.id=e2.managerId);
+SELECT  name from employee where id in (select distinct e1.id from employee e1 join employee e2 on
+e1.id=e2.managerId where 
+(select count(e2.id) from employee e2 where e2.managerId=e1.id)>=5) ;
+```
+
+### Problem: [coin change](https://leetcode.com/problems/coin-change/)
+
+```java
+/**
+ * @param {number[]} coins
+ * @param {number} amount
+ * @return {number}
+ */
+
+//  function coinChange(coins, amount) {
+//     if (amount < 1)
+//         return 0;
+//     else
+//         return coinChangeSub(coins, amount, Array(amount).fill(0));
+// }
+
+function coinChangeSub(coins, amountRemaining, solutions) {
+    if (amountRemaining < 0) return -1;
+    if (amountRemaining === 0) return 0;
+    
+    if (solutions[amountRemaining - 1] !== 0)
+        return solutions[amountRemaining - 1];
+
+    var optimalSolution = Infinity;
+    
+    // Determine the optimal coin
+    for (const coin of coins) {
+        var solutionUsingThisCoin = coinChangeSub(coins, amountRemaining - coin, solutions);
+        if (solutionUsingThisCoin >= 0 && solutionUsingThisCoin < optimalSolution) {
+            optimalSolution = solutionUsingThisCoin + 1;
+        }
+    }
+    
+    if (optimalSolution === Infinity)
+        solutions[amountRemaining - 1] = -1;
+    else
+        solutions[amountRemaining - 1] = optimalSolution;
+
+    return solutions[amountRemaining - 1];
+}
+
+var coinChange = function(coins, amount) {
+     if (amount < 1)
+        return 0;
+    else
+        return coinChangeSub(coins, amount, Array(amount).fill(0));
+};
 ```
 
 ### Problem: [students and examinations](https://leetcode.com/problems/students-and-examinations/)
@@ -6304,6 +10833,67 @@ ORDER BY
     s.student_id,
     sub.subject_name;
 
+```
+
+### Problem: [students and examinations](https://leetcode.com/problems/students-and-examinations/)
+
+```java
+/* Write your PL/SQL query statement below */
+-- SELECT
+--     s.student_id,
+--     s.student_name,
+--     sub.subject_name,
+--     COUNT(e.student_id) as attended_exams
+-- FROM
+--     students s
+-- CROSS JOIN
+--     subjects sub
+-- LEFT JOIN
+--     examinations e ON s.student_id = e.student_id AND sub.subject_name = e.subject_name
+-- GROUP BY
+--     s.student_id,
+--     s.student_name,
+--     sub.subject_name
+-- ORDER BY
+--     s.student_id,
+--     sub.subject_name;
+select s1.student_id , s1.student_name , s2.subject_name , count(s3.subject_name) as "attended_exams" from Students s1 cross join Subjects s2 left outer join Examinations s3
+on s1.student_id = s3.student_id and s2.subject_name = s3.subject_name
+group by s1.student_id , s1.student_name , s2.subject_name
+order by s1.student_id , s2.subject_name
+```
+
+### Problem: [students and examinations](https://leetcode.com/problems/students-and-examinations/)
+
+```java
+/* Write your PL/SQL query statement below */
+SELECT
+    s.student_id,
+    s.student_name,
+    sub.subject_name,
+    COUNT(e.student_id) as attended_exams
+FROM
+    students s
+CROSS JOIN
+    subjects sub
+LEFT JOIN
+    examinations e ON s.student_id = e.student_id AND sub.subject_name = e.subject_name
+GROUP BY
+    s.student_id,
+    s.student_name,
+    sub.subject_name
+ORDER BY
+    s.student_id,
+    sub.subject_name;
+
+```
+
+### Problem: [employee bonus](https://leetcode.com/problems/employee-bonus/)
+
+```java
+/* Write your PL/SQL query statement below */
+select e.name,b.bonus from Employee e left join Bonus b on  e.empId=b.empId 
+where (b.bonus<1000 or b.bonus is null);
 ```
 
 ### Problem: [employee bonus](https://leetcode.com/problems/employee-bonus/)
@@ -6345,6 +10935,22 @@ GROUP BY
 
 ```
 
+### Problem: [average time of process per machine](https://leetcode.com/problems/average-time-of-process-per-machine/)
+
+```java
+/* Write your PL/SQL query statement below */
+-- with processing_time(
+    
+-- )
+select a.machine_id,
+    round(Sum(a.timestamp - b.timestamp)/count(a.machine_id),3) as processing_time
+    from activity a join activity b on
+a.machine_id= b.machine_id 
+where a.activity_type='end' and b.activity_type='start'
+group by a.machine_id;
+
+```
+
 ### Problem: [rising temperature](https://leetcode.com/problems/rising-temperature/)
 
 ```java
@@ -6352,6 +10958,57 @@ GROUP BY
 -- select id from (Weather w1 self join weather w2 using id)  where (w1.id>w2.id and w1.recordDate-w2.recordDate=1 and w1.temperature> w2.temperature);
 
 select w1.id from Weather w1 inner join Weather w2 on w1.recordDate-1=w2.recordDate and w1.temperature> w2.temperature;
+```
+
+### Problem: [valid palindrome](https://leetcode.com/problems/valid-palindrome/)
+
+```java
+
+    class Solution {
+    public boolean isPalindrome(String s) {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < s.length(); i++){
+            if(s.charAt(i) >= 'A' && s.charAt(i) <= 'Z'){
+                sb.append((char)(s.charAt(i)+32));
+            }
+            if(s.charAt(i) >= 'a' && s.charAt(i) <= 'z' || s.charAt(i) >= '0' && s.charAt(i) <= '9'){
+                sb.append(s.charAt(i));
+            }
+        }
+        boolean check = true;
+        int start = 0;
+        int end = sb.length()-1;
+        while(start<end){
+            char char1 = sb.charAt(start);
+            char char2 = sb.charAt(end);
+            if(char1 != char2){
+                check = false;
+                break;
+            }
+            start++;
+            end--;
+        }
+        return check;
+    }
+
+}
+```
+
+### Problem: [valid palindrome](https://leetcode.com/problems/valid-palindrome/)
+
+```java
+class Solution {
+    boolean helper(String str, int i){
+        if(i>=str.length()/2) return true;
+
+        return str.charAt(i)== str.charAt(str.length()-i-1) && helper(str,i+1);
+    }
+    public boolean isPalindrome(String s) {
+        s=s.replaceAll("[^a-zA-Z0-9]", "");
+        s=s.replace(" ","");
+        return helper(s.toLowerCase(),0);
+    }
+}
 ```
 
 ### Problem: [fibonacci number](https://leetcode.com/problems/fibonacci-number/)
@@ -6365,6 +11022,19 @@ class Solution {
         if (n <= 2){
             return 1;
         }
+
+        return fib(n-1)+fib(n-2);
+    }
+}
+```
+
+### Problem: [fibonacci number](https://leetcode.com/problems/fibonacci-number/)
+
+```java
+class Solution {
+    public int fib(int n) {
+        if(n==0|| n==1)
+            return n;
 
         return fib(n-1)+fib(n-2);
     }
@@ -6400,6 +11070,32 @@ select tweet_id from tweets where length(content)>15;
 select name , population, area from world where area>=3000000 or population>=25000000;
 ```
 
+### Problem: [big countries](https://leetcode.com/problems/big-countries/)
+
+```java
+# Write your MySQL query statement below
+select name , population, area from world where area>=3000000 or population>=25000000;
+```
+
+### Problem: [rotate image](https://leetcode.com/problems/rotate-image/)
+
+```java
+class Solution {
+    public void rotate(int[][] mat) {
+       int m=mat.length;
+       
+       int[][] mat2= new int[m][m];
+       for(int i=0;i<m;i++)
+        for(int j=0;j<m;j++)
+            mat2[i][j]=mat[i][j];
+
+        for(int i=0;i<m;i++)
+            for(int j=m-1,k=0;j>=0;j--,k++)
+                mat[i][k]=mat2[j][i];
+    }
+}
+```
+
 ### Problem: [customer who visited but did not make any transactions](https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/)
 
 ```java
@@ -6432,6 +11128,126 @@ select name from customer where referee_id <> 2 or referee_id is null;
 ```java
 /* Write your PL/SQL query statement below */
 select product_id from products where low_fats='Y' and recyclable='Y';
+```
+
+### Problem: [best time to buy and sell stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        
+        int min = prices[0], max = 0;
+        for(int i = 1;i<prices.length;i++){
+            max = Math.max(max, prices[i]-min);
+            min = Math.min(min, prices[i]);
+        }
+        return max;
+    }
+}
+```
+
+### Problem: [best time to buy and sell stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        
+        //? minimum stock
+        int buyStock= Integer.MAX_VALUE;
+        //? max stock - min stock
+        int profit=0;
+
+        for(int i=0;i<prices.length;i++){
+            if(buyStock>prices[i]){
+                buyStock=prices[i];
+            }else{
+                profit= Math.max(profit,prices[i]-buyStock);
+            }
+        }
+        return profit;
+    }
+}
+```
+
+### Problem: [majority element](https://leetcode.com/problems/majority-element/)
+
+```java
+class Solution {
+    public int majorityElement(int[] nums) {
+       int count=1;
+       int result=nums[0];
+
+       for(int i=1;i<nums.length;i++){
+           if(count==0) 
+               result=nums[i];
+           if(nums[i]==result) count++;
+           else count--;
+       }
+       return result;
+
+    }
+}
+```
+
+### Problem: [majority element](https://leetcode.com/problems/majority-element/)
+
+```java
+import java.util.Arrays;
+class Solution {
+    public int majorityElement(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length/2];
+        // int p1=0,p2=0;
+        // int count=0;
+        // while(p2!=nums.length){
+        //     if(nums[p1]==nums[p2]){
+        //         count++;
+        //         p2++;
+
+        //         if(count>nums.length/2) {
+        //             return nums[p1];
+        //         }
+        //     }
+        //     else{
+        //         p1=p2;
+        //         p2++;
+        //     }
+            
+        // }
+        // return -1;
+
+    }
+}
+```
+
+### Problem: [majority element](https://leetcode.com/problems/majority-element/)
+
+```java
+import java.util.Arrays;
+class Solution {
+    public int majorityElement(int[] nums) {
+        Arrays.sort(nums);
+        int p1=0,p2=0;
+        int count=0;
+        while(p2!=nums.length){
+            if(nums[p1]==nums[p2]){
+                count++;
+                p2++;
+
+                if(count>nums.length/2) {
+                    return nums[p1];
+                }
+            }
+            else{
+                p1=p2;
+                p2++;
+            }
+            
+        }
+        return -1;
+
+    }
+}
 ```
 
 ### Problem: [design hashmap](https://leetcode.com/problems/design-hashmap/)
@@ -6559,6 +11375,48 @@ public:
      }
      head=temp->next;
      temp->next=nullptr;
+     return head;
+    }
+};
+```
+
+### Problem: [rotate list](https://leetcode.com/problems/rotate-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int getLength(ListNode* head){
+     ListNode* temp=head;
+     int length=0;  
+     while(temp){
+          length++;
+          temp=temp->next;
+     }
+     return length;
+    }
+    ListNode* rotateRight(ListNode* head, int k) {
+    if(!head || !head->next) return head;
+    ListNode* temp;
+    ListNode* start;
+    int length=getLength(head);
+     for(int i=0;i<k%length;i++){
+          temp=head;
+          while(temp->next->next!=nullptr) temp=temp->next;
+          start=temp->next;
+          temp->next=nullptr;
+          start->next=head;
+          head=start;
+     }
      return head;
     }
 };
@@ -6712,6 +11570,54 @@ public:
 };
 ```
 
+### Problem: [intersection of two linked lists](https://leetcode.com/problems/intersection-of-two-linked-lists/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int size1=0;
+        int size2=0;
+        ListNode* temp=headA;
+        while(temp){
+            temp=temp->next;
+            size1++;
+        }
+        temp=headB;
+        while(temp){
+            temp=temp->next;
+            size2++;
+        }
+
+        if(size1>size2){
+            temp=headA;
+            for(int i=0;(i<size1-size2) && temp;i++) temp=temp->next;
+            headA=temp;
+        }
+        else if(size2>size1) {
+            temp=headB;
+            for(int i=0;(i<size2-size1) && temp;i++) temp=temp->next;
+            headB=temp;
+        }
+        if(headA==headB) return headA;
+        while(headA && headB){
+            if(headA->next==headB->next) return headA->next;
+            headA=headA->next;
+            headB=headB->next;
+        }
+        return nullptr;
+    }
+};
+```
+
 ### Problem: [sort list](https://leetcode.com/problems/sort-list/)
 
 ```java
@@ -6844,6 +11750,91 @@ class Solution {
 }
 ```
 
+### Problem: [sort array by parity](https://leetcode.com/problems/sort-array-by-parity/)
+
+```java
+class Solution {
+    public int[] sortArrayByParity(int[] nums) {
+       int start=0;
+       int end=nums.length-1;
+        if(end==0) return nums;
+       while(start<end){
+           if(nums[start]%2==0) start++;
+            else if(nums[end]%2!=0) end--;
+           else {
+               int temp=nums[end];
+               nums[end]=nums[start];
+               nums[start]=temp;
+               end--;
+           }
+       }
+       return nums;
+
+
+    }
+}
+```
+
+### Problem: [sort array by parity](https://leetcode.com/problems/sort-array-by-parity/)
+
+```java
+class Solution {
+    public int[] sortArrayByParity(int[] nums) {
+        boolean swapped=false;
+
+        for(int i=0;i<nums.length;i++){
+            for(int j=0;j<nums.length-i-1;j++){
+                if(nums[j]%2!=0){
+                    int temp= nums[j];
+                    nums[j]=nums[j+1];
+                    nums[j+1]=temp;
+                    swapped=true;
+                }
+            }
+            if(!swapped) return nums;
+        }
+        return nums;
+    }
+}
+```
+
+### Problem: [remove nth node from end of list](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(!head || !head->next) return nullptr;
+        ListNode* fast=head;
+        ListNode* slow=head;
+
+        for(int i=0;i<n;i++)
+            fast=fast->next;
+
+        if(!fast){
+            slow=slow->next;
+            return slow;
+        }
+        while(fast->next){
+            slow=slow->next;
+            fast=fast->next;
+        }
+        slow->next= slow->next->next;
+        return head;
+    }
+};
+```
+
 ### Problem: [odd even linked list](https://leetcode.com/problems/odd-even-linked-list/)
 
 ```java
@@ -6899,6 +11890,34 @@ public:
 };
 ```
 
+### Problem: [reverse linked list](https://leetcode.com/problems/reverse-linked-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+       ListNode *newHead = NULL;
+        while (head != NULL) {
+            ListNode *next = head->next;
+            head->next = newHead;
+            newHead = head;
+            head = next;
+        }
+        return newHead;
+    }
+};
+```
+
 ### Problem: [palindrome linked list](https://leetcode.com/problems/palindrome-linked-list/)
 
 ```java
@@ -6948,6 +11967,55 @@ public:
 };
 ```
 
+### Problem: [palindrome linked list](https://leetcode.com/problems/palindrome-linked-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode* slow=head;
+        ListNode* fast=head;
+
+        while(fast && fast->next){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+
+        if(fast && fast->next)
+            slow=slow->next;
+
+        ListNode* temp=nullptr;
+        ListNode* previous=nullptr;
+
+        while(slow!=nullptr && slow->next!=nullptr){
+            temp=slow->next;
+            slow->next=previous;
+            previous=slow;
+            slow=temp;
+        }
+
+        if(slow!=nullptr) slow->next=previous;
+        fast=head;
+        while(slow!=nullptr){
+            if(slow->val!=fast->val) return false;
+            slow=slow->next;
+            fast=fast->next;    
+        }
+        return true;
+    }
+};
+```
+
 ### Problem: [linked list cycle ii](https://leetcode.com/problems/linked-list-cycle-ii/)
 
 ```java
@@ -6982,6 +12050,103 @@ public:
 };
 ```
 
+### Problem: [linked list cycle ii](https://leetcode.com/problems/linked-list-cycle-ii/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        // if(!head || !head->next) return nullptr;
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast && fast->next ){
+            fast=fast->next->next;
+            slow=slow->next;
+            if(slow==fast){
+                slow=head;
+                while(slow!=fast){
+                    slow=slow->next;
+                    fast=fast->next;
+                }
+                return slow;
+            }
+        }
+        return nullptr;
+    }
+};
+```
+
+### Problem: [linked list cycle ii](https://leetcode.com/problems/linked-list-cycle-ii/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if(!head || !head->next) return nullptr;
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast && fast->next ){
+            fast=fast->next->next;
+            slow=slow->next;
+            if(slow && fast && slow==fast){
+                slow=head;
+                while(slow!=fast){
+                    slow=slow->next;
+                    fast=fast->next;
+                }
+                return slow;
+            }
+        }
+        return nullptr;
+    }
+};
+```
+
+### Problem: [linked list cycle](https://leetcode.com/problems/linked-list-cycle/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if(!head || !head->next) return false;
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast && fast->next ){
+            fast=fast->next->next;
+            if(slow && fast && slow->next==fast->next) return true;
+            if(fast==head) return false;
+            slow=slow->next;
+        }
+        return false;
+
+    }
+};
+```
+
 ### Problem: [delete the middle node of a linked list](https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/)
 
 ```java
@@ -7009,6 +12174,231 @@ public:
         }
         beforeSlow->next=slow->next;
         return head;
+    }
+};
+```
+
+### Problem: [delete the middle node of a linked list](https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        if(!head || !head->next) return nullptr;
+        ListNode* fast= head;
+        ListNode* slow= head;
+        ListNode* beforeSlow= nullptr;
+        while(fast && fast->next){
+            beforeSlow=slow;
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+
+        beforeSlow->next=slow->next;
+        return head;
+    }
+};
+```
+
+### Problem: [delete the middle node of a linked list](https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        if(!head || !head->next) return nullptr;
+        ListNode* fast= head;
+        ListNode* slow= head;
+        ListNode* beforeSlow= nullptr;
+        while(fast && fast->next){
+            fast=fast->next->next;
+
+            beforeSlow=slow;
+            slow=slow->next;
+        }
+
+        beforeSlow->next=slow->next;
+        return head;
+    }
+};
+```
+
+### Problem: [delete the middle node of a linked list](https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        if(!head || !head->next) return nullptr;
+        ListNode* fast= head;
+        ListNode* slow= head;
+        ListNode* beforeSlow= head;
+        while(fast && fast->next){
+            fast=fast->next->next;
+
+            beforeSlow=slow;
+            slow=slow->next;
+        }
+
+        beforeSlow->next=slow->next;
+        return head;
+    }
+};
+```
+
+### Problem: [middle of the linked list](https://leetcode.com/problems/middle-of-the-linked-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* fast= head;
+        ListNode* slow =head;
+        while(fast && fast->next){
+            fast=fast->next->next;
+
+            slow=slow->next;
+        }
+        return slow;
+    }
+};
+```
+
+### Problem: [middle of the linked list](https://leetcode.com/problems/middle-of-the-linked-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* fast= head;
+        ListNode* slow =head;
+        while(fast && fast->next){
+            fast=fast->next->next;
+
+            slow=slow->next;
+        }
+        return slow;
+    }
+};
+```
+
+### Problem: [middle of the linked list](https://leetcode.com/problems/middle-of-the-linked-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        if(head==nullptr || head->next==nullptr) return head;
+        ListNode* temp=head;
+        int length=1;
+        while(temp->next!=nullptr){
+            length++;
+            temp=temp->next;
+        }
+
+        temp=head;
+        for(int i=0;i<length/2;i++){
+            temp=temp->next;
+        }
+        
+        return temp;
+    }
+};
+```
+
+### Problem: [reverse linked list](https://leetcode.com/problems/reverse-linked-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head==nullptr || head->next==nullptr) return head;
+       
+    ListNode* saveHead=head;
+    ListNode* temp= head->next;
+    ListNode* previous= head;
+    
+    while(temp->next!=nullptr){
+        head=temp;
+        temp=temp->next;
+        head->next=previous;
+        previous=head;
+    }
+
+    head=temp;
+    head->next=previous;
+    saveHead->next=nullptr;
+    return head;
     }
 };
 ```
@@ -7062,6 +12452,17 @@ public:
     return 0;
     }
 };
+```
+
+### Problem: [rotate string](https://leetcode.com/problems/rotate-string/)
+
+```java
+class Solution {
+    public boolean rotateString(String s, String goal) {
+        s= s+s;
+        return s.contains(goal) && (s.length()/2==goal.length());
+    }
+}
 ```
 
 ### Problem: [remove outermost parentheses](https://leetcode.com/problems/remove-outermost-parentheses/)
@@ -7160,6 +12561,47 @@ class Solution {
 }
 ```
 
+### Problem: [rearrange array elements by sign](https://leetcode.com/problems/rearrange-array-elements-by-sign/)
+
+```java
+class Solution {
+    public int[] rearrangeArray(int[] nums) {
+        int even=0,odd=0;
+        int[] answer = new int[nums.length];
+        int index=0;
+        while(index<nums.length ){
+            if( even<nums.length && nums[even]<0 ){
+                even++; continue;
+            }
+            if( odd<nums.length && nums[odd]>0){
+                odd++; continue;
+            }
+
+            if(index%2==0){ 
+                answer[index]=nums[even];
+                even++;
+            }else{ 
+                answer[index]=nums[odd];
+                odd++;
+            }
+            index++;
+
+        }
+        return answer;
+    }
+}
+```
+
+### Problem: [sort colors](https://leetcode.com/problems/sort-colors/)
+
+```java
+class Solution {
+    public void sortColors(int[] nums) {
+        Arrays.sort(nums);
+    }
+}
+```
+
 ### Problem: [two sum](https://leetcode.com/problems/two-sum/)
 
 ```java
@@ -7177,6 +12619,39 @@ class Solution {
         }
         return new int[] {};
   }
+}
+```
+
+### Problem: [two sum](https://leetcode.com/problems/two-sum/)
+
+```java
+class Solution {
+
+  
+    
+    public int[] twoSum(int[] nums, int target) {
+    
+       int[][] numsWithIndex = new int[nums.length][2];
+    for (int i = 0; i < nums.length; i++) {
+        numsWithIndex[i][0] = nums[i];
+        numsWithIndex[i][1] = i;
+    }
+
+
+    Arrays.sort(numsWithIndex, Comparator.comparingInt(arr -> arr[0]));
+    int left = 0, right = nums.length - 1;
+    while (left < right) {
+        int sum = numsWithIndex[left][0] + numsWithIndex[right][0];
+        if (sum == target) {
+            return new int[] {numsWithIndex[left][1], numsWithIndex[right][1]};
+        } else if (sum < target) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    return new int[]{}; // No solution found!
+    }
 }
 ```
 
@@ -7203,6 +12678,190 @@ class Solution {
         //? missingNumber = arr[high]-(high +1) = arr[high] -start
         //? ans =  arr[high] + k -(arr[high] - start) =  start+k 
         return start+k; 
+    }
+}
+```
+
+### Problem: [kth missing positive number](https://leetcode.com/problems/kth-missing-positive-number/)
+
+```java
+class Solution {
+    public static boolean binarySearch(int[] arr,int target){
+        int start=0,end=arr.length-1;
+        int mid;
+        while(start<=end){
+            mid=(start+end)/2;
+
+            if(arr[mid]==target)
+                return true;
+            else if(target>arr[mid])
+                start=mid+1;
+            else end= mid-1;
+        }
+        return false;
+    }
+    public int findKthPositive(int[] arr, int k) {
+        int i=0;
+        int j=1;
+        int num=j;
+        while(i<k){
+            if(!binarySearch(arr,j)){
+                num=j;
+                i++;             
+              }
+            
+            j++;
+            
+        }
+        return num;
+    }
+}
+```
+
+### Problem: [single element in a sorted array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
+
+```java
+class Solution {
+    
+        public int singleNonDuplicate(int[] nums) {
+    int start = 0, end = nums.length - 1;
+    
+    while (start < end) {
+        int mid = start + (end - start) / 2;
+        
+        // Check if mid is even and the next element is the same.
+        if (mid % 2 == 0 && nums[mid] == nums[mid + 1]) {
+            start = mid + 2; // Move two steps to the right.
+        } 
+        // Check if mid is odd and the previous element is the same.
+        else if (mid % 2 == 1 && nums[mid] == nums[mid - 1]) {
+            start = mid + 1; // Move one step to the right.
+        } 
+        // Otherwise, the single element must be to the left of mid.
+        else {
+            end = mid;
+        }
+    }
+    
+    return nums[start];
+
+
+    }
+}
+```
+
+### Problem: [single element in a sorted array](https://leetcode.com/problems/single-element-in-a-sorted-array/)
+
+```java
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+
+        int start=0,end=nums.length-1,mid;
+        if(end==0) return nums[0];
+        while(start<=end){
+            mid = (end+start)/2;
+            boolean isNotEqualPrevious=mid == 0 || nums[mid]!=nums[mid-1];
+            boolean isNotEqualNext=mid == nums.length-1 || nums[mid]!=nums[mid+1];
+            if(isNotEqualPrevious&&isNotEqualNext)
+                return nums[mid];
+            else if(!isNotEqualPrevious){
+                if((mid-1-start)%2==0)
+                    start=mid+1;
+                else end=mid-2;
+                // else start=mid+1;
+            }
+            else {
+                if((mid-start)%2==0)
+                 start=mid+2;
+                else end=mid-1;
+            }
+        }
+        return -1;
+    }
+}
+```
+
+### Problem: [merge sorted array](https://leetcode.com/problems/merge-sorted-array/)
+
+```java
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+    int[] mix=new int[m+n];
+
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        //int p = m+n;
+        
+        while(i<m && j<n){
+            if(nums1[i] < nums2[j]){
+                mix[k]=nums1[i];
+                i++;
+            }else{
+                mix[k]=nums2[j];
+                j++;
+            }
+            k++;
+        }
+        while(i < m){
+            mix[k]=nums1[i];
+            i++;
+            k++;
+        }
+        while(j< n){
+            mix[k]=nums2[j];
+            j++;
+            k++;
+        }
+        for(int l=0;l<mix.length;l++){
+            nums1[l]=mix[l];
+        }
+    }
+}
+```
+
+### Problem: [merge sorted array](https://leetcode.com/problems/merge-sorted-array/)
+
+```java
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        // if(m==0) {
+        //     nums1=nums2;
+        //     return;
+        // }
+        // if(n==0){
+        //     return;
+        // }
+
+        // int i=0;
+        // int j=0;
+
+        // while(i<m && j<n){
+        //     if(nums1[i]<nums2[j]) i++;
+        //     else if(nums1[i]>nums2[j]){
+        //         int temp= nums1[i];
+        //         nums1[i]=nums2[j];
+        //         nums2[j]=temp;
+        //         i++;
+        //     }else{
+        //         int temp= nums1[i+1];
+        //         nums1[i+1]=nums2[j];
+        //         nums2[j]=temp;
+        //         i++; 
+        //     }
+
+        // }
+        
+        // while(j<n){
+        //     nums1[i]=nums2[j];
+        //     j++;
+        // }
+        for (int j = 0, i = m; j < n; j++) {
+            nums1[i] = nums2[j];
+            i++;
+        }
+        Arrays.sort(nums1);
+        
     }
 }
 ```

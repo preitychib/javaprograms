@@ -1,0 +1,254 @@
+[
+  {
+    "question_id": 1,
+    "code": "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        int n = nums.size();\n        for (int i = 0; i < n - 1; i++) {\n            for (int j = i + 1; j < n; j++) {\n                if (nums[i] + nums[j] == target) {\n                    return {i, j};\n                }\n            }\n        }\n        return {}; \n    }\n};",
+    "title_slug": "two-sum",
+    "problem_url": "https://leetcode.com/problems/two-sum/"
+  },
+  {
+    "question_id": 792,
+    "code": "class Solution {\n    public int search(int[] nums, int target) {\n       int start=0;\n       int end=nums.length-1;\n       int mid;\n        while(start<=end){\n            mid=(start+end)/2;\n            if(nums[mid]<target)\n                start=mid+1;\n            else if(nums[mid]>target)\n                end=mid-1;\n            else \n                return mid;\n        }\n        return -1;\n    }\n}",
+    "title_slug": "binary-search",
+    "problem_url": "https://leetcode.com/problems/binary-search/"
+  },
+  {
+    "question_id": 136,
+    "code": "class Solution {\n    public int singleNumber(int[] nums) {\n        int ans=nums[0];\n        for(int i=1;i<nums.length;i++)\n            ans^=nums[i];\n        return ans;\n    }\n}",
+    "title_slug": "single-number",
+    "problem_url": "https://leetcode.com/problems/single-number/"
+  },
+  {
+    "question_id": 231,
+    "code": "class Solution {\n    public boolean isPowerOfTwo(int n) {\n      if(n<1) return false;\n       if((n&(n-1))==0) return true;\n       \n       return false;\n    }\n}",
+    "title_slug": "power-of-two",
+    "problem_url": "https://leetcode.com/problems/power-of-two/"
+  },
+  {
+    "question_id": 485,
+    "code": "class Solution {\n    public int findMaxConsecutiveOnes(int[] nums) {\n        int count=0;\n        int countMax=0;\n        for(int i=0;i<nums.length;i++){\n               if(nums[i]==1 )\n               {\n                  count++;\n               }else {\n\n                if(countMax<count) countMax=count;\n\n                   count=0;\n                }\n        }\n        if(countMax<count) countMax=count;\n        return countMax;\n    }\n}",
+    "title_slug": "max-consecutive-ones",
+    "problem_url": "https://leetcode.com/problems/max-consecutive-ones/"
+  },
+  {
+    "question_id": 189,
+    "code": "class Solution {\n\n    public void reverse(int[] a,int l,int u){\n        while(l<u){\n            int temp = a[l];\n            a[l]=a[u];\n            a[u]=temp;\n            l++;\n            u--;\n        }\n    }\n    public void rotate(int[] nums, int k) { \n        k%=nums.length;\n        int n =nums.length-1;\n        reverse(nums,0,n);\n        reverse(nums,0,k-1);\n        reverse(nums,k,n);\n    }\n}",
+    "title_slug": "rotate-array",
+    "problem_url": "https://leetcode.com/problems/rotate-array/"
+  },
+  {
+    "question_id": 283,
+    "code": "class Solution {\n    public void moveZeroes(int[] nums) {\n        for(int i=0;i<nums.length;i++){\n            for(int j=0;j<nums.length-1;j++){\n                if(nums[j]==0)\n                  {  int temp=nums[j];\n                    nums[j]=nums[j+1];\n                    nums[j+1]=temp;}\n            }\n        }\n    }\n}",
+    "title_slug": "move-zeroes",
+    "problem_url": "https://leetcode.com/problems/move-zeroes/"
+  },
+  {
+    "question_id": 283,
+    "code": "class Solution {\n    public void moveZeroes(int[] nums) {\n        for(int i=0;i<nums.length;i++){\n            for(int j=0;j<nums.length-1;j++){\n                if(nums[j]==0)\n                  {  int temp=nums[j];\n                    nums[j]=nums[j+1];\n                    nums[j+1]=temp;}\n            }\n        }\n    }\n}",
+    "title_slug": "move-zeroes",
+    "problem_url": "https://leetcode.com/problems/move-zeroes/"
+  },
+  {
+    "question_id": 7,
+    "code": "class Solution {\n    public int reverse(int x) {\n        \n        int temp=x;\n        int rev=0;\n        int mod=0;\n        int max= (int)Math.pow(2,31)-1;\n        int min= (int)Math.pow(2,31);\n        while(temp!=0){\n            if(rev>max/10 || rev< -min/10)\n                return 0;\n            mod=x>0?temp%10:temp%-10;\n            rev= rev*10+ mod;\n            temp/=10;\n        }\n        return rev;\n    }\n}",
+    "title_slug": "reverse-integer",
+    "problem_url": "https://leetcode.com/problems/reverse-integer/"
+  },
+  {
+    "question_id": 7,
+    "code": "class Solution {\n    public int reverse(int x) {\n        \n        int temp=x;\n        int rev=0;\n        int mod=0;\n        while(temp!=0){\n            if(rev>2147483647/10 || rev< -2147483648/10)\n                return 0;\n            mod=x>0?temp%10:temp%-10;\n            rev= rev*10+ mod;\n            temp/=10;\n        }\n        return rev;\n    }\n}",
+    "title_slug": "reverse-integer",
+    "problem_url": "https://leetcode.com/problems/reverse-integer/"
+  },
+  {
+    "question_id": 26,
+    "code": "class Solution {\n    public int removeDuplicates(int[] nums) {\n       \n        int p1=0;\n        for(int p2=1;p2<nums.length;p2++){\n            if(nums[p1]!=nums[p2]) {\n                nums[p1+1]=nums[p2];\n                p1++;\n            }\n        }\n        return p1+1;\n    }\n}",
+    "title_slug": "remove-duplicates-from-sorted-array",
+    "problem_url": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/"
+  },
+  {
+    "question_id": 861,
+    "code": "class Solution {\n    public int[][] flipAndInvertImage(int[][] image) {\n        \n        for(int i=0;i<image.length;i++){\n            for(int j=0;j<(image[i].length+1)/2;j++){\n                int temp = image[i][j]^1;\n                image[i][j]=image[i][image[i].length-j-1]^1;\n                image[i][image[i].length-j-1]= temp;\n            }\n            \n        }\n\n        return image;\n    }\n}",
+    "title_slug": "flipping-an-image",
+    "problem_url": "https://leetcode.com/problems/flipping-an-image/"
+  },
+  {
+    "question_id": 861,
+    "code": "class Solution {\n    public int[][] flipAndInvertImage(int[][] image) {\n        \n        for(int i=0;i<image.length;i++){\n            for(int j=0;j<(image[i].length+1)/2;j++){\n                int temp = image[i][j]^1;\n                image[i][j]=image[i][image[i].length-j-1]^1;\n                image[i][image[i].length-j-1]= temp;\n            }\n            // if(image[i].length/2 %2!=0)\n            //  image[i][image[i].length/2]^=1;\n        }\n\n        return image;\n    }\n}",
+    "title_slug": "flipping-an-image",
+    "problem_url": "https://leetcode.com/problems/flipping-an-image/"
+  },
+  {
+    "question_id": 81,
+    "code": "class Solution {\n\n    public int binarySearch(int[] arr,int s, int e,int t){\n        int m;\n        while(s<=e){\n            m=(s+e)/2;\n            if(arr[m]>t) e=m-1;\n            else if(arr[m]<t) s=m+1;\n            else return m;\n        }\n        return -1;\n    }\n    \n    public int findPivot(int[] arr){\n        int s=0,m,e;\n        e=arr.length-1;\n        while(s<=e){\n            m=(e+s)/2;\n            if(m<e && arr[m]>arr[m+1]) return m;\n            if(m>s && arr[m-1]>arr[m]) return m-1;\n\n            if((arr[s]==arr[m]) && (arr[m]==arr[e])){\n                \n                if(s<e && arr[s]>arr[s+1]) return s;\n                 s++;\n                if(e>s && arr[e]<arr[e-1]) return e-1;\n                e--;\n\n            }else if((arr[m]>arr[s]) ||( arr[m]==arr[s] && arr[m]>arr[e])) s=m+1;\n            else e=m-1 ;\n            \n\n        }\n        return arr.length-1;\n    }\n    public boolean search(int[] nums, int target) {\n        int p;\n        p= findPivot(nums);\n        if(nums[p]==target) return true;\n        int t;\n        \n            t=binarySearch(nums,0,p-1,target);\n        if(t==-1)\n         t=binarySearch(nums,p+1,nums.length-1,target);\n        \n        if(t!=-1) return true;\n        else return false;\n\n        \n    }\n}",
+    "title_slug": "search-in-rotated-sorted-array-ii",
+    "problem_url": "https://leetcode.com/problems/search-in-rotated-sorted-array-ii/"
+  },
+  {
+    "question_id": 81,
+    "code": "class Solution {\n\n    public int binarySearch(int[] arr,int s, int e,int t){\n        int m;\n        while(s<=e){\n            m=(s+e)/2;\n            if(arr[m]>t) e=m-1;\n            else if(arr[m]<t) s=m+1;\n            else return m;\n        }\n        return -1;\n    }\n    \n    public int findPivot(int[] arr){\n        int s=0,m,e;\n        e=arr.length-1;\n        while(s<=e){\n            m=(e+s)/2;\n            if(m<e && arr[m]>arr[m+1]) return m;\n            if(m>s && arr[m-1]>arr[m]) return m-1;\n\n            if((arr[s]==arr[m]) && (arr[m]==arr[e])){\n                \n                if(s<e && arr[s]>arr[s+1]) return s;\n                 s++;\n                if(e>s && arr[e]<arr[e-1]) return e-1;\n                e--;\n\n            }else if((arr[m]>arr[s]) ||( arr[m]==arr[s] && arr[m]>arr[e])) s=m+1;\n            else e=m-1 ;\n            \n\n        }\n        return arr.length-1;\n    }\n    public boolean search(int[] nums, int target) {\n        int p;\n        p= findPivot(nums);\n        if(nums[p]==target) return true;\n        int t;\n        \n            t=binarySearch(nums,0,p-1,target);\n        if(t==-1)\n         t=binarySearch(nums,p+1,nums.length-1,target);\n        \n        if(t!=-1) return true;\n        else return false;\n\n        \n    }\n}",
+    "title_slug": "search-in-rotated-sorted-array-ii",
+    "problem_url": "https://leetcode.com/problems/search-in-rotated-sorted-array-ii/"
+  },
+  {
+    "question_id": 81,
+    "code": "class Solution {\n\n    public int binarySearch(int[] arr,int s, int e,int t){\n        int m;\n        while(s<=e){\n            m=(s+e)/2;\n            if(arr[m]>t) e=m-1;\n            else if(arr[m]<t) s=m+1;\n            else return m;\n        }\n        return -1;\n    }\n    \n    public int findPivot(int[] arr){\n        int s=0,m,e;\n        e=arr.length-1;\n        while(s<=e){\n            m=(e+s)/2;\n            if(m<e && arr[m]>arr[m+1]) return m;\n            if(m>s && arr[m-1]>arr[m]) return m-1;\n\n            if((arr[s]==arr[m]) && (arr[m]==arr[e])){\n                \n                if(s<e && arr[s]>arr[s+1]) return s;\n                 s++;\n                if(e>s && arr[e]<arr[e-1]) return e-1;\n                e--;\n\n            }else if((arr[m]>arr[s]) ||( arr[m]==arr[s] && arr[m]>arr[e])) s=m+1;\n            else e=m-1 ;\n                // if(arr[m]arr[s]) \n            \n\n        }\n        return arr.length-1;\n    }\n    public boolean search(int[] nums, int target) {\n        int p;\n        p= findPivot(nums);\n        if(nums[p]==target) return true;\n        int t;\n        \n            t=binarySearch(nums,0,p-1,target);\n        if(t==-1)\n         t=binarySearch(nums,p+1,nums.length-1,target);\n        \n        if(t!=-1) return true;\n        else return false;\n\n        \n    }\n}",
+    "title_slug": "search-in-rotated-sorted-array-ii",
+    "problem_url": "https://leetcode.com/problems/search-in-rotated-sorted-array-ii/"
+  },
+  {
+    "question_id": 81,
+    "code": "class Solution {\n\n    public int binarySearch(int[] arr,int s, int e,int t){\n        int m;\n        while(s<=e){\n            m=(s+e)/2;\n            if(arr[m]>t) e=m-1;\n            else if(arr[m]<t) s=m+1;\n            else return m;\n        }\n        return -1;\n    }\n    \n    public int findPivot(int[] arr){\n          int start = 0;\n        int end = arr.length - 1;\n        while (start <= end) {\n            int mid = start + (end - start) / 2;\n            // 4 cases over here\n            if (mid < end && arr[mid] > arr[mid + 1]) {\n                return mid;\n            }\n            if (mid > start && arr[mid] < arr[mid - 1]) {\n                return mid-1;\n            }\n\n            // if elements at middle, start, end are equal then just skip the duplicates\n            if (arr[mid] == arr[start] && arr[mid] == arr[end]) {\n                // skip the duplicates\n                // NOTE: what if these elements at start and end were the pivot??\n                // check if start is pivot\n                if (start < end && arr[start] > arr[start + 1]) {\n                    return start;\n                }\n                start++;\n\n                // check whether end is pivot\n                if (end > start && arr[end] < arr[end - 1]) {\n                    return end - 1;\n                }\n                end--;\n            }\n            // left side is sorted, so pivot should be in right\n            else if(arr[start] < arr[mid] || (arr[start] == arr[mid] && arr[mid] > arr[end])) {\n                start = mid + 1;\n            } else {\n                end = mid - 1;\n            }\n        }\n        return arr.length-1;\n    }\n    public boolean search(int[] nums, int target) {\n        int p;\n        p= findPivot(nums);\n        if(nums[p]==target) return true;\n        int t;\n        \n            t=binarySearch(nums,0,p-1,target);\n        if(t==-1)\n         t=binarySearch(nums,p+1,nums.length-1,target);\n        \n        if(t!=-1) return true;\n        else return false;\n\n        \n    }\n}",
+    "title_slug": "search-in-rotated-sorted-array-ii",
+    "problem_url": "https://leetcode.com/problems/search-in-rotated-sorted-array-ii/"
+  },
+  {
+    "question_id": 410,
+    "code": "class Solution {\n    public int splitArray(int[] arr, int k) {\n        int s=arr[0];\n        int e=arr[0];\n        for(int i=1;i<arr.length;i++){\n            s=Math.max(s,arr[i]);\n            e+=arr[i];\n        }\n\n        int m;\n        while(s<e){\n            m=(e+s)/2;\n            int c=1;\n            int sum=0;\n            for(int a : arr){\n                if((a+sum)>m){ \n                    sum=a;\n                    c++;\n                }\n                else{\n                    sum+=a;\n                    \n                }\n            }\n\n            if(c>k)\n               s= m+1;\n            else e=m;\n        }\n        return s;\n    }\n}",
+    "title_slug": "split-array-largest-sum",
+    "problem_url": "https://leetcode.com/problems/split-array-largest-sum/"
+  },
+  {
+    "question_id": 410,
+    "code": "class Solution {\n    int[] nums;\n    public int splitArray(int[] nums, int m) {\n        this.nums = nums;\n        int low = 0, high = 0, min = Integer.MAX_VALUE;\n        for(int i=0;i<nums.length;i++){\n            low = Math.max(low, nums[i]);\n            high += nums[i];\n        }\n        while(low <= high) {\n            int mid = (low + high) / 2;\n            if(required_no_of_chunks(mid, m)){\n               min = Math.min(min, mid);\n               high = mid - 1;\n            }\n            else low = mid + 1;\n        }\n        return min;\n    }\n    \n    private boolean required_no_of_chunks(int mid, int m){\n        int chunks = 0, i=0;\n        while(i < nums.length){\n            int val = 0;\n            while(i < nums.length && nums[i] + val <= mid) val += nums[i++];\n            chunks++;\n        }\n        return chunks <= m;\n    }\n}",
+    "title_slug": "split-array-largest-sum",
+    "problem_url": "https://leetcode.com/problems/split-array-largest-sum/"
+  },
+  {
+    "question_id": 410,
+    "code": "class Solution {\n    public int splitArray(int[] arr, int k) {\n        int s=arr[0];\n        int e=arr[0];\n        for(int i=1;i<arr.length;i++){\n            s=Math.max(s,arr[i]);\n            e+=arr[i];\n        }\n\n        int m;\n        while(s<e){\n            m=(e+s)/2;\n            int c=1;\n            int sum=0;\n            for(int a : arr){\n                if((a+sum)>m){ \n                    sum=a;\n                    c++;\n                }\n                else{\n                    sum+=a;\n                    \n                }\n            }\n\n            if(c>k)\n               s= m+1;\n            else e=m;\n        }\n        return s;\n    }\n}",
+    "title_slug": "split-array-largest-sum",
+    "problem_url": "https://leetcode.com/problems/split-array-largest-sum/"
+  },
+  {
+    "question_id": 33,
+    "code": "class Solution { \n     int binarySearch(int[] arr, int s, int e, int t){\n\n        int m;\n        while(s<=e){\n            m=(e+s)/2;\n            if (t > arr[m])\n                s = m + 1;\n            else if(t<arr[m]) e=m-1;\n            else return m;\n        }\n        return -1;\n    }\n     int findPivot(int[] nums){\n        int st = 0;\n        int end = nums.length-1;\n\n        while(st<end){\n            int mid = st + (end-st)/2;\n\n            if(nums[mid] > nums[mid+1])\n                return mid;\n            else if(nums[mid] > nums[0])\n                st = mid+1;\n            else end = mid;\n        }\n        return nums.length-1;\n    }      \n    public int search(int[] nums, int target) {\n        \n        int pivot = findPivot(nums);\n        \n        int t = 0;\n        t=binarySearch(nums,0,pivot,target);\n        if(t==-1)\n         t=binarySearch(nums,pivot+1,nums.length-1,target);\n        return t;\n        \n    }\n}\n",
+    "title_slug": "search-in-rotated-sorted-array",
+    "problem_url": "https://leetcode.com/problems/search-in-rotated-sorted-array/"
+  },
+  {
+    "question_id": 33,
+    "code": "class Solution { \n     int binarySearch(int[] arr, int s, int e, int t){\n\n        int m;\n        while(s<=e){\n            m=(e+s)/2;\n            if (t > arr[m])\n                s = m + 1;\n            else if(t<arr[m]) e=m-1;\n            else return m;\n        }\n        return -1;\n    }\n     int findPivot(int[] nums){\n        int st = 0;\n        int end = nums.length-1;\n\n        while(st<end){\n            int mid = st + (end-st)/2;\n\n            if(nums[mid] > nums[mid+1])\n                return mid;\n            else if(nums[mid] > nums[0])\n                st = mid+1;\n            else end = mid;\n        }\n        return nums.length-1;\n    }      \n    public int search(int[] nums, int target) {\n        \n        int pivot = findPivot(nums);\n        \n        int t = 0;\n        t=binarySearch(nums,0,pivot,target);\n        if(t==-1)\n         t=binarySearch(nums,pivot+1,nums.length-1,target);\n        return t;\n        \n    }\n}\n",
+    "title_slug": "search-in-rotated-sorted-array",
+    "problem_url": "https://leetcode.com/problems/search-in-rotated-sorted-array/"
+  },
+  {
+    "question_id": 33,
+    "code": "class Solution { \n     int binarySearch(int[] arr, int s, int e, int t){\n\n        int m;\n        while(s<=e){\n            m=(e+s)/2;\n            if (t > arr[m])\n                s = m + 1;\n            else if(t<arr[m]) e=m-1;\n            else return m;\n        }\n        return -1;\n    }\n     int findPivot(int[] nums){\n        int st = 0;\n        int end = nums.length-1;\n\n        while(st<end){\n            int mid = st + (end-st)/2;\n\n            if(nums[mid] > nums[mid+1])\n                return mid;\n            else if(nums[mid] > nums[0])\n                st = mid+1;\n            else end = mid;\n        }\n        return nums.length-1;\n    }      \n    public int search(int[] nums, int target) {\n        // int s=0,e,m;\n        //     e=arr.length-1;\n        //     while(s<=e){\n        //         m=(e+s)/2;\n        //         if(arr[m]>t){\n        //             if(t<arr[s]) s=m+1;\n        //             else e=m-1;\n        //         } else if(arr[m]<t){\n        //             if(t>arr[e]) e=m-1;\n        //             else s=m+1;\n        //         }\n        //         else return m;\n        //     }\n        //     return -1;\n        int pivot = findPivot(nums);\n        \n        int t = 0;\n        // System.out.println(pivot);\n        t=binarySearch(nums,0,pivot,target);\n        if(t==-1)\n         t=binarySearch(nums,pivot+1,nums.length-1,target);\n        return t;\n        \n    }\n    }\n",
+    "title_slug": "search-in-rotated-sorted-array",
+    "problem_url": "https://leetcode.com/problems/search-in-rotated-sorted-array/"
+  },
+  {
+    "question_id": 1185,
+    "code": " /**\n * // This is MountainArray's API interface.\n * // You should not implement it, or speculate about its implementation\n * interface MountainArray {\n *     public int get(int index) {}\n *     public int length() {}\n * }\n */\n \nclass Solution {\n    public int binary(MountainArray arr,int target,int s,int e,boolean condition){\n        int m;\n        // e=arr.length()-1;\n       \n        if(condition){\n            while(s<=e){ \n                 m=(e+s)/2;\n                if(arr.get(m)>target) e=m-1;\n                else if(arr.get(m)<target) s=m+1;\n                else {\n                    return m;\n                }\n            }\n        }else{\n            while(s<=e){\n                 m=(e+s)/2;\n                if(arr.get(m)>target) s=m+1;\n                else if(arr.get(m)<target) e=m-1;\n                else {\n                    return m;\n                }\n            }\n        }\n        return -1;\n    }\n    public int peakIndexInMountainArray(MountainArray arr) {\n        int s=0,e,m;\n        e=arr.length()-1;\n        while(s<e){\n            m=(e+s)/2;\n            if(arr.get(m)>arr.get(m+1)) e=m;\n            else s=m+1;\n        }\n        return s;\n    }\n\n    public int findInMountainArray(int target, MountainArray mountainArr) {\n        int peak=peakIndexInMountainArray(mountainArr); \n        int t= binary(mountainArr,target,0,peak,true);\n        if(t==-1){\n            t= binary(mountainArr,target,peak+1,mountainArr.length()-1,false);\n            \n        }\n        return t;\n    }\n}",
+    "title_slug": "find-in-mountain-array",
+    "problem_url": "https://leetcode.com/problems/find-in-mountain-array/"
+  },
+  {
+    "question_id": 882,
+    "code": "class Solution {\n    public int peakIndexInMountainArray(int[] arr) {\n        int s=0,e,m;\n        e=arr.length-1;\n        while(s<e){\n            m=(e+s)/2;\n            if(arr[m]>arr[m+1]) e=m;\n            else s=m+1;\n        }\n        return s;\n    }\n}",
+    "title_slug": "peak-index-in-a-mountain-array",
+    "problem_url": "https://leetcode.com/problems/peak-index-in-a-mountain-array/"
+  },
+  {
+    "question_id": 162,
+    "code": "class Solution {\n    public int findPeakElement(int[] arr) {\n        int s=0,e,m;\n        e=arr.length-1;\n        while(s<e){\n            m=(e+s)/2;\n            if(arr[m]>arr[m+1]) e=m;\n            else s=m+1;\n        }\n        return s;\n    }\n}",
+    "title_slug": "find-peak-element",
+    "problem_url": "https://leetcode.com/problems/find-peak-element/"
+  },
+  {
+    "question_id": 882,
+    "code": "class Solution {\n    public int peakIndexInMountainArray(int[] arr) {\n        int s=0,e,m;\n        e=arr.length-1;\n        while(s<=e){\n            m=(e+s)/2;\n            if(arr[m]>arr[m+1]) e=m-1;\n            else s=m+1;\n        }\n        return s;\n    }\n}",
+    "title_slug": "peak-index-in-a-mountain-array",
+    "problem_url": "https://leetcode.com/problems/peak-index-in-a-mountain-array/"
+  },
+  {
+    "question_id": 34,
+    "code": "class Solution {\n    public int search(int[] nums, int target, boolean findStart) {\n        int s=0,m,e;\n        int ans=-1;\n        e=nums.length-1;\n        while(s<=e){\n            m=s+ (e-s)/2;\n\n            if(target>nums[m]) s=m+1;\n            else if(target<nums[m]) e=m-1;\n            else{\n                ans=m;\n                if(findStart) e=m-1;\n                else s=m+1;    \n            }\n            \n        }\n        return ans;\n    }\n    public int[] searchRange(int[] nums, int target) {\n       \n        // int[] arr=new int[2];\n        // arr[0]=search(nums,target,true);\n        // arr[0]=search(nums,target,false);\n        // return arr;\n\n        return new int[]{search(nums,target,true),search(nums,target,false)};\n    }\n}",
+    "title_slug": "find-first-and-last-position-of-element-in-sorted-array",
+    "problem_url": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/"
+  },
+  {
+    "question_id": 745,
+    "code": "class Solution {\n    public char nextGreatestLetter(char[] letters, char target) {\n       int s,e,m;\n       s=0; e=letters.length-1; \n       while(s<=e){\n           m=s+(e-s)/2;\n           if(letters[m]>target) e=m-1;\n           else s=m+1;\n       }\n       return letters[s%letters.length];\n    }\n}",
+    "title_slug": "find-smallest-letter-greater-than-target",
+    "problem_url": "https://leetcode.com/problems/find-smallest-letter-greater-than-target/"
+  },
+  {
+    "question_id": 35,
+    "code": "class Solution {\n    public int searchInsert(int[] nums, int target) {\n        int s,e,m;\n        s=0; e=nums.length-1;\n        while(s<=e){\n            m=(s+e)/2;\n            if(nums[m]==target) return m;\n            else if(nums[m]<target){\n                s=m+1;\n            }\n            else{\n                e=m-1;\n            }\n\n           \n        }\n        return s;\n    }\n}",
+    "title_slug": "search-insert-position",
+    "problem_url": "https://leetcode.com/problems/search-insert-position/"
+  },
+  {
+    "question_id": 1791,
+    "code": "class Solution {\n    public int maximumWealth(int[][] accounts) {\n        int wealth=0;\n        int maxWealth=0;\n        for(int i=0;i<accounts.length;i++){\n            wealth=0;\n            for(int j=0;j<accounts[i].length;j++){\n                wealth+=accounts[i][j];\n            }\n            if(wealth>maxWealth) maxWealth=wealth;\n        }\n        return maxWealth;\n    }\n}",
+    "title_slug": "richest-customer-wealth",
+    "problem_url": "https://leetcode.com/problems/richest-customer-wealth/"
+  },
+  {
+    "question_id": 41,
+    "code": "class Solution {\n    public int firstMissingPositive(int[] nums) {\n      int i=0;\n      while(i<nums.length){\n          int correct = nums[i]-1;\n          if(nums[i]<=nums.length && nums[i]>0 && nums[i]!=nums[correct]){\n              int temp = nums[i];\n              nums[i]=nums[correct];\n              nums[correct]=temp;\n          }\n          else i++;\n      }  \n\n     for(int j = 0; j < nums.length; j++) {\n\n            if(nums[j] != j + 1) {\n                return j + 1;\n            }\n        }\n      return nums.length+1;\n    }\n}",
+    "title_slug": "first-missing-positive",
+    "problem_url": "https://leetcode.com/problems/first-missing-positive/"
+  },
+  {
+    "question_id": 645,
+    "code": "class Solution {\n    public int[] findErrorNums(int[] nums) {\n        int a[]=new int[2];\n        int i=0;\n        while(i<nums.length){\n            int correct =nums[i]-1;\n            if(nums[i]!=nums[correct]){\n                int temp=nums[i];\n                nums[i]=nums[correct];\n                nums[correct]=temp;\n            }\n            else i++;\n        }\n\n        for(i=0;i<nums.length;i++){\n            if(nums[i]!=i+1){a[0]=nums[i];a[1]=i+1;} ; \n        }\n        return a;\n        \n    }\n}",
+    "title_slug": "set-mismatch",
+    "problem_url": "https://leetcode.com/problems/set-mismatch/"
+  },
+  {
+    "question_id": 442,
+    "code": "class Solution {\n    public List<Integer> findDuplicates(int[] nums) {\n       List<Integer> list = new ArrayList<>();\n        int i=0;\n        while(i<nums.length){\n            int correct =nums[i]-1;\n            if(nums[i]!=nums[correct]){\n                int temp=nums[i];\n                nums[i]=nums[correct];\n                nums[correct]=temp;\n            }\n            else i++;\n        }\n\n        for(i=0;i<nums.length;i++){\n            if(nums[i]!=i+1) list.add(nums[i]); \n        }\n        return list;\n    }\n}",
+    "title_slug": "find-all-duplicates-in-an-array",
+    "problem_url": "https://leetcode.com/problems/find-all-duplicates-in-an-array/"
+  },
+  {
+    "question_id": 287,
+    "code": "class Solution {\n    public int findDuplicate(int[] nums) {\n        int i=0;\n        while(i<nums.length){\n            int correct =nums[i]-1;\n            if(nums[i]!=nums[correct]){\n                int temp=nums[i];\n                nums[i]=nums[correct];\n                nums[correct]=temp;\n            }\n            else i++;\n        }\n\n        for(i=0;i<nums.length;i++){\n            if(nums[i]!=i+1) return nums[i];\n        }\n        return 0;\n    }\n}",
+    "title_slug": "find-the-duplicate-number",
+    "problem_url": "https://leetcode.com/problems/find-the-duplicate-number/"
+  },
+  {
+    "question_id": 448,
+    "code": "class Solution {\n    public List<Integer> findDisappearedNumbers(int[] nums) {\n        List<Integer> list = new ArrayList<>();\n        int i=0;\n        while(i<nums.length){\n            int correct =nums[i]-1;\n            if(nums[i]!=nums[correct]){\n                int temp=nums[i];\n                nums[i]=nums[correct];\n                nums[correct]=temp;\n            }\n            else i++;\n        }\n\n        for(i=0;i<nums.length;i++){\n            if(nums[i]!=i+1) list.add(i+1);\n        }\n        return list;\n    }\n}",
+    "title_slug": "find-all-numbers-disappeared-in-an-array",
+    "problem_url": "https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/"
+  },
+  {
+    "question_id": 448,
+    "code": "class Solution {\n    public List<Integer> findDisappearedNumbers(int[] nums) {\n        // public List<Integer> findDisappearedNumbers(int[] nums) {\n        ArrayList<Integer> ans = new ArrayList<>();\n        int i=0;\n        while(i<nums.length){\n            int correct = nums[i]-1;\n            if(nums[i]!=nums[correct]){\n                int temp=nums[i];\n                nums[i]=nums[correct];\n                nums[correct]=temp;\n            }else i++;\n        }\n        for(i=0;i<nums.length;i++){\n            if(nums[i]!=i+1) ans.add(i+1);\n        }\n        return ans;\n    \n    }\n}",
+    "title_slug": "find-all-numbers-disappeared-in-an-array",
+    "problem_url": "https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/"
+  },
+  {
+    "question_id": 268,
+    "code": "class Solution {\n    \n    public int missingNumber(int[] nums) {\n       int n = nums.length, sum = n*(n+1)/2;\n        for(int i : nums) sum -= i;\n        return sum;\n    }\n}",
+    "title_slug": "missing-number",
+    "problem_url": "https://leetcode.com/problems/missing-number/"
+  },
+  {
+    "question_id": 268,
+    "code": "class Solution {\n    public void swap(int[] nums, int i, int correct){\n        int temp=nums[i];\n                nums[i]=nums[correct];\n                nums[correct]=temp;\n    }\n    public int missingNumber(int[] nums) {\n        int i=0;\n        while(i<nums.length){\n            int correct = nums[i];\n            if(nums[i]<nums.length && nums[i]!=nums[correct] ){\n                swap(nums,i,correct);\n            }\n            else i++;\n        }\n\n        for(i=0;i<nums.length;i++){\n            if(nums[i]!=i) return i;\n        }\n        return nums.length;\n    }\n}",
+    "title_slug": "missing-number",
+    "problem_url": "https://leetcode.com/problems/missing-number/"
+  },
+  {
+    "question_id": 118,
+    "code": "class Solution {\npublic:\n    vector<int> addRow(int n){\n        vector<int> row;\n        int res=1;\n        row.push_back(res);\n        for(int i=0;i<n;i++){\n            // res=1;\n            res*=n-i;\n            res/=i+1;\n            row.push_back(res);\n        }\n        return row;\n    }\n    vector<vector<int>> generate(int numRows) {\n        \n        vector<vector<int>> mat;\n        int n=numRows;\n        if(n<=0) return mat;\n        mat.push_back({1});\n        if(n==1) return mat;\n        for(int i=1;i<n;i++){\n            mat.push_back(addRow(i));\n        }\n\n        // number of elements are 1 , 2, 3, 4 ...\n        // half is same after n/2 +1 for odd and n/2 for even\n        // 1,2 ; 1,3 ; 4 ,5 ,6 ... it is like that for 2nd element.\n        //\n\n        \n\n\n        return mat;\n    }\n};",
+    "title_slug": "pascals-triangle",
+    "problem_url": "https://leetcode.com/problems/pascals-triangle/"
+  },
+  {
+    "question_id": 73,
+    "code": "class Solution {\npublic:\n    void setZeroes(vector<vector<int>>& matrix) {\n\n       int col_0=1;\n        for(int i=0;i<matrix.size();i++){\n            for(int j=0;j<matrix[i].size();j++){\n                if(matrix[i][j]==0){\n                   matrix[i][0]=0;\n                   if(j==0) col_0=0;\n                   else matrix[0][j]=0;   \n                }\n\n            }\n        }\n\n        for(int i=1;i<matrix.size();i++){\n            for(int j=1;j<matrix[i].size();j++){\n\n             if(!matrix[i][0] || !matrix[0][j])   \n                matrix[i][j]=0;\n            }\n        }\n\n\t\tif(!matrix[0][0])\n\t\t\tfor(int i =0;i<matrix[0].size();i++)\n\t\t\t\tmatrix[0][i]=0;\n\n\t\tif(!col_0)\n\t\t\tfor(int i =0;i<matrix.size();i++)\n\t\t\t\tmatrix[i][0]=0;\t\n        \n    }\n};",
+    "title_slug": "set-matrix-zeroes",
+    "problem_url": "https://leetcode.com/problems/set-matrix-zeroes/"
+  },
+  {
+    "question_id": 73,
+    "code": "class Solution {\npublic:\n    void setZeroes(vector<vector<int>>& matrix) {\n        // for(int i=0;i<matrix.size();i++){\n        //     for(int j=0;j<matrix[i].size;j++){\n        //         if(matrix[i][j]==0){\n        //             for(int k=0;k<matrix[0].size();k++){\n        //                 matrix[i][k]=0;\n        //             }\n        //         }\n\n        //     }\n        // }\n        for(int i=0;i<matrix.size();i++){\n            for(int j=0;j<matrix[i].size();j++){\n\n                if(matrix[i][j]==0){\n\n                    for(int k=0;k<matrix[0].size();k++)\n                        matrix[i][k]=matrix[i][k]?-1000:0;\n\n                    for(int k=0;k<matrix.size();k++)\n                        matrix[k][j]=matrix[k][j]?-1000:0;\n                }\n\n            }\n        }\n\n        for(int i=0;i<matrix.size();i++){\n            for(int j=0;j<matrix[i].size();j++){\n                \n                matrix[i][j]=matrix[i][j]==-1000?0:matrix[i][j];\n\n            }\n        }\n        \n\n    }\n};",
+    "title_slug": "set-matrix-zeroes",
+    "problem_url": "https://leetcode.com/problems/set-matrix-zeroes/"
+  }
+]
