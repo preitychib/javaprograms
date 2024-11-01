@@ -1,0 +1,797 @@
+### Problem: [reverse linked list](https://leetcode.com/problems/reverse-linked-list/)
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if(head==null || head.next== null) return head;
+        ListNode temp=head;
+        ListNode cur=head;
+        ListNode left=null;
+        while(cur!=null){
+            temp=cur;
+            cur=cur.next;
+            temp.next=left;
+            left=temp;
+        }
+
+        head=temp;
+        return head;
+
+    }
+}
+```
+
+### Problem: [combination sum ii](https://leetcode.com/problems/combination-sum-ii/)
+
+```java
+class Solution {
+    void helper1(List<List<Integer>> ans, List<Integer> inner, int[] nums, int target, int index) {
+        if (index == nums.length) {
+            if(target==0)
+                ans.add(new ArrayList<>(inner));
+                
+            return;
+        }
+
+        if(nums[index]<=target){
+            // Pick the current element
+            inner.add(nums[index]);
+            helper1(ans, inner, nums, target- nums[index],index + 1);
+            inner.remove(inner.size() - 1); // Backtrack
+        }
+        // Not pick the current *element
+        // Skip all the duplicates
+        while (index + 1 < nums.length && nums[index] == nums[index + 1]) {
+            index++;
+        }
+        helper1(ans, inner, nums, target,index + 1);
+    }
+    
+    void helper(List<List<Integer>> ans, List<Integer> inner, int[] nums, int target, int start) {
+        if(target==0)
+            ans.add(new ArrayList<>(inner));
+        
+        for (int i = start; i < nums.length; i++) {
+            if (i != start && nums[i - 1] == nums[i]) continue;
+            if(nums[i]>target) break;
+            
+            inner.add(nums[i]);
+            helper(ans, inner, nums, target-nums[i],i + 1);
+            inner.remove(inner.size() - 1);
+        }
+    }
+
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+         List<List<Integer>> ans = new ArrayList<>();
+        helper1(ans,new ArrayList<>(),candidates,target,0);
+        return ans;
+    }
+} 
+```
+
+### Problem: [combination sum ii](https://leetcode.com/problems/combination-sum-ii/)
+
+```java
+class Solution {
+    void helper1(List<List<Integer>> ans, List<Integer> inner, int[] nums, int target, int index) {
+        if (index == nums.length) {
+            if(target==0)
+                ans.add(new ArrayList<>(inner));
+                
+            return;
+        }
+
+        // Pick the current element
+        inner.add(nums[index]);
+        helper1(ans, inner, nums, target- nums[index],index + 1);
+        inner.remove(inner.size() - 1); // Backtrack
+
+        // Not pick the current *element
+        // Skip all the duplicates
+        while (index + 1 < nums.length && nums[index] == nums[index + 1]) {
+            index++;
+        }
+        helper1(ans, inner, nums, target,index + 1);
+    }
+    
+    void helper(List<List<Integer>> ans, List<Integer> inner, int[] nums, int target, int start) {
+        if(target==0)
+            ans.add(new ArrayList<>(inner));
+        
+        for (int i = start; i < nums.length; i++) {
+            if (i != start && nums[i - 1] == nums[i]) continue;
+            if(nums[i]>target) break;
+            
+            inner.add(nums[i]);
+            helper(ans, inner, nums, target-nums[i],i + 1);
+            inner.remove(inner.size() - 1);
+        }
+    }
+
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+         List<List<Integer>> ans = new ArrayList<>();
+        helper(ans,new ArrayList<>(),candidates,target,0);
+        return ans;
+    }
+} 
+```
+
+### Problem: [subsets ii](https://leetcode.com/problems/subsets-ii/)
+
+```java
+class Solution {
+    void helper1(List<List<Integer>> ans, List<Integer> inner, int[] nums, int index) {
+        // Base case: if we have considered all elements
+        if (index == nums.length) {
+            ans.add(new ArrayList<>(inner));
+            return;
+        }
+        
+        // Pick the current element
+        inner.add(nums[index]);
+        helper1(ans, inner, nums, index + 1);
+        inner.remove(inner.size() - 1); // Backtrack
+        
+        // Not pick the current element
+        // Skip all the duplicates
+        while (index + 1 < nums.length && nums[index] == nums[index + 1]) {
+            index++;
+        }
+        helper1(ans, inner, nums, index + 1);
+    }
+    void helper(List<List<Integer>> ans, List<Integer> inner,int[] nums, int start){
+        ans.add(new ArrayList<>(inner));
+
+        for(int i=start;i<nums.length;i++){
+            if(i!=start && nums[i-1]==nums[i]) continue;
+
+            inner.add(nums[i]);
+            helper(ans,inner,nums,i+1);
+            inner.remove(inner.size()-1);
+        }
+    }
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans= new ArrayList<>();
+
+        helper1(ans,new ArrayList<>(),nums,0);
+        return ans;
+    }
+}
+```
+
+### Problem: [combination sum](https://leetcode.com/problems/combination-sum/)
+
+```java
+class Solution {
+    void helper(List<List<Integer>> ans,List<Integer> inner,int[] cand,int target,int index){
+      
+        if(index==cand.length){
+            if(target==0){
+                ans.add(new ArrayList<>(inner));
+            }
+            return;
+        }
+        
+        if(cand[index]<=target){
+            inner.add(cand[index]);
+            helper(ans,inner,cand,target-cand[index],index);
+            inner.remove(inner.size()-1);
+        }
+        helper(ans,inner,cand,target,index+1);
+        
+    }
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        helper(ans,new ArrayList<>(),candidates,target,0);
+        return ans;
+    }
+
+    
+}
+```
+
+### Problem: [subsets ii](https://leetcode.com/problems/subsets-ii/)
+
+```java
+class Solution {
+
+    void helper(List<List<Integer>> ans, List<Integer> inner,int[] nums, int start){
+        ans.add(new ArrayList<>(inner));
+
+        for(int i=start;i<nums.length;i++){
+            if(i!=start && nums[i-1]==nums[i]) continue;
+
+            inner.add(nums[i]);
+            helper(ans,inner,nums,i+1);
+            inner.remove(inner.size()-1);
+        }
+    }
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans= new ArrayList<>();
+
+        helper(ans,new ArrayList<>(),nums,0);
+        return ans;
+    }
+}
+```
+
+### Problem: [subsets ii](https://leetcode.com/problems/subsets-ii/)
+
+```java
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> outer= new ArrayList<>();
+        Arrays.sort(nums);
+        int n=nums.length;
+        outer.add(new ArrayList<Integer>());
+        int start; int end=0;
+        for(int i=0;i<n;i++){
+            start=0;
+            if(i>0 && nums[i-1]==nums[i])
+                start=end+1;
+            end=outer.size()-1;
+            for(int j=start;j<=end;j++){
+                ArrayList<Integer> inner = new ArrayList<>(outer.get(j));
+                inner.add(nums[i]);
+                outer.add(inner);
+            }
+        }
+        return outer;
+    }
+}
+```
+
+### Problem: [sum of digit differences of all pairs](https://leetcode.com/problems/sum-of-digit-differences-of-all-pairs/)
+
+```java
+class Solution {
+    public long sumDigitDifferences(int[] nums) {
+        int n=nums.length;
+        long sum=0;
+        int m= (int) Math.log10(nums[0]) +1;
+
+        for(int i=0;i<m;i++){
+
+            int[] occu= new int[10];
+            for(int j=0;j<n;j++){
+                int x=nums[j]%10;
+                occu[x]++;
+                nums[j]/=10;
+            }
+
+            for(int j=0;j<10;j++){
+                if(occu[j]>0)
+                sum+= (long)( n - (occu[j]))*occu[j];
+            }
+        }
+
+        return sum/2;
+    }
+}
+```
+
+### Problem: [special array ii](https://leetcode.com/problems/special-array-ii/)
+
+```java
+class Solution {
+    public boolean[] isArraySpecial(int[] nums, int[][] queries) {
+        int n= nums.length;
+            
+        int[] inv= new int[n];
+        boolean[] sp= new boolean[n];
+        
+        inv[0]=-1;
+        sp[0]=true;
+        for(int i=1;i<n;i++){
+            if(nums[i]%2!=nums[i-1]%2){
+                sp[i]=sp[i-1];
+                inv[i]=inv[i-1];
+            }else{
+                sp[i]=false;
+                inv[i]=i-1;
+            }
+            
+        }
+        int m=queries.length;
+        boolean[] ans= new boolean[m];
+        for(int i=0;i<m;i++){
+            
+            int s= queries[i][0];
+            int e=queries[i][1];
+            if(s==e){
+                ans[i]=true;
+            }else if(inv[e]<s){
+                ans[i]=true;   
+            }else{
+                ans[i]=false;
+            }
+        }
+        
+        return ans;
+    }
+}
+```
+
+### Problem: [special array i](https://leetcode.com/problems/special-array-i/)
+
+```java
+class Solution {
+    public boolean isArraySpecial(int[] nums) {
+        int n=nums.length;
+        if (n==1) return true;
+
+        for(int i=1;i<n;i++){
+            if(nums[i-1]%2==0 && nums[i]%2==0)
+                return false;
+            if(nums[i-1]%2==1 && nums[i]%2==1)
+                return false;
+        }
+
+        return true;
+    }
+}
+```
+
+### Problem: [count substrings starting and ending with given character](https://leetcode.com/problems/count-substrings-starting-and-ending-with-given-character/)
+
+```java
+class Solution {
+    public long countSubstrings(String s, char c) {
+         int n = s.length();
+        long a=0;
+        for(int i=0;i<n;i++){
+                if(s.charAt(i)==c)
+                    a++;
+        }
+        return a*(a+1)/2;
+        
+    }
+}
+```
+
+### Problem: [existence of a substring in a string and its reverse](https://leetcode.com/problems/existence-of-a-substring-in-a-string-and-its-reverse/)
+
+```java
+class Solution {
+    public boolean isSubstringPresent(String s) {
+        int n=s.length();
+        Set<String> hash_set = new HashSet<String>(); 
+        
+        for (int i = 0; i < n - 1; i++) {
+            
+            String str=s.charAt(i)+""+s.charAt(i+1);
+            if(hash_set.contains(s.charAt(i+1)+""+s.charAt(i)) || s.charAt(i+1)==s.charAt(i)){
+                return true;
+            }else{
+                hash_set.add(str);
+                
+            }
+        }
+        return false;
+    }
+}
+```
+
+### Problem: [find the sum of encrypted integers](https://leetcode.com/problems/find-the-sum-of-encrypted-integers/)
+
+```java
+class Solution {
+    public int sumOfEncryptedInt(int[] nums) {
+        int n=nums.length; 
+        for(int i=0;i<n;i++){
+            int maxnum=-1; int digitcount=0;
+            while(nums[i]!=0){
+                int rem= nums[i]%10;
+                if(rem>maxnum){
+                    maxnum=rem;
+                }
+                digitcount++;
+                nums[i]/=10;
+            }
+            
+            int x=0;
+            
+            for(int d=0;d<digitcount;d++){
+                x= x*10 + maxnum;
+            }
+            nums[i]=x;
+        }
+        
+        int sum=0;
+        for(int i=0;i<n;i++){
+            sum+=nums[i];
+        }
+        return sum;
+    }
+}
+```
+
+### Problem: [longest increasing subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+
+```java
+class Solution {
+    int helper(int[] nums, int prev, int cur,int[][] dp){
+
+        if(prev==nums.length || cur==nums.length+1){
+            return 0;
+        }
+
+        if(dp[prev][cur]!=-1)
+            return dp[prev][cur];
+
+        // picking current
+        int pick = Integer.MIN_VALUE;
+        if(prev==0 || nums[prev-1]<nums[cur-1]){
+            pick = 1+ helper(nums,cur,cur+1,dp);
+        }
+        // not picking current
+        int notpick = helper(nums,prev,cur+1,dp);
+
+        return dp[prev][cur]=Math.max(pick,notpick);
+    }
+    public int lengthOfLIS(int[] nums) {
+        int n=nums.length;
+        int[][] dp=new int[n+1][n+1];
+        for(int[] d:dp)
+            Arrays.fill(d,-1);
+        return helper(nums,0,1,dp);
+    }
+}
+```
+
+### Problem: [wildcard matching](https://leetcode.com/problems/wildcard-matching/)
+
+```java
+class Solution {
+    boolean helper(String s,String p,int i,int j, int[][] dp){
+        if(i<0){
+            while(j>=0){
+                if(p.charAt(j)!='*')
+                    return false;
+                j--;
+            }
+            return true;
+        }
+
+        if(j<0){
+            if(i>=0) 
+            return false;
+            return true;
+        }
+        if(dp[i][j]!=-1)
+            return dp[i][j]==1?true:false;
+        
+        boolean ans=false;
+        if(s.charAt(i)==p.charAt(j) || p.charAt(j)=='?'){
+            ans=helper(s,p,i-1,j-1,dp);
+        }else if(p.charAt(j)=='*'){
+            ans=helper(s,p,i,j-1,dp) || helper(s,p,i-1,j,dp);
+        }
+
+        dp[i][j]=ans?1:0;
+        return ans;
+    } 
+    public boolean isMatch(String s, String p) {
+        int m=s.length(); int n=p.length();
+        int[][] dp= new int[m][n];
+        for(int[] d:dp)
+            Arrays.fill(d,-1);
+        return helper(s,p,m-1,n-1,dp);
+    }
+}
+```
+
+### Problem: [edit distance](https://leetcode.com/problems/edit-distance/)
+
+```java
+class Solution {
+    int helper(String word1,String word2, int s,int t,int[][] dp){
+
+        // string matched only deletion is need for remaining
+        if(t<1){
+            return s;
+        }
+        // string have not matched, insertion is needed for t remaining
+        if(s<1){
+            return t;
+        }
+
+        if(dp[s][t]!=-1)
+            return dp[s][t];
+        if(word1.charAt(s-1)==word2.charAt(t-1)){
+            return dp[s][t]= helper(word1,word2,s-1,t-1,dp);
+        }
+        // delete
+        int delete= 1+ helper(word1,word2,s-1,t,dp); 
+        // Insert
+        int insert= 1+ helper(word1,word2,s,t-1,dp); 
+        // Replace
+        int replace= 1+ helper(word1,word2,s-1,t-1,dp); 
+
+        return dp[s][t]= Math.min(insert,Math.min(delete,replace));
+    }
+    public int minDistance(String word1, String word2) {
+        int s= word1.length();
+        int t=word2.length();
+        int[] prev= new int[t+1];
+        
+        for(int i=0;i<=t;i++) prev[i]= i;
+
+
+        for(int i=1;i<=s;i++){
+            int[] cur= new int[t+1];
+            cur[0]=i;
+            for(int j=1;j<=t;j++){
+                if(word1.charAt(i-1)==word2.charAt(j-1)){
+                    cur[j]= prev[j-1];
+                }
+                else{
+                    // delete
+                    int delete= prev[j]; 
+                    // Insert
+                    int insert= cur[j-1]; 
+                    // Replace
+                    int replace= prev[j-1]; 
+                    cur[j]= Math.min(insert,Math.min(delete,replace))+1;
+                }
+                
+            }
+            prev=cur;
+            
+        }
+        return prev[t];
+    }
+}
+
+
+```
+
+### Problem: [edit distance](https://leetcode.com/problems/edit-distance/)
+
+```java
+class Solution {
+    int helper(String word1,String word2, int s,int t,int[][] dp){
+
+        // string matched only deletion is need for remaining
+        if(t<1){
+            return s;
+        }
+        // string have not matched, insertion is needed for t remaining
+        if(s<1){
+            return t;
+        }
+
+        if(dp[s][t]!=-1)
+            return dp[s][t];
+        if(word1.charAt(s-1)==word2.charAt(t-1)){
+            return dp[s][t]= helper(word1,word2,s-1,t-1,dp);
+        }
+        // delete
+        int delete= 1+ helper(word1,word2,s-1,t,dp); 
+        // Insert
+        int insert= 1+ helper(word1,word2,s,t-1,dp); 
+        // Replace
+        int replace= 1+ helper(word1,word2,s-1,t-1,dp); 
+
+        return dp[s][t]= Math.min(insert,Math.min(delete,replace));
+    }
+    public int minDistance(String word1, String word2) {
+        int s= word1.length();
+        int t=word2.length();
+        int[][] dp= new int[s+1][t+1];
+        
+        for(int i=0;i<=t;i++) dp[0][i]= i;
+        for(int i=0;i<=s;i++) dp[i][0]= i;
+
+
+        for(int i=1;i<=s;i++){
+            for(int j=1;j<=t;j++){
+                if(word1.charAt(i-1)==word2.charAt(j-1)){
+                    dp[i][j]= dp[i-1][j-1];
+                }
+                else{
+                    // delete
+                    int delete= dp[i-1][j]; 
+                    // Insert
+                    int insert= dp[i][j-1]; 
+                    // Replace
+                    int replace= dp[i-1][j-1]; 
+
+                    dp[i][j]= Math.min(insert,Math.min(delete,replace))+1;
+                }
+                
+            }
+        }
+        return dp[s][t];
+    }
+}
+
+
+```
+
+### Problem: [edit distance](https://leetcode.com/problems/edit-distance/)
+
+```java
+class Solution {
+    int helper(String word1,String word2, int s,int t,int[][] dp){
+
+        // string matched only deletion is need for remaining
+        if(t<1 && s>=1){
+            return s;
+        }
+        // string have not matched, insertion is needed for t remaining
+        if(s<1 && t>=1){
+            return t;
+        }
+
+        if(s<1&& t<1){
+            return 0;
+        }
+        if(dp[s][t]!=-1)
+            return dp[s][t];
+        if(word1.charAt(s-1)==word2.charAt(t-1)){
+            return dp[s][t]= helper(word1,word2,s-1,t-1,dp);
+        }
+        // delete
+        int delete= 1+ helper(word1,word2,s-1,t,dp); 
+        // Insert
+        int insert= 1+ helper(word1,word2,s,t-1,dp); 
+        // Replace
+        int replace= 1+ helper(word1,word2,s-1,t-1,dp); 
+
+        return dp[s][t]= Math.min(insert,Math.min(delete,replace));
+    }
+    public int minDistance(String word1, String word2) {
+        int s= word1.length();
+        int t=word2.length();
+        int[][] dp= new int[s+1][t+1];
+        for(int[] d:dp)
+            Arrays.fill(d,-1);
+        
+        return helper(word1,word2,s,t,dp);
+    }
+}
+
+
+```
+
+### Problem: [distinct subsequences](https://leetcode.com/problems/distinct-subsequences/)
+
+```java
+class Solution {
+    // for babgbag
+    // '' b a g
+    //  1 0 0 0
+    //  1 1 0 0
+    //  1 1 1 0
+    //  1 2 1 0
+    //  1 2 1 1
+    //  1 3 1 1
+    //  1 3 4 1
+    //  1 3 4 5
+    public int numDistinct(String s, String t) {
+        int m=s.length(); int n=t.length();
+
+        int[] dp= new int[n+1];
+        dp[0]=1;
+
+        for(int i=1;i<=m;i++){
+            for(int j=n;j>0;j--){
+                if(s.charAt(i-1)==t.charAt(j-1)){
+                    dp[j]+= dp[j-1];
+                } 
+            }
+        }
+
+        return dp[n];
+    } 
+}
+```
+
+### Problem: [distinct subsequences](https://leetcode.com/problems/distinct-subsequences/)
+
+```java
+class Solution {
+    public int numDistinct(String s, String t) {
+        int m=s.length(); int n=t.length();
+
+        int[] dp= new int[n+1];
+        dp[0]=1;
+
+        for(int i=1;i<=m;i++){
+            for(int j=n;j>0;j--){
+                if(s.charAt(i-1)==t.charAt(j-1)){
+                    dp[j]+= dp[j-1];
+                } 
+            }
+        }
+
+        return dp[n];
+    } 
+}
+```
+
+### Problem: [distinct subsequences](https://leetcode.com/problems/distinct-subsequences/)
+
+```java
+class Solution {
+    int helper(String s,String t,int m,int n,int[][] dp){
+        if(n<1)
+            return 1;
+        if(m<1)
+            return 0;
+        
+        if(dp[m][n]!=-1)
+            return dp[m][n];
+        
+        if(s.charAt(m-1)==t.charAt(n-1)){
+            return dp[m][n]= helper(s,t,m-1,n-1,dp) + helper(s,t,m-1,n,dp);
+        }
+        return dp[m][n] = helper(s,t,m-1,n,dp);
+
+    }
+    public int numDistinct(String s, String t) {
+        int m=s.length(); int n=t.length();
+
+        int[][] dp= new int[m+1][n+1];
+        for(int i=0;i<=m;i++) dp[i][0]=1;
+
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                if(s.charAt(i-1)==t.charAt(j-1)){
+                    dp[i][j]= dp[i-1][j-1] + dp[i-1][j];
+                } else{
+                    dp[i][j]=dp[i-1][j];
+                }
+            }
+        }
+
+        return dp[m][n];
+    } 
+}
+```
+
+### Problem: [distinct subsequences](https://leetcode.com/problems/distinct-subsequences/)
+
+```java
+class Solution {
+    int helper(String s,String t,int m,int n,int[][] dp){
+        if(n<1)
+            return 1;
+        if(m<1)
+            return 0;
+        
+        if(dp[m][n]!=-1)
+            return dp[m][n];
+        
+        if(s.charAt(m-1)==t.charAt(n-1)){
+            return dp[m][n]= helper(s,t,m-1,n-1,dp) + helper(s,t,m-1,n,dp);
+        }
+        return dp[m][n] = helper(s,t,m-1,n,dp);
+
+    }
+    public int numDistinct(String s, String t) {
+        int m=s.length(); int n=t.length();
+
+        int[][] dp= new int[m+1][n+1];
+        for(int[] d:dp)
+            Arrays.fill(d,-1);
+
+        return helper(s,t,m,n,dp); 
+    } 
+}
+```
