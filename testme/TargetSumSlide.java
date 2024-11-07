@@ -1,5 +1,4 @@
-import Scanner from java.util;
-import Arrays from java.util;
+ from java.util;
 public class TargetSumSlide{
 
 	public static int[][] getSubarray(int[] arr, int t, int n){
