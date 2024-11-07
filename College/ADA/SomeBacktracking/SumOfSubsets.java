@@ -39,7 +39,16 @@ public class SumOfSubsets {
     }
 
     private boolean isPromising(int i, int weight, int total) {
-        return (weight + total >= W) && (weight == W || weight + w[i] <= W);
+        if (weight > W) {
+            return false;
+        }
+        if (weight == W) {
+            return true;
+        }
+        if (i == n) {
+            return false;
+        }
+        return (weight + w[i] <= W) || isPromising(i + 1, weight, total - w[i]);
     }
 
     private void printInclude() {
