@@ -1,3 +1,4 @@
+// ? Question 12
 import java.util.Scanner;
 public class Knapsack{
     public static int knapsack(int[] weights,int[] values,int capacity,int n){

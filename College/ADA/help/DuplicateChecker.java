@@ -47,24 +47,12 @@ public class DuplicateChecker {
         }
         public static void main(String[] args){
             String input = "abcabcbb";
-            String result = find LargestUniqueSubstring (input);
+            String result = findLargestUniqueSubsString(input);
             System.out.println("Largest unique Substring:" + result);
         }
     }
 }
 
 
-
-        }
-
-
-                        }
-                    }
-                }
-            }
-
-        }
-        }
-    }
 
             

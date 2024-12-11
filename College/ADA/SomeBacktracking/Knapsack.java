@@ -1,6 +1,8 @@
+package SomeBacktracking;
+
 import java.util.Scanner;
 
-public class knapsack {
+public class Knapsack {
     private int[] p; // profits
     private int[] w; // weights
     private int W; // knapsack capacity

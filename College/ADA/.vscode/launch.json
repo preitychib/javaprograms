@@ -1,0 +1,413 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "KnapsackBB",
+            "request": "launch",
+            "mainClass": "AssignmentADA.KnapsackBB",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "MColoring",
+            "request": "launch",
+            "mainClass": "AssignmentADA.MColoring",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "PrimsAlgorithm",
+            "request": "launch",
+            "mainClass": "AssignmentADA.PrimsAlgorithm",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "SumOfSubset",
+            "request": "launch",
+            "mainClass": "AssignmentADA.SumOfSubset",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q10MinSpanningTreePrims",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q10MinSpanningTreePrims",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q10PrimsMST",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q10PrimsMST",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q11RemoveDuplicateChars",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q11RemoveDuplicateChars",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q12KnapsackDP",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q12KnapsackDP",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q13NQueens",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q13NQueens",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q14RemoveSpacesInFile",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q14RemoveSpacesInFile",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q15NaivePatternMatching",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q15NaivePatternMatching",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q17SumOfSubset",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q17SumOfSubset",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q18HuffmanCoding",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q18HuffmanCoding",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q1CNFBooleanFunctionality",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q1CNFBooleanFunctionality",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q2GraphToCNF",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q2GraphToCNF",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q3TravellingSalesPerson",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q3TravellingSalesPerson",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q4BinomialCoefficient",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q4BinomialCoefficient",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q5MatrixChainMultiplication",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q5MatrixChainMultiplication",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q6KruskalMST",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q6KruskalMST",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q6MinSpanningTreeKruskals",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q6MinSpanningTreeKruskals",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q7TruthTable",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q7TruthTable",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q8StrassenMatrixMultiplication",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q8StrassenMatrixMultiplication",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Q9LCS",
+            "request": "launch",
+            "mainClass": "AssignmentADA.help.Q9LCS",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "BinomialCoefficient",
+            "request": "launch",
+            "mainClass": "BinomialCoefficient",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "BubblePartition",
+            "request": "launch",
+            "mainClass": "BubblePartition",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "ChainedMatrixMultiplication",
+            "request": "launch",
+            "mainClass": "ChainedMatrixMultiplication",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Combination",
+            "request": "launch",
+            "mainClass": "Combination",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "ConvexHullBruteForce",
+            "request": "launch",
+            "mainClass": "ConvexHullBruteForce",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "DuplicateChar",
+            "request": "launch",
+            "mainClass": "DuplicateChar",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "DuplicateChecker",
+            "request": "launch",
+            "mainClass": "DuplicateChecker",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "DuplicateChecker$LargestUniqueSubstring",
+            "request": "launch",
+            "mainClass": "DuplicateChecker$LargestUniqueSubstring",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Factorial",
+            "request": "launch",
+            "mainClass": "Factorial",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "FactorialLargeNum",
+            "request": "launch",
+            "mainClass": "FactorialLargeNum",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "HuffmanCoding",
+            "request": "launch",
+            "mainClass": "HuffmanCoding",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Isomorph",
+            "request": "launch",
+            "mainClass": "Isomorph",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "IsomorphicImage",
+            "request": "launch",
+            "mainClass": "IsomorphicImage",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Knapsack",
+            "request": "launch",
+            "mainClass": "Knapsack",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "LCS",
+            "request": "launch",
+            "mainClass": "LCS",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "LabeledIsomorph",
+            "request": "launch",
+            "mainClass": "LabeledIsomorph",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "LargestSubstringWithoutDuplicates",
+            "request": "launch",
+            "mainClass": "LargestSubstringWithoutDuplicates",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "LongestCommonSubsequence",
+            "request": "launch",
+            "mainClass": "LongestCommonSubsequence",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "MatrixChainMultiplication",
+            "request": "launch",
+            "mainClass": "MatrixChainMultiplication",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "MatrixChainMultiplication1",
+            "request": "launch",
+            "mainClass": "MatrixChainMultiplication1",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "MatrixMultiplication",
+            "request": "launch",
+            "mainClass": "MatrixMultiplication",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "NQueen",
+            "request": "launch",
+            "mainClass": "NQueen",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "OptimizedChainedMatrixMultiplication",
+            "request": "launch",
+            "mainClass": "OptimizedChainedMatrixMultiplication",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Permutation",
+            "request": "launch",
+            "mainClass": "Permutation",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "PrimsAlgorithm(1)",
+            "request": "launch",
+            "mainClass": "PrimsAlgorithm",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "SORTComp",
+            "request": "launch",
+            "mainClass": "SORTComp",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Knapsack(1)",
+            "request": "launch",
+            "mainClass": "SomeBacktracking.Knapsack",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "LCSPrinter",
+            "request": "launch",
+            "mainClass": "SomeBacktracking.LCSPrinter",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "SumOfSubsets",
+            "request": "launch",
+            "mainClass": "SomeBacktracking.SumOfSubsets",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "TSP",
+            "request": "launch",
+            "mainClass": "TSP",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "TSPMatrix",
+            "request": "launch",
+            "mainClass": "TSPMatrix",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "TravelingSalesMan",
+            "request": "launch",
+            "mainClass": "TravelingSalesMan",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "TriDiagonalMatrix",
+            "request": "launch",
+            "mainClass": "TriDiagonalMatrix",
+            "projectName": "ADA_8b16ca9a"
+        },
+        {
+            "type": "java",
+            "name": "Tridiagonal",
+            "request": "launch",
+            "mainClass": "Tridiagonal",
+            "projectName": "ADA_8b16ca9a"
+        }
+    ]
+}

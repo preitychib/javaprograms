@@ -1,9 +1,8 @@
-// ? Question 9
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-public class LongestCommonSubsequence {
+public class LCS {
     public static int lcsLengthDC(String X, String Y, int m, int n) {
         if (m == 0 || n == 0)
             return 0;

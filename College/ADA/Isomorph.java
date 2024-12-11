@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Isomorph {
@@ -28,6 +29,7 @@ public class Isomorph {
     }
 
     static void getEmbeddings(int i) {
+        System.out.println(Arrays.toString(em)+" "+i);
         if (isPromising(i)) {
             if (i == m-1) {
                 System.out.print("{");
