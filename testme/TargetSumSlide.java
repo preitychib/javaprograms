@@ -1,4 +1,4 @@
- from java.util;
+import java.util.*;
 public class TargetSumSlide{
 
 	public static int[][] getSubarray(int[] arr, int t, int n){
@@ -10,7 +10,7 @@ public class TargetSumSlide{
 		
 		ArrayList<ArrayList<Integer>> ans= new ArrayList<>();
 		
-		for(int i=0;i<n;i++){
+		for(i=0;i<n;i++){
 		
 			
 			sum+= arr[i];
@@ -37,7 +37,7 @@ public class TargetSumSlide{
 		
 		
 		int[][] arr = new int[ans.size()][];
-        for (int i = 0; i < ans.size(); i++) {
+        for (i = 0; i < ans.size(); i++) {
             ArrayList<Integer> row = ans.get(i);
             arr[i] = new int[row.size()];
             for (int j = 0; j < row.size(); j++) {
